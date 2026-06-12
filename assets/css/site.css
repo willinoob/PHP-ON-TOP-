@@ -1,0 +1,757 @@
+/* Le Blog Moteur — styles communs (nav, contenu, cartes, footer) */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #f5f5f0;
+    color: #1a1a1a;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+a {
+    color: inherit;
+}
+
+/* ── En-tête / navigation ─────────────────────────────── */
+
+.site-header {
+    background: #fff;
+    border-bottom: 1px solid #e0ddd5;
+}
+
+.site-header__inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0.85rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.site-logo {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.site-logo img {
+    display: block;
+    height: 36px;
+    width: auto;
+}
+
+.site-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.site-nav__link {
+    color: #2a5bc4;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 0.4rem 0.75rem;
+    border: 1px solid #2a5bc4;
+    border-radius: 6px;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
+}
+
+.site-nav__link:hover {
+    background: #2a5bc4;
+    color: #fff;
+}
+
+/* ── Contenu principal ──────────────────────────────────── */
+
+.site-main {
+    flex: 1;
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+}
+
+.site-main h1 {
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin: 0 0 1.5rem;
+}
+
+/* ── Grille d'annonces (F6) ─────────────────────────────── */
+
+.grille {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.carte {
+    background: #fff;
+    border: 1px solid #e0ddd5;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.carte a {
+    color: inherit;
+    text-decoration: none;
+    display: block;
+}
+
+.carte img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    display: block;
+    background: #e4e4e7;
+}
+
+.carte h2 {
+    font-size: 1rem;
+    margin: 0.75rem 1rem 0.25rem;
+}
+
+.carte .prix {
+    margin: 0 1rem;
+    font-weight: 600;
+    color: #2a5bc4;
+}
+
+.carte .desc {
+    margin: 0.25rem 1rem;
+    font-size: 0.85rem;
+    color: #555;
+}
+
+.carte .meta {
+    margin: 0 0 1rem 1rem;
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.erreur {
+    color: #b91c1c;
+    background: #fee2e2;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.vide {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 1px solid #e0ddd5;
+    color: #555;
+}
+
+/* ── Filtres annonces (F8 Omar) ─────────────────────────── */
+
+.filtres-bloc {
+    background: #fff;
+    border: 1px solid #e0ddd5;
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.filtres-form__titre {
+    margin: 0 0 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.filtres-form__champs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.filtres-form__groupe label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 0.35rem;
+}
+
+.filtres-form__groupe select,
+.filtres-form__groupe input[type="number"] {
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    background: #fff;
+}
+
+.filtres-form__groupe select:focus,
+.filtres-form__groupe input[type="number"]:focus {
+    outline: none;
+    border-color: #2a5bc4;
+}
+
+.filtres-form__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.filtres-form__btn {
+    display: inline-block;
+    padding: 0.55rem 1.25rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-family: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+}
+
+.filtres-form__btn--filtrer {
+    background: #2a5bc4;
+    color: #fff;
+}
+
+.filtres-form__btn--filtrer:hover {
+    background: #1e4294;
+}
+
+.filtres-form__btn--effacer {
+    background: #e4e4e7;
+    color: #333;
+}
+
+.filtres-form__btn--effacer:hover {
+    background: #d4d4d8;
+}
+
+/* ── Table favoris (F9 Omar) ────────────────────────────── */
+
+.favoris-table-wrap {
+    background: #fff;
+    border: 1px solid #e0ddd5;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.favoris-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.favoris-table th,
+.favoris-table td {
+    padding: 0.85rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e0ddd5;
+}
+
+.favoris-table th {
+    background: #f5f5f0;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #444;
+}
+
+.favoris-table td a {
+    color: #2a5bc4;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.favoris-table td a:hover {
+    text-decoration: underline;
+}
+
+.favoris-table__vide {
+    text-align: center;
+    color: #555;
+    padding: 2rem 1rem !important;
+}
+
+.favoris-table__form {
+    margin: 0;
+}
+
+.favoris-table__btn-retirer {
+    background: #fff;
+    color: #b91c1c;
+    border: 1px solid #b91c1c;
+    padding: 0.4rem 0.85rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.favoris-table__btn-retirer:hover {
+    background: #b91c1c;
+    color: #fff;
+}
+
+/* ── Messagerie (William) ───────────────────────────────── */
+
+.site-main--messagerie h1 {
+    margin-bottom: 1rem;
+}
+
+.messagerie {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 1rem;
+    min-height: 520px;
+    background: #fff;
+    border: 1px solid #e0ddd5;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.messagerie__sidebar {
+    background: #f5f5f0;
+    border-right: 1px solid #e0ddd5;
+    display: flex;
+    flex-direction: column;
+}
+
+.messagerie__sidebar-header {
+    padding: 1rem;
+    border-bottom: 1px solid #e0ddd5;
+}
+
+.messagerie__sidebar-header h2 {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.messagerie__liste {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.5rem;
+}
+
+.messagerie__item {
+    display: block;
+    padding: 0.75rem;
+    border-radius: 8px;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 0.35rem;
+    border: 1px solid transparent;
+}
+
+.messagerie__item:hover {
+    background: #fff;
+    border-color: #e0ddd5;
+}
+
+.messagerie__item--active {
+    background: #fff;
+    border-color: #2a5bc4;
+}
+
+.messagerie__item-nom {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.messagerie__vide {
+    color: #666;
+    font-size: 0.9rem;
+    padding: 1rem;
+    margin: 0;
+}
+
+.messagerie__chat {
+    display: flex;
+    flex-direction: column;
+    min-height: 520px;
+}
+
+.messagerie__chat-header {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid #e0ddd5;
+}
+
+.messagerie__chat-header h3 {
+    margin: 0 0 0.25rem;
+    font-size: 1rem;
+}
+
+.messagerie__annonce {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.messagerie__messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    background: #fafaf8;
+}
+
+.messagerie__bulle {
+    max-width: 75%;
+    padding: 0.65rem 0.9rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+}
+
+.messagerie__bulle--moi {
+    align-self: flex-end;
+    background: #2a5bc4;
+    color: #fff;
+}
+
+.messagerie__bulle--autre {
+    align-self: flex-start;
+    background: #fff;
+    border: 1px solid #e0ddd5;
+}
+
+.messagerie__texte {
+    margin: 0 0 0.35rem;
+    word-break: break-word;
+}
+
+.messagerie__heure {
+    font-size: 0.7rem;
+    opacity: 0.75;
+}
+
+.messagerie__bulle--moi .messagerie__heure {
+    color: #e8eef9;
+}
+
+.messagerie__form {
+    display: flex;
+    gap: 0.5rem;
+    padding: 1rem 1.25rem;
+    border-top: 1px solid #e0ddd5;
+    background: #fff;
+}
+
+.messagerie__input {
+    flex: 1;
+    padding: 0.65rem 0.85rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 0.95rem;
+}
+
+.messagerie__input:focus {
+    outline: none;
+    border-color: #2a5bc4;
+}
+
+.messagerie__envoyer {
+    padding: 0.65rem 1.25rem;
+    background: #2a5bc4;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.messagerie__envoyer:hover {
+    background: #1e4294;
+}
+
+.messagerie__chat-vide {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    color: #666;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .messagerie {
+        grid-template-columns: 1fr;
+    }
+
+    .messagerie__sidebar {
+        border-right: none;
+        border-bottom: 1px solid #e0ddd5;
+        max-height: 200px;
+    }
+}
+
+/* ── Formulaire création / modification annonce ─────────── */
+
+.form-annonce {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 1px solid #e0ddd5;
+    max-width: 720px;
+}
+
+.form-annonce__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-annonce__ligne {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+@media (max-width: 600px) {
+    .form-annonce__ligne {
+        grid-template-columns: 1fr;
+    }
+}
+
+.form-annonce__groupe {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.form-annonce__groupe label {
+    font-size: 0.85rem;
+    color: #555;
+    font-weight: 600;
+}
+
+.form-annonce__groupe input,
+.form-annonce__groupe select,
+.form-annonce__groupe textarea {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-family: inherit;
+}
+
+.form-annonce__groupe textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.form-annonce__groupe input:focus,
+.form-annonce__groupe select:focus,
+.form-annonce__groupe textarea:focus {
+    outline: none;
+    border-color: #2a5bc4;
+    box-shadow: 0 0 0 2px rgba(42, 91, 196, 0.15);
+}
+
+.form-annonce__aide {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.form-annonce__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.btn-valider {
+    background: #2a5bc4;
+    color: #fff;
+    border: none;
+    padding: 0.55rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    font-family: inherit;
+}
+
+.btn-valider:hover {
+    background: #1e4294;
+}
+
+.btn-annuler {
+    background: #e4e4e7;
+    color: #333;
+    border: none;
+    padding: 0.55rem 1.25rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+}
+
+.btn-annuler:hover {
+    background: #d4d4d8;
+}
+
+.carte__sans-photo {
+    width: 100%;
+    height: 160px;
+    background: #e4e4e7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+    font-size: 0.85rem;
+}
+
+/* ── Page connexion (format prototype) ───────────────────── */
+
+.page-connexion {
+    font-family: Arial, sans-serif;
+    background: #f5f5f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.page-connexion .box {
+    background: #fff;
+    padding: 40px;
+    width: 380px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.page-connexion h1 {
+    text-align: center;
+    color: #c0392b;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.page-connexion input[type="text"],
+.page-connexion input[type="email"],
+.page-connexion input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.page-connexion input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background: #c0392b;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.page-connexion input[type="submit"]:hover {
+    background: #a93226;
+}
+
+.page-connexion .erreur {
+    color: red;
+    font-size: 13px;
+    margin-bottom: 10px;
+    background: none;
+    padding: 0;
+    border-radius: 0;
+}
+
+.page-connexion .lien {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 13px;
+}
+
+.page-connexion .lien a {
+    color: #c0392b;
+}
+
+/* ── Pied de page ───────────────────────────────────────── */
+
+.site-footer {
+    background: #1a1a1a;
+    color: #e8e8e8;
+    margin-top: auto;
+}
+
+.site-footer__inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 1.25rem;
+}
+
+.site-footer__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.site-footer__title {
+    margin: 0 0 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #fff;
+}
+
+.site-footer p {
+    margin: 0 0 0.35rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #b8b8b8;
+}
+
+.site-footer a {
+    color: #b8b8b8;
+    text-decoration: none;
+}
+
+.site-footer a:hover {
+    color: #fff;
+}
+
+.site-footer__brand {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.site-footer__bottom {
+    border-top: 1px solid #333;
+    padding-top: 1rem;
+    font-size: 0.8rem;
+    color: #888;
+    text-align: center;
+}

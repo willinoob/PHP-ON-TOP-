@@ -75,7 +75,9 @@ if (!$conn) {
             // F7 : clic → page détail avec l'id dans l'URL
             echo '<a href="detail_annonce.php?id_anno=' . $idAnno . '">';
             if ($img !== '') {
-                echo '<img src="' . $img . '" alt="">';
+                echo '<img src="' . $img . '" alt="' . htmlspecialchars($ligne['titre']) . '">';
+            } else {
+                echo '<div class="carte__sans-photo">Pas de photo</div>';
             }
             echo '<h2>' . htmlspecialchars($ligne['titre']) . '</h2>';
             echo '<p class="prix">' . number_format((float) $ligne['prix'], 2, ',', ' ') . ' €</p>';

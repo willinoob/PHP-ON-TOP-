@@ -1,0 +1,15 @@
+Copie ici tes 3 images (comme dans blogmoteur-annonces/uploads/) :
+  peugeot_208.jpg
+  yamaha_M07.jpg
+  renault_trafic.jpg
+
+Puis dans phpMyAdmin, mets à jour les chemins photos :
+
+UPDATE photos p
+INNER JOIN annonces a ON a.id_anno = p.id_anno AND p.ordre = 1
+SET p.chemin = REPLACE(p.chemin, 'blogmoteur-annonces', 'blogmoteur_annonces')
+WHERE p.chemin LIKE '%blogmoteur-annonces%';
+
+Ou modifie à la main chaque chemin vers :
+  /blogmoteur_annonces/uploads/peugeot_208.jpg
+  etc.

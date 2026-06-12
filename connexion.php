@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+$redirect = $_GET['redirect'] ?? $_POST['redirect'] ?? '';
+$id_anno_redirect = isset($_GET['id_anno']) ? (int) $_GET['id_anno'] : (int) ($_POST['id_anno'] ?? 0);
+
 $conn = mysqli_connect('localhost', 'root', '', 'bd_blogmoteur');
 $erreur = null;
 
@@ -34,7 +37,12 @@ if ($conn && isset($_POST['connexion'])) {
                 $_SESSION['id_user'] = (int) $user['id_user'];
                 $_SESSION['prenom']  = $user['prenom'];
                 $_SESSION['nom']     = $user['nom'];
-                header('Location: page_annonces.php');
+
+                if ($redirect === 'messages' && $id_anno_redirect > 0) {
+                    header('Location: messages.php?id_anno=' . $id_anno_redirect);
+                } else {
+                    header('Location: page_annonces.php');
+                }
                 exit;
             }
 
@@ -63,6 +71,11 @@ if ($conn) {
         <hr>
 
         <form action="" method="post">
+
+            <?php if ($redirect === 'messages' && $id_anno_redirect > 0): ?>
+                <input type="hidden" name="redirect" value="messages">
+                <input type="hidden" name="id_anno" value="<?= $id_anno_redirect ?>">
+            <?php endif; ?>
 
             <input type="email" name="email" placeholder="Email" required><br><br>
             <input type="password" name="mdp" placeholder="Mot de passe" required><br><br>

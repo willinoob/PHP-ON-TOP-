@@ -1,5 +1,5 @@
 <?php
-// Omar — F9 : page « Mes favoris »
+// F9 (Omar) — page « Mes favoris »
 session_start();
 
 if (!isset($_SESSION['id_user'])) {
@@ -7,15 +7,8 @@ if (!isset($_SESSION['id_user'])) {
     exit;
 }
 
-$id_user_connecte = (int) $_SESSION['id_user'];
+$id_user = (int) $_SESSION['id_user'];
 $conn = mysqli_connect('localhost', 'root', '', 'bd_blogmoteur');
-
-function chemin_photo_affichage($chemin) {
-    if (empty($chemin)) return '';
-    $pos = strrpos($chemin, '/');
-    if ($pos === false) return htmlspecialchars(rawurlencode($chemin));
-    return htmlspecialchars(substr($chemin, 0, $pos + 1) . rawurlencode(substr($chemin, $pos + 1)));
-}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -30,46 +23,60 @@ function chemin_photo_affichage($chemin) {
 <?php include __DIR__ . '/includes/header.php'; ?>
 
 <main class="site-main">
-    <h1>Mes favoris</h1>
+    <h1>Mes annonces favorites</h1>
 
-    <div class="grille">
-<?php
-if (!$conn) {
-    echo '<p class="erreur">Erreur de connexion à la base de données.</p>';
-} else {
-    $sql = "SELECT a.id_anno, a.titre, a.prix, a.description, a.localisation, c.nom AS categorie, p.chemin
-            FROM favoris f
-            INNER JOIN annonces a ON f.id_anno = a.id_anno
-            INNER JOIN categories c ON c.id_cat = a.id_cat
-            LEFT JOIN photos p ON p.id_anno = a.id_anno AND p.ordre = 1
-            WHERE f.id_user = $id_user_connecte
-            ORDER BY f.created_at DESC";
+    <?php if (!$conn): ?>
+        <p class="erreur">Erreur de connexion à la base de données.</p>
+    <?php else: ?>
+        <div class="favoris-table-wrap">
+            <table class="favoris-table">
+                <thead>
+                    <tr>
+                        <th>Annonce</th>
+                        <th>Prix</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php
+                $sql = "SELECT f.id_anno, a.titre, a.prix
+                        FROM favoris f
+                        INNER JOIN annonces a ON f.id_anno = a.id_anno
+                        WHERE f.id_user = $id_user
+                        ORDER BY f.created_at DESC";
 
-    $result = mysqli_query($conn, $sql);
+                $resultat = mysqli_query($conn, $sql);
 
-    if (mysqli_num_rows($result) === 0) {
-        echo '<p class="vide">Aucune annonce enregistrée dans vos favoris pour le moment.</p>';
-    } else {
-        while ($ligne = mysqli_fetch_assoc($result)) {
-            $idAnno = (int) $ligne['id_anno'];
-            $img = chemin_photo_affichage($ligne['chemin']);
-            $desc = $ligne['description'];
-            if (strlen($desc) > 100) { $desc = substr($desc, 0, 100) . '…'; }
-
-            echo '<article class="carte">';
-            echo '<a href="detail_annonce.php?id_anno=' . $idAnno . '">';
-            if ($img !== '') { echo '<img src="' . $img . '" alt="">'; }
-            echo '<h2>' . htmlspecialchars($ligne['titre']) . '</h2>';
-            echo '<p class="prix">' . number_format((float) $ligne['prix'], 2, ',', ' ') . ' €</p>';
-            echo '<p class="desc">' . htmlspecialchars($desc) . '</p>';
-            echo '<p class="meta">' . htmlspecialchars($ligne['categorie']) . ' — ' . htmlspecialchars($ligne['localisation']) . '</p>';
-            echo '</a></article>';
-        }
-    }
-    mysqli_close($conn);
-}
-?>
-    </div>
+                if (!$resultat || mysqli_num_rows($resultat) === 0):
+                ?>
+                    <tr>
+                        <td colspan="3" class="favoris-table__vide">
+                            Vous n'avez pas encore d'annonces en favoris.
+                        </td>
+                    </tr>
+                <?php else: ?>
+                    <?php while ($ligne = mysqli_fetch_assoc($resultat)): ?>
+                        <tr>
+                            <td>
+                                <a href="detail_annonce.php?id_anno=<?= (int) $ligne['id_anno'] ?>">
+                                    <?= htmlspecialchars($ligne['titre']) ?>
+                                </a>
+                            </td>
+                            <td><?= number_format((float) $ligne['prix'], 2, ',', ' ') ?> €</td>
+                            <td>
+                                <form action="toggle-favori.php" method="post" class="favoris-table__form">
+                                    <input type="hidden" name="id_anno" value="<?= (int) $ligne['id_anno'] ?>">
+                                    <button type="submit" class="favoris-table__btn-retirer">Retirer</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
+                <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+        <?php mysqli_close($conn); ?>
+    <?php endif; ?>
 </main>
 
 <?php include __DIR__ . '/includes/footer.php'; ?>
