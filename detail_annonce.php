@@ -87,22 +87,22 @@ $page_titre = $annonce
     <style>
         /* Styles fiche détail — inchangés, contenu centré à 800px */
         .detail-contenu { max-width: 800px; margin: 0 auto; font-family: sans-serif; }
-        .detail-contenu a { color: #2a5bc4; }
-        .detail-contenu h1 { font-size: 1.5rem; margin: 0 0 0.25rem; }
-        .detail-contenu .prix { font-size: 1.2rem; font-weight: 600; color: #2a5bc4; }
-        .detail-contenu .photos img { max-width: 100%; max-height: 280px; margin: 0.5rem 0.5rem 0 0; border-radius: 8px; }
-        .detail-contenu dl { display: grid; grid-template-columns: 140px 1fr; gap: 0.35rem 1rem; background: #fff; padding: 1rem; border-radius: 10px; border: 1px solid #e0ddd5; }
-        .detail-contenu dt { color: #888; font-size: 0.85rem; }
-        .detail-contenu .description { background: #fff; padding: 1rem; border-radius: 10px; border: 1px solid #e0ddd5; margin-top: 1rem; }
+        .detail-contenu a { color: #c87941; }
+        .detail-contenu h1 { font-size: 1.5rem; margin: 0 0 0.25rem; color: #1a2d4a; }
+        .detail-contenu .prix { font-size: 1.2rem; font-weight: 600; color: #c87941; }
+        .detail-contenu .photos img { max-width: 100%; max-height: 280px; margin: 0.5rem 0.5rem 0 0; border-radius: 8px; border: 1px solid #d4dce8; }
+        .detail-contenu dl { display: grid; grid-template-columns: 140px 1fr; gap: 0.35rem 1rem; background: #fff; padding: 1rem; border-radius: 10px; border: 1px solid #d4dce8; color: #1a2d4a; }
+        .detail-contenu dt { color: #5a6b7d; font-size: 0.85rem; }
+        .detail-contenu .description { background: #fff; padding: 1rem; border-radius: 10px; border: 1px solid #d4dce8; margin-top: 1rem; color: #1a2d4a; }
         .detail-contenu .navigation { margin: 0 0 1rem; }
         .detail-contenu .navigation a { font-weight: 600; text-decoration: none; }
         .detail-contenu .navigation a:hover { text-decoration: underline; }
         .detail-contenu .favori-form { margin: 1rem 0; }
-        .detail-contenu .btn-favori { background: #2a5bc4; color: #fff; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; font-weight: 600; }
-        .detail-contenu .btn-favori:hover { background: #1e4294; }
+        .detail-contenu .btn-favori { background: #c87941; color: #fff; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; font-weight: 600; }
+        .detail-contenu .btn-favori:hover { background: #a6632f; }
         .detail-contenu .actions-annonce { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1rem 0; align-items: center; }
-        .detail-contenu .btn-contact { display: inline-block; background: #fff; color: #2a5bc4; border: 2px solid #2a5bc4; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; text-decoration: none; }
-        .detail-contenu .btn-contact:hover { background: #2a5bc4; color: #fff; }
+        .detail-contenu .btn-contact { display: inline-block; background: #fff; color: #c87941; border: 2px solid #c87941; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; text-decoration: none; }
+        .detail-contenu .btn-contact:hover { background: #c87941; color: #fff; }
     </style>
 </head>
 <body>

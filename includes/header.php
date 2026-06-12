@@ -7,7 +7,7 @@ $utilisateur_connecte = isset($_SESSION['id_user']);
 <header class="site-header">
     <div class="site-header__inner">
         <a href="page_annonces.php" class="site-logo">
-            <img src="assets/images/logo-blogmoteur.svg" alt="Le Blog Moteur">
+            <img src="assets/images/logo-leblogmoteur.png" alt="leblogmoteur">
         </a>
         <nav class="site-nav" aria-label="Navigation principale">
             <a href="page_annonces.php" class="site-nav__link">Annonces</a>

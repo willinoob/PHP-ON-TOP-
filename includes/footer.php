@@ -2,7 +2,8 @@
     <div class="site-footer__inner">
         <div class="site-footer__grid">
             <div>
-                <p class="site-footer__brand">Le Blog Moteur</p>
+                <p class="site-footer__brand">leblog<span class="brand-accent">moteur</span></p>
+                <p class="site-footer__slogan">ACHETEZ &bull; REVENEZ &bull; ROULEZ !</p>
                 <p>Petites annonces de véhicules d'occasion — voitures, motos et utilitaires.</p>
             </div>
             <div>

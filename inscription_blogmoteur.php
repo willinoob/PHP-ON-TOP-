@@ -117,7 +117,7 @@ function champ_val($valeurs, $nom) {
 
     <div class="box">
 
-        <h1>Le Blog Moteur</h1>
+        <h1>leblog<span class="brand-accent">moteur</span></h1>
         <hr>
 
         <form action="" method="post">
