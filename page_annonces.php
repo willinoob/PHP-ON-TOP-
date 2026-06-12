@@ -1,17 +1,5 @@
 <?php
-// Chemins photos : espaces/accents dans le nom de fichier → encodage pour le navigateur
-function chemin_photo_affichage($chemin) {
-    if (empty($chemin)) {
-        return '';
-    }
-    $pos = strrpos($chemin, '/');
-    if ($pos === false) {
-        return htmlspecialchars(rawurlencode($chemin));
-    }
-    $dossier = substr($chemin, 0, $pos + 1);
-    $fichier = substr($chemin, $pos + 1);
-    return htmlspecialchars($dossier . rawurlencode($fichier));
-}
+require __DIR__ . '/includes/photos.php';
 
 // 1) Connexion MySQL (XAMPP : user root, mot de passe vide)
 $conn = mysqli_connect('localhost', 'root', '', 'bd_blogmoteur');

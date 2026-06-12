@@ -3,18 +3,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-function chemin_photo_affichage($chemin) {
-    if (empty($chemin)) {
-        return '';
-    }
-    $pos = strrpos($chemin, '/');
-    if ($pos === false) {
-        return htmlspecialchars(rawurlencode($chemin));
-    }
-    $dossier = substr($chemin, 0, $pos + 1);
-    $fichier = substr($chemin, $pos + 1);
-    return htmlspecialchars($dossier . rawurlencode($fichier));
-}
+require __DIR__ . '/includes/photos.php';
 
 $utilisateur_connecte = isset($_SESSION['id_user']);
 $id_user_connecte = $utilisateur_connecte ? (int) $_SESSION['id_user'] : 0;

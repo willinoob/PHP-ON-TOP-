@@ -111,7 +111,7 @@ if ($conn && isset($_POST['valider'])) {
                         mysqli_query($conn, 'DELETE FROM annonces WHERE id_anno = ' . $id_anno);
                         $erreur = 'Impossible d\'enregistrer la photo sur le serveur.';
                     } else {
-                        $chemin = '/blogmoteur_annonces/uploads/' . $nom_fichier;
+                        $chemin = 'uploads/' . $nom_fichier;
 
                         $sql_photo = 'INSERT INTO photos (id_anno, chemin, ordre) VALUES (?, ?, 1)';
                         $stmt_photo = mysqli_prepare($conn, $sql_photo);
