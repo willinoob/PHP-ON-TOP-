@@ -1,13 +1,15 @@
-PHOTOS DES ANNONCES — IMPORTANT POUR TOUTE L'ÉQUIPE
-====================================================
+Copie ici tes 3 images (comme dans blogmoteur-annonces/uploads/) :
+  peugeot_208.jpg
+  yamaha_M07.jpg
+  renault_trafic.jpg
 
-Si les images s'affichent en BLANC / gris chez toi :
-  1. Vérifie que ce dossier uploads/ contient bien les fichiers .jpg
-  2. Fais un git pull pour récupérer les images depuis le dépôt
-  3. Dans phpMyAdmin → base bd_blogmoteur → exécute :
-     sql/fix-chemins-photos-relative.sql
+Puis dans phpMyAdmin, mets à jour les chemins photos :
 
-Le chemin en base doit être : uploads/peugeot_208.jpg
-(pas /blogmoteur_annonces/uploads/... qui ne marche que sur un seul PC)
+UPDATE photos p
+INNER JOIN annonces a ON a.id_anno = p.id_anno AND p.ordre = 1
+SET p.chemin = REPLACE(p.chemin, 'blogmoteur-annonces', 'blogmoteur_annonces')
+WHERE p.chemin LIKE '%blogmoteur-annonces%';
 
-Nouvelles photos uploadées via le formulaire → enregistrées automatiquement en uploads/nom.jpg
+Ou modifie à la main chaque chemin vers :
+  /blogmoteur_annonces/uploads/peugeot_208.jpg
+  etc.

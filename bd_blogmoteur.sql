@@ -134,19 +134,19 @@ CREATE TABLE `photos` (
 --
 
 INSERT INTO `photos` (`id_photo`, `id_anno`, `chemin`, `ordre`) VALUES
-(1, 1, 'uploads/peugeot_208.jpg', 1),
-(2, 2, 'uploads/yamaha_M07.jpg', 1),
-(3, 3, 'uploads/renault_trafic.jpg', 1),
-(4, 4, 'uploads/Renault Clio V TCe 90.jpg', 1),
-(5, 5, 'uploads/Volkswagen Golf 8 TDI.jpg', 1),
-(6, 6, 'uploads/Tesla Model 3 Standard.jpg', 1),
-(7, 7, 'uploads/Citroën C3 Aircross.jpg', 1),
-(8, 8, 'uploads/BMW Série 1 118d.jpg', 1),
-(9, 9, 'uploads/Honda CB500F.jpg', 1),
-(10, 10, 'uploads/Kawasaki Z650.jpg', 1),
-(11, 11, 'uploads/Ford Transit Custom L2H1.jpg', 1),
-(12, 12, 'uploads/Mercedes Sprinter 314 CDI.jpg', 1),
-(13, 13, 'uploads/Iveco Daily 35S14.jpg', 1);
+(1, 1, '/blogmoteur_annonces/uploads/peugeot_208.jpg', 1),
+(2, 2, '/blogmoteur_annonces/uploads/yamaha_M07.jpg', 1),
+(3, 3, '/blogmoteur_annonces/uploads/renault_trafic.jpg', 1),
+(4, 4, '/blogmoteur_annonces/uploads/Renault Clio V TCe 90.jpg', 1),
+(5, 5, '/blogmoteur_annonces/uploads/Volkswagen Golf 8 TDI.jpg', 1),
+(6, 6, '/blogmoteur_annonces/uploads/Tesla Model 3 Standard.jpg', 1),
+(7, 7, '/blogmoteur_annonces/uploads/Citroën C3 Aircross.jpg', 1),
+(8, 8, '/blogmoteur_annonces/uploads/BMW Série 1 118d.jpg', 1),
+(9, 9, '/blogmoteur_annonces/uploads/Honda CB500F.jpg', 1),
+(10, 10, '/blogmoteur_annonces/uploads/Kawasaki Z650.jpg', 1),
+(11, 11, '/blogmoteur_annonces/uploads/Ford Transit Custom L2H1.jpg', 1),
+(12, 12, '/blogmoteur_annonces/uploads/Mercedes Sprinter 314 CDI.jpg', 1),
+(13, 13, '/blogmoteur_annonces/uploads/Iveco Daily 35S14.jpg', 1);
 
 -- --------------------------------------------------------
 
