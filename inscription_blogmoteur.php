@@ -1,7 +1,7 @@
 <?php 
 session_start();
 $erreurs = [];
-$id = mysqli_connect("localhost", "root", "", "blogmoteur");
+$id = mysqli_connect("localhost", "root", "", "bd_blogmoteur");
 if(isset($_POST['inscrire'])){
 $nom    = $_POST ['nom'] ;
 $prenom = $_POST ['prenom'] ;
