@@ -200,7 +200,7 @@ a{
 
     <br>
 
-    <a href="pages_annonces.php">
+    <a href="page_annonces.php">
         ← Retour aux annonces
     </a>
 
