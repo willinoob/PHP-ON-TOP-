@@ -112,7 +112,7 @@ $page_titre = $annonce
                             <?= $est_favori ? '★ Retirer des favoris' : '☆ Ajouter aux favoris' ?>
                         </button>
                     </form>
-                    <a href="messages.php?id_anno=<?= $id_anno ?>" class="btn-contact">Contactez-nous</a>
+                    <a href="fenetre_messages.php?id_anno=<?= $id_anno ?>" class="btn-contact">Contactez-nous</a>
                     <?php else: ?>
                     <a href="connexion.php?redirect=messages&amp;id_anno=<?= $id_anno ?>" class="btn-contact">Contactez-nous</a>
                     <?php endif; ?>
