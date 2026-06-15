@@ -8,7 +8,7 @@ session_start();
 // ======================
 // CONNEXION BDD
 // ======================
-$id = mysqli_connect("localhost", "william", "zigotodualbert1", "bd_blogmoteur");
+$id = mysqli_connect("localhost", "root", "", "bd_blogmoteur");
 
 if (!$id) {
     die("Erreur connexion");
