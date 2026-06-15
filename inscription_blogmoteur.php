@@ -26,6 +26,11 @@ if ($conn && isset($_POST['inscrire'])) {
     $valeurs['email']  = trim($_POST['email'] ?? '');
     $mdp               = $_POST['mdp'] ?? '';
     $confirmation_mdp  = $_POST['confirmation_mdp'] ?? '';
+    $url               = trim($_POST['url'] ?? '');
+
+    if ($url !== '') {
+        $erreurs['url'] = ' ';
+    }
 
     if ($valeurs['nom'] === '') {
         $erreurs['nom'] = 'Le nom est obligatoire.';
@@ -117,7 +122,9 @@ function champ_val($valeurs, $nom) {
 
     <div class="box">
 
-        <h1>leblog<span class="brand-accent">moteur</span></h1>
+        <p class="page-connexion__logo">
+            <img src="assets/images/logo_blogmoteur.png" alt="Le Blog Moteur">
+        </p>
         <hr>
 
         <form action="" method="post">
@@ -149,6 +156,10 @@ function champ_val($valeurs, $nom) {
             <?php if (isset($erreurs['confirmation_mdp'])): ?>
                 <p class="erreur"><?= htmlspecialchars($erreurs['confirmation_mdp']) ?></p>
             <?php endif; ?>
+
+            <div class="oeuf-de-paques" aria-hidden="true">
+                <input type="text" name="url" tabindex="-1" autocomplete="off">
+            </div>
 
             <?php if (isset($erreurs['global'])): ?>
                 <p class="erreur"><?= htmlspecialchars($erreurs['global']) ?></p>

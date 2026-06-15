@@ -67,7 +67,9 @@ if ($conn) {
 
     <div class="box">
 
-        <h1>leblog<span class="brand-accent">moteur</span></h1>
+        <p class="page-connexion__logo">
+            <img src="assets/images/logo_blogmoteur.png" alt="Le Blog Moteur">
+        </p>
         <hr>
 
         <form action="" method="post">

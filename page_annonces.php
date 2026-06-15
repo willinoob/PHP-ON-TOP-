@@ -1,21 +1,16 @@
 <?php
-// Chemins photos : espaces/accents dans le nom de fichier → encodage pour le navigateur
-function chemin_photo_affichage($chemin) {
-    if (empty($chemin)) {
-        return '';
-    }
-    $pos = strrpos($chemin, '/');
-    if ($pos === false) {
-        return htmlspecialchars(rawurlencode($chemin));
-    }
-    $dossier = substr($chemin, 0, $pos + 1);
-    $fichier = substr($chemin, $pos + 1);
-    return htmlspecialchars($dossier . rawurlencode($fichier));
-}
+session_start();
+
+require_once __DIR__ . '/includes/photos.php';
 
 // 1) Connexion MySQL (XAMPP : user root, mot de passe vide)
 $conn = mysqli_connect('localhost', 'root', '', 'bd_blogmoteur');
 $sql_injection = '';
+$exclure_mes_annonces = '';
+
+if (isset($_SESSION['id_user'])) {
+    $exclure_mes_annonces = ' AND a.id_user != ' . (int) $_SESSION['id_user'];
+}
 
 if ($conn) {
     // F8 (Omar) : construction des conditions SQL à partir des filtres GET
@@ -50,7 +45,7 @@ if (!$conn) {
             FROM annonces a
             INNER JOIN categories c ON c.id_cat = a.id_cat
             LEFT JOIN photos p ON p.id_anno = a.id_anno AND p.ordre = 1
-            WHERE 1=1" . $sql_injection . "
+            WHERE 1=1" . $sql_injection . $exclure_mes_annonces . "
             ORDER BY a.created_at DESC";
 
     $result = mysqli_query($conn, $sql);
@@ -63,7 +58,7 @@ if (!$conn) {
         // 3) Une ligne SQL = une carte
         while ($ligne = mysqli_fetch_assoc($result)) {
             $idAnno = (int) $ligne['id_anno'];
-            $img = chemin_photo_affichage($ligne['chemin']);
+            $img = chemin_photo_vignette($ligne['chemin']);
 
             // Description courte sur la carte (pas tout le texte)
             $desc = $ligne['description'];
@@ -75,7 +70,7 @@ if (!$conn) {
             // F7 : clic → page détail avec l'id dans l'URL
             echo '<a href="detail_annonce.php?id_anno=' . $idAnno . '">';
             if ($img !== '') {
-                echo '<img src="' . $img . '" alt="' . htmlspecialchars($ligne['titre']) . '">';
+                echo '<img src="' . $img . '" alt="' . htmlspecialchars($ligne['titre']) . '" loading="lazy" decoding="async">';
             } else {
                 echo '<div class="carte__sans-photo">Pas de photo</div>';
             }

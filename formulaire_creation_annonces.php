@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+require_once __DIR__ . '/includes/traitement_image.php';
+
 if (!isset($_SESSION['id_user'])) {
     header('Location: connexion.php');
     exit;
@@ -81,7 +83,7 @@ if ($conn && isset($_POST['valider'])) {
 
                 mysqli_stmt_bind_param(
                     $stmt,
-                    'iisdsssiissss',
+                    'iisdsssiisssss',
                     $id_user,
                     $id_cat,
                     $valeurs['titre'],
@@ -104,14 +106,17 @@ if ($conn && isset($_POST['valider'])) {
                     $id_anno = (int) mysqli_insert_id($conn);
                     mysqli_stmt_close($stmt);
 
-                    $nom_fichier = time() . '_' . preg_replace('/[^a-zA-Z0-9._-]/', '_', basename($_FILES['photo']['name']));
-                    $dossier_upload = __DIR__ . '/uploads/';
+                    $resultat_photo = enregistrer_photo_upload(
+                        $_FILES['photo']['tmp_name'],
+                        __DIR__ . '/uploads/',
+                        $_FILES['photo']['name']
+                    );
 
-                    if (!move_uploaded_file($_FILES['photo']['tmp_name'], $dossier_upload . $nom_fichier)) {
+                    if (!$resultat_photo['ok']) {
                         mysqli_query($conn, 'DELETE FROM annonces WHERE id_anno = ' . $id_anno);
-                        $erreur = 'Impossible d\'enregistrer la photo sur le serveur.';
+                        $erreur = $resultat_photo['erreur'];
                     } else {
-                        $chemin = '/blogmoteur_annonces/uploads/' . $nom_fichier;
+                        $chemin = $resultat_photo['chemin_web'];
 
                         $sql_photo = 'INSERT INTO photos (id_anno, chemin, ordre) VALUES (?, ?, 1)';
                         $stmt_photo = mysqli_prepare($conn, $sql_photo);
@@ -271,7 +276,7 @@ function champ_val($valeurs, $nom) {
             <div class="form-annonce__groupe">
                 <label for="photo">Photo du véhicule *</label>
                 <input type="file" name="photo" id="photo" accept="image/jpeg,image/png,image/webp" required>
-                <small class="form-annonce__aide">Choisissez une image sur votre ordinateur (jpg, png, webp).</small>
+                <small class="form-annonce__aide">JPG, PNG ou WebP — max 5 Mo. La photo sera optimisée automatiquement.</small>
             </div>
 
             <div class="form-annonce__actions">

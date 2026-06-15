@@ -49,23 +49,27 @@ a {
 .site-header__inner {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 0.85rem 1.5rem;
+    padding: 0.5rem 1.5rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
+    gap: 1.25rem;
+    min-height: 84px;
 }
 
 .site-logo {
     display: inline-flex;
     align-items: center;
     text-decoration: none;
+    flex-shrink: 0;
 }
 
 .site-logo img {
     display: block;
-    height: 52px;
+    height: 72px;
     width: auto;
+    max-width: 320px;
+    object-fit: contain;
 }
 
 .site-nav {
@@ -650,6 +654,16 @@ a {
     background: var(--lbm-copper-dark);
 }
 
+a.btn-valider {
+    display: inline-block;
+    text-decoration: none;
+    color: var(--lbm-white);
+}
+
+a.btn-valider:hover {
+    color: var(--lbm-white);
+}
+
 .btn-annuler {
     background: var(--lbm-surface-2);
     color: var(--lbm-text);
@@ -679,6 +693,257 @@ a {
     font-size: 0.85rem;
 }
 
+.mes-annonces__intro {
+    margin: -0.75rem 0 1.25rem;
+    color: var(--lbm-text-muted);
+    font-size: 0.95rem;
+}
+
+.mes-annonces__grille {
+    margin-top: 0;
+}
+
+.carte--sans-lien {
+    cursor: default;
+}
+
+.carte--sans-lien .meta {
+    margin-bottom: 0.5rem;
+}
+
+.carte__actions {
+    padding: 0 1rem 1rem;
+    margin-top: 0.25rem;
+}
+
+/* ── Page détail annonce ──────────────────────────────── */
+
+.detail-contenu {
+    max-width: 860px;
+    margin: 0 auto;
+}
+
+.detail-contenu a {
+    color: var(--lbm-copper);
+}
+
+.detail-contenu h1 {
+    font-size: 1.65rem;
+    margin: 0 0 0.25rem;
+    color: var(--lbm-navy);
+}
+
+.detail-contenu .prix {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--lbm-copper);
+    margin: 0;
+}
+
+.detail-contenu .navigation {
+    margin: 0 0 1rem;
+}
+
+.detail-contenu .navigation a {
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.detail-contenu .navigation a:hover {
+    text-decoration: underline;
+}
+
+.detail-contenu .actions-annonce {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 1rem 0;
+    align-items: center;
+}
+
+.detail-contenu .favori-form {
+    margin: 0;
+}
+
+.detail-contenu .btn-favori {
+    background: var(--lbm-copper);
+    color: var(--lbm-white);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: inherit;
+}
+
+.detail-contenu .btn-favori:hover {
+    background: var(--lbm-copper-dark);
+}
+
+.detail-contenu .btn-contact {
+    display: inline-block;
+    background: var(--lbm-white);
+    color: var(--lbm-copper);
+    border: 2px solid var(--lbm-copper);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.detail-contenu .btn-contact:hover {
+    background: var(--lbm-copper);
+    color: var(--lbm-white);
+}
+
+.detail-contenu .btn-modifier {
+    display: inline-block;
+    background: var(--lbm-navy);
+    color: var(--lbm-white);
+    border: 2px solid var(--lbm-navy);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.detail-contenu .btn-modifier:hover {
+    background: var(--lbm-navy-dark);
+    border-color: var(--lbm-navy-dark);
+    color: var(--lbm-white);
+}
+
+.detail-contenu .badge-proprietaire {
+    display: inline-block;
+    background: var(--lbm-surface-2);
+    color: var(--lbm-navy);
+    border: 1px solid var(--lbm-border);
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.detail-galerie {
+    margin: 1.25rem 0 1.5rem;
+}
+
+.detail-galerie--vide {
+    background: var(--lbm-surface);
+    border: 1px dashed var(--lbm-border);
+    border-radius: 12px;
+    padding: 3rem 1rem;
+    text-align: center;
+    color: var(--lbm-text-muted);
+}
+
+.detail-galerie__principale {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    max-height: 480px;
+    background: var(--lbm-surface-2);
+    border: 1px solid var(--lbm-border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(26, 45, 74, 0.08);
+}
+
+.detail-galerie__principale img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    background: var(--lbm-surface-2);
+}
+
+.detail-galerie__vignettes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.detail-galerie__vignette {
+    padding: 0;
+    border: 2px solid var(--lbm-border);
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--lbm-surface);
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.detail-galerie__vignette:hover {
+    border-color: var(--lbm-copper);
+}
+
+.detail-galerie__vignette.is-active {
+    border-color: var(--lbm-copper);
+    box-shadow: 0 0 0 2px rgba(200, 121, 65, 0.3);
+}
+
+.detail-galerie__vignette img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.detail-contenu dl {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 0.35rem 1rem;
+    background: var(--lbm-surface);
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid var(--lbm-border);
+    color: var(--lbm-text);
+}
+
+.detail-contenu dt {
+    color: var(--lbm-text-muted);
+    font-size: 0.85rem;
+}
+
+.detail-contenu .description {
+    background: var(--lbm-surface);
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid var(--lbm-border);
+    margin-top: 1rem;
+    color: var(--lbm-text);
+}
+
+.detail-contenu .description h2 {
+    font-size: 1.1rem;
+    margin: 0 0 0.75rem;
+    color: var(--lbm-navy);
+}
+
+@media (max-width: 540px) {
+    .detail-galerie__principale {
+        aspect-ratio: 4 / 3;
+        max-height: none;
+    }
+
+    .detail-contenu dl {
+        grid-template-columns: 1fr;
+        gap: 0.15rem;
+    }
+
+    .detail-contenu dt {
+        font-weight: 600;
+        margin-top: 0.5rem;
+    }
+
+    .detail-contenu dt:first-child {
+        margin-top: 0;
+    }
+}
+
 /* ── Page connexion / inscription ─────────────────────────── */
 
 .page-connexion {
@@ -698,6 +963,19 @@ a {
     border-radius: 10px;
     border: none;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.page-connexion__logo {
+    margin: 0 0 1rem;
+    text-align: center;
+    line-height: 0;
+}
+
+.page-connexion__logo img {
+    max-width: 100%;
+    height: auto;
+    max-height: 100px;
+    object-fit: contain;
 }
 
 .page-connexion h1 {
@@ -760,6 +1038,17 @@ a {
 
 .page-connexion .lien a {
     color: var(--lbm-copper);
+}
+
+/* Honeypot anti-robot (Mehdi) — invisible pour les humains */
+.oeuf-de-paques {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
 }
 
 /* ── Pied de page ───────────────────────────────────────── */
