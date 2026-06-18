@@ -151,9 +151,6 @@ a{
             Changer le mot de passe
         </a>
 
-        <a href="logout.php" style="padding:10px; background:#ef4444; border-radius:8px; text-align:center;">
-            Déconnexion
-        </a>
 
     </div>
 
