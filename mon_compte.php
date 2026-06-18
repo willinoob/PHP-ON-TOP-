@@ -124,7 +124,6 @@ a{
 
 Nom : <?= htmlspecialchars($user['nom']) ?>
 Prénom : <?= htmlspecialchars($user['prenom']) ?>
-Date de naissance : <?= htmlspecialchars($user['date_naissance']) ?>
 Ville : <?= htmlspecialchars($user['ville']) ?>
 
 ────────────────────────────────────────────────────────────
