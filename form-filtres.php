@@ -1,6 +1,6 @@
 <?php
 // Connexion à la base de données standard (identique au cours)
-$id = mysqli_connect("localhost", "root", "", "bd_blogmoteur");
+$id = mysqli_connect("localhost", "root", "root", "bd_blogmoteur");
 
 // On garde en mémoire les choix de l'utilisateur
 $categorie_selectionnee = isset($_GET['categorie']) ? $_GET['categorie'] : "";
@@ -56,7 +56,7 @@ $carburant_selectionne = isset($_GET['carburant']) ? $_GET['carburant'] : "";
             <input type="text" name="ville" id="ville" value="<?php if(isset($_GET['ville'])) echo htmlspecialchars($_GET['ville']); ?>" placeholder="Ex: Paris">
         </div>
 
-        <button type="submit" class="btn-recherche">🔍</button>
+        <button type="submit" class="btn-recherche">filtrer</button>
 
         <?php if (!empty($_GET['categorie']) || !empty($_GET['marque']) || !empty($_GET['prix_max']) || !empty($_GET['km_max']) || !empty($_GET['carburant']) || !empty($_GET['ville'])): ?>
             <a href="page_annonces.php" class="btn-annuler">❌</a>
