@@ -1,8 +1,8 @@
 <?php
 session_start();
- $id = mysqli_connect("localhost", "root", "root", "blogmoteur");
+ $id = mysqli_connect("localhost", "root", "root", "bd_blogmoteur");
 if (!isset($_SESSION['role']) || $_SESSION['role'] != 1) {
-    header("Location: accueil.php");
+    header("Location: page_annonces.php");
     exit;
 }
 ?>

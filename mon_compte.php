@@ -133,12 +133,6 @@ a{
             <strong style="color:#94a3b8;">Prénom :</strong>
             <?= htmlspecialchars($user['prenom']) ?>
         </div>
-
-        <div>
-            <strong style="color:#94a3b8;">Ville :</strong>
-            <?= htmlspecialchars($user['ville']) ?>
-        </div>
-
     </div>
 
 </div>
