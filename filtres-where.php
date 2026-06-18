@@ -1,16 +1,34 @@
 <?php
-// F8 (Omar) — conditions SQL à partir des filtres GET
-$sql_injection = '';
+// On démarre avec une variable vide
+$sql_injection = "";
 
-$filtre_cat = isset($_GET['categorie']) ? (int) $_GET['categorie'] : 0;
-$filtre_prix_max = isset($_GET['prix_max']) && $_GET['prix_max'] !== ''
-    ? (float) str_replace(',', '.', $_GET['prix_max'])
-    : null;
-
-if ($filtre_cat > 0) {
-    $sql_injection .= ' AND a.id_cat = ' . $filtre_cat;
+// 1. Catégorie
+if (isset($_GET['categorie']) && $_GET['categorie'] != "") {
+    $sql_injection = $sql_injection . " AND a.id_cat = '" . $_GET['categorie'] . "'";
 }
 
-if ($filtre_prix_max !== null) {
-    $sql_injection .= ' AND a.prix <= ' . $filtre_prix_max;
+// 2. Marque
+if (isset($_GET['marque']) && $_GET['marque'] != "") {
+    $sql_injection = $sql_injection . " AND a.marque LIKE '%" . $_GET['marque'] . "%'";
 }
+
+// 3. Prix Maximum
+if (isset($_GET['prix_max']) && $_GET['prix_max'] != "") {
+    $sql_injection = $sql_injection . " AND a.prix <= '" . $_GET['prix_max'] . "'";
+}
+
+// 4. Kilométrage Maximum
+if (isset($_GET['km_max']) && $_GET['km_max'] != "") {
+    $sql_injection = $sql_injection . " AND a.kilometrage <= '" . $_GET['km_max'] . "'";
+}
+
+// 5. Carburant
+if (isset($_GET['carburant']) && $_GET['carburant'] != "") {
+    $sql_injection = $sql_injection . " AND a.carburant = '" . $_GET['carburant'] . "'";
+}
+
+// 6. Ville / Localisation
+if (isset($_GET['ville']) && $_GET['ville'] != "") {
+    $sql_injection = $sql_injection . " AND a.localisation LIKE '%" . $_GET['ville'] . "%'";
+}
+?>

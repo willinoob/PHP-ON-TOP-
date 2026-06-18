@@ -1199,3 +1199,96 @@ a.btn-valider:hover {
     color: rgba(255, 255, 255, 0.75);
     text-align: center;
 }
+.container-filtres {
+    background-color: rgba(255, 255, 255, 0.08); /* Fond subtil transparent */
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 2rem auto;
+    max-width: 1100px; /* Aligné sur la largeur du site */
+}
+
+.container-filtres h3 {
+    margin-top: 0;
+    margin-bottom: 1.25rem;
+    font-size: 1.15rem;
+    color: var(--lbm-white);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.5rem;
+}
+
+/* Organisation du formulaire (Grille simple et propre) */
+.container-filtres form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+    align-items: flex-end; /* Aligne les champs et les boutons sur la même ligne */
+}
+
+/* Groupement des labels et des inputs */
+.container-filtres label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Style commun pour les inputs texte, nombres et listes déroulantes */
+.container-filtres input[type="text"],
+.container-filtres input[type="number"],
+.container-filtres select {
+    width: 100%;
+    height: 38px;
+    padding: 0.5rem;
+    background-color: var(--lbm-white);
+    color: var(--lbm-navy);
+    border: 1px solid var(--lbm-border);
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 0.9rem;
+}
+
+.container-filtres input:focus,
+.container-filtres select:focus {
+    outline: 2px solid var(--lbm-copper);
+    outline-offset: -1px;
+}
+
+/* Bouton de validation "Filtrer" (Style Cuivre chaud de votre charte) */
+.container-filtres input[type="submit"] {
+    height: 38px;
+    background-color: var(--lbm-copper);
+    color: var(--lbm-white);
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.container-filtres input[type="submit"]:hover {
+    background-color: var(--lbm-copper-dark);
+}
+
+/* Bouton pour effacer / annuler les filtres */
+.container-filtres .btn-annuler {
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--lbm-white);
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+    text-align: center;
+}
+
+.container-filtres .btn-annuler:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: var(--lbm-white);
+}
