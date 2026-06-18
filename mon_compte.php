@@ -81,16 +81,10 @@ if (!$conn) {
             </p>
             <p class="compte-profil__email"><?= htmlspecialchars($user['email']) ?></p>
 
-            <?php if (!empty($user['date_naissance']) || !empty($user['ville'])): ?>
+            <?php if (!empty($user['ville'])): ?>
                 <dl class="compte-profil__details">
-                    <?php if (!empty($user['date_naissance'])): ?>
-                        <dt>Date de naissance</dt>
-                        <dd><?= htmlspecialchars($user['date_naissance']) ?></dd>
-                    <?php endif; ?>
-                    <?php if (!empty($user['ville'])): ?>
-                        <dt>Ville</dt>
-                        <dd><?= htmlspecialchars($user['ville']) ?></dd>
-                    <?php endif; ?>
+                    <dt>Ville</dt>
+                    <dd><?= htmlspecialchars($user['ville']) ?></dd>
                 </dl>
             <?php endif; ?>
 

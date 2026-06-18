@@ -3,6 +3,7 @@ session_start();
 
 $redirect = $_GET['redirect'] ?? $_POST['redirect'] ?? '';
 $id_anno_redirect = isset($_GET['id_anno']) ? (int) $_GET['id_anno'] : (int) ($_POST['id_anno'] ?? 0);
+$succes_inscription = isset($_GET['inscription']) && $_GET['inscription'] === 'ok';
 
 $conn = mysqli_connect('localhost', 'root', '', 'bd_blogmoteur');
 $erreur = null;
@@ -20,7 +21,7 @@ if ($conn && isset($_POST['connexion'])) {
         $erreur = 'Email ou mot de passe incorrect.';
     } else {
         // Requête préparée : l'email n'est jamais collé dans la chaîne SQL (anti-injection)
-        $sql = 'SELECT id_user, nom, prenom, password FROM users WHERE email = ? LIMIT 1';
+        $sql = 'SELECT id_user, nom, prenom, password, role_user FROM users WHERE email = ? LIMIT 1';
         $stmt = mysqli_prepare($conn, $sql);
 
         if ($stmt === false) {
@@ -34,9 +35,10 @@ if ($conn && isset($_POST['connexion'])) {
 
             // password_verify : compare le mdp saisi au hash stocké en base
             if ($user && password_verify($mdp, $user['password'])) {
-                $_SESSION['id_user'] = (int) $user['id_user'];
-                $_SESSION['prenom']  = $user['prenom'];
-                $_SESSION['nom']     = $user['nom'];
+                $_SESSION['id_user']   = (int) $user['id_user'];
+                $_SESSION['prenom']    = $user['prenom'];
+                $_SESSION['nom']       = $user['nom'];
+                $_SESSION['role_user'] = (int) ($user['role_user'] ?? 0);
 
                 if ($redirect === 'messages' && $id_anno_redirect > 0) {
                     header('Location: messages.php?id_anno=' . $id_anno_redirect);
@@ -81,6 +83,10 @@ if ($conn) {
 
             <input type="email" name="email" placeholder="Email" required><br><br>
             <input type="password" name="mdp" placeholder="Mot de passe" required><br><br>
+
+            <?php if ($succes_inscription): ?>
+                <p class="succes">Inscription réussie. Connectez-vous avec votre compte.</p>
+            <?php endif; ?>
 
             <?php if ($erreur !== null): ?>
                 <p class="erreur"><?= htmlspecialchars($erreur) ?></p>

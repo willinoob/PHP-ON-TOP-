@@ -40,7 +40,7 @@ Chaque membre choisit une tâche, note son nom dans **Assigné à**, prévient l
 | **C3** | Modifier une annonce (F4) | Formulaire pour éditer une annonce existante | `formulaire_modification_annonces.php` | | ✅ |
 | **F1** | Champ photo stylé | Zone d’upload plus moderne sur le formulaire de création (aperçu, design) | `formulaire_creation_annonces.php`, `assets/css/site.css` | | ✅ |
 | **L1** | Changer le logo | Remplacer le logo du site | `assets/images/`, `includes/header.php` | | ✅ |
-| **A1** | Page d’administration | Espace admin : gérer utilisateurs et annonces | dossier `admin/` ou pages dédiées (à créer) | | ⬜ |
+| **A1** | Page d’administration | Espace admin : gérer utilisateurs et annonces | `pageadmin.php` | William | 🔄 |
 | **B1** | Barre de recherche AJAX *(bonus)* | Recherche sans recharger la page — **non obligatoire** | `page_annonces.php` | | ⬜ |
 
 **Statut :** ⬜ À faire · 🔄 En cours · ✅ Terminé

@@ -254,6 +254,13 @@ a {
     border-radius: 8px;
 }
 
+.succes {
+    color: #166534;
+    background: #dcfce7;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
 .vide {
     background: var(--lbm-surface);
     padding: 1.5rem;
@@ -839,6 +846,47 @@ a.btn-valider:hover {
     transform: none;
 }
 
+/* ── Administration ───────────────────────────────────── */
+
+.admin-section {
+    margin-bottom: 2rem;
+}
+
+.admin-section h2 {
+    margin: 0 0 1rem;
+    color: var(--lbm-navy);
+}
+
+.admin-table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--lbm-border);
+    border-radius: var(--lbm-radius);
+    background: var(--lbm-surface);
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.admin-table th,
+.admin-table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--lbm-border);
+}
+
+.admin-table th {
+    background: var(--lbm-navy);
+    color: #fff;
+    font-weight: 600;
+}
+
+.admin-table a {
+    color: var(--lbm-copper);
+}
+
 /* ── Page détail annonce ──────────────────────────────── */
 
 .detail-contenu {
@@ -1147,6 +1195,15 @@ a.btn-valider:hover {
 
 .page-connexion .erreur {
     color: red;
+    font-size: 13px;
+    margin-bottom: 10px;
+    background: none;
+    padding: 0;
+    border-radius: 0;
+}
+
+.page-connexion .succes {
+    color: #166534;
     font-size: 13px;
     margin-bottom: 10px;
     background: none;

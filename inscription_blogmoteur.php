@@ -54,10 +54,7 @@ if (isset($_POST['inscrire'])) {
             mysqli_stmt_bind_param($requete_champs, "ssss", $nom, $prenom, $email, $mdp_hache);
             mysqli_stmt_execute($requete_champs);
 
-
-            echo "Inscription réussie !<br><br>";
-            echo "<a href='connexion.php'>Aller à la connexion</a><br>";
-            echo "<a href='accueil.php'>Aller à la page d'accueil</a>";
+            header('Location: connexion.php?inscription=ok');
             exit;
         }
     }
