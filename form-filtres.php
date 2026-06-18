@@ -1,44 +1,70 @@
 <?php
-// F8 (Omar) — formulaire de filtrage (nécessite $conn ouvert par page_annonces.php)
+// Connexion à la base de données standard (identique au cours)
+$id = mysqli_connect("localhost", "root", "root", "bd_blogmoteur");
 
-$categorie_selectionnee = isset($_GET['categorie']) ? (int) $_GET['categorie'] : 0;
-$prix_max_selectionne = isset($_GET['prix_max']) ? htmlspecialchars($_GET['prix_max'], ENT_QUOTES, 'UTF-8') : '';
-$filtres_actifs = $categorie_selectionnee > 0 || $prix_max_selectionne !== '';
+// On garde en mémoire les choix de l'utilisateur
+$categorie_selectionnee = isset($_GET['categorie']) ? $_GET['categorie'] : "";
+$carburant_selectionne = isset($_GET['carburant']) ? $_GET['carburant'] : "";
 ?>
 
-<div class="filtres-bloc">
-    <form class="filtres-form" action="page_annonces.php" method="get">
-        <h2 class="filtres-form__titre">Filtrer les annonces</h2>
-
-        <div class="filtres-form__champs">
-            <div class="filtres-form__groupe">
-                <label for="categorie">Catégorie</label>
-                <select name="categorie" id="categorie">
-                    <option value="">Toutes les catégories</option>
-                    <?php
-                    $req_cats = mysqli_query($conn, 'SELECT id_cat, nom FROM categories ORDER BY nom ASC');
-                    while ($ligne = mysqli_fetch_assoc($req_cats)) {
-                        $id_cat = (int) $ligne['id_cat'];
-                        $selected = $id_cat === $categorie_selectionnee ? ' selected' : '';
-                        echo '<option value="' . $id_cat . '"' . $selected . '>'
-                            . htmlspecialchars($ligne['nom']) . '</option>';
-                    }
-                    ?>
-                </select>
-            </div>
-
-            <div class="filtres-form__groupe">
-                <label for="prix_max">Prix maximum (€)</label>
-                <input type="number" name="prix_max" id="prix_max" min="0" step="1"
-                       value="<?= $prix_max_selectionne ?>" placeholder="Ex : 15000">
-            </div>
+<div class="container-filtres">
+    <form action="" method="get">
+        
+        <div class="champ-filtre">
+            <label for="categorie">Catégorie</label>
+            <select name="categorie" id="categorie">
+                <option value="">Toutes</option>
+                <?php
+                $req_cats = "SELECT * FROM categories ORDER BY nom ASC";
+                $res_cats = mysqli_query($id, $req_cats);
+                while ($ligne = mysqli_fetch_assoc($res_cats)) {
+                    $selected = ($ligne['id_cat'] == $categorie_selectionnee) ? "selected" : "";
+                    echo "<option value='" . $ligne['id_cat'] . "' " . $selected . ">" . htmlspecialchars($ligne['nom']) . "</option>";
+                }
+                ?>
+            </select>
         </div>
 
-        <div class="filtres-form__actions">
-            <button type="submit" class="filtres-form__btn filtres-form__btn--filtrer">Filtrer</button>
-            <?php if ($filtres_actifs): ?>
-                <a href="page_annonces.php" class="filtres-form__btn filtres-form__btn--effacer">Effacer les filtres</a>
-            <?php endif; ?>
+        <div class="champ-filtre">
+            <label for="marque">Marque</label>
+            <input type="text" name="marque" id="marque" value="<?php if(isset($_GET['marque'])) echo htmlspecialchars($_GET['marque']); ?>" placeholder="Ex: Peugeot">
         </div>
+
+        <div class="champ-filtre">
+            <label for="prix_max">Prix max</label>
+            <input type="number" name="prix_max" id="prix_max" value="<?php if(isset($_GET['prix_max'])) echo htmlspecialchars($_GET['prix_max']); ?>" placeholder="En €">
+        </div>
+
+        <div class="champ-filtre">
+            <label for="km_max">KM Max</label>
+            <input type="number" name="km_max" id="km_max" value="<?php if(isset($_GET['km_max'])) echo htmlspecialchars($_GET['km_max']); ?>" placeholder="Ex: 80000">
+        </div>
+
+        <div class="champ-filtre">
+            <label for="carburant">Carburant</label>
+            <select name="carburant" id="carburant">
+                <option value="">Tous</option>
+                <option value="Essence" <?php if($carburant_selectionne == "Essence") echo "selected"; ?>>Essence</option>
+                <option value="Diesel" <?php if($carburant_selectionne == "Diesel") echo "selected"; ?>>Diesel</option>
+                <option value="Electrique" <?php if($carburant_selectionne == "Electrique") echo "selected"; ?>>Électrique</option>
+                <option value="Hybride" <?php if($carburant_selectionne == "Hybride") echo "selected"; ?>>Hybride</option>
+            </select>
+        </div>
+
+        <div class="champ-filtre">
+            <label for="ville">Ville</label>
+            <input type="text" name="ville" id="ville" value="<?php if(isset($_GET['ville'])) echo htmlspecialchars($_GET['ville']); ?>" placeholder="Ex: Paris">
+        </div>
+
+        <button type="submit" class="btn-recherche">🔍</button>
+
+        <?php if (!empty($_GET['categorie']) || !empty($_GET['marque']) || !empty($_GET['prix_max']) || !empty($_GET['km_max']) || !empty($_GET['carburant']) || !empty($_GET['ville'])): ?>
+            <a href="page_annonces.php" class="btn-annuler">❌</a>
+        <?php endif; ?>
+
     </form>
 </div>
+
+<?php
+mysqli_close($id);
+?>

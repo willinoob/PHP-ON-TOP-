@@ -17,9 +17,9 @@ $utilisateur_connecte = isset($_SESSION['id_user']);
                 <a href="favoris.php" class="site-nav__link">Favoris</a>
                 <a href="formulaire_creation_annonces.php" class="site-nav__link site-nav__link--cta">Déposer une annonce</a>
                 <span class="site-nav__sep" aria-hidden="true"></span>
-              <a href="mon_compte.php?id=<?= $_SESSION['user_id'] ?>" class="site-nav__link">
-    Mon compte
-</a>
+              <a href="mon_compte.php?id=<?= $_SESSION['id_user'] ?>" class="site-nav__link">Mon compte</a>
+
+
                 <a href="deconnexion.php" class="site-nav__link site-nav__link--secondaire">Déconnexion</a>
             <?php else: ?>
                 <a href="connexion.php" class="site-nav__link site-nav__link--cta">Connexion</a>
