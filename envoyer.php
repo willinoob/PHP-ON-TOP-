@@ -17,7 +17,7 @@ if ($contenu === '' || $id_anno <= 0 || $id_destinataire <= 0 || $id_expediteur 
     exit;
 }
 
-$conn = mysqli_connect('localhost', 'root', '', 'bd_blogmoteur');
+$conn = mysqli_connect('localhost', 'root', 'root', 'bd_blogmoteur');
 
 if ($conn) {
     $sql = 'INSERT INTO messages (id_anno, id_expediteur, id_destinataire, contenu) VALUES (?, ?, ?, ?)';

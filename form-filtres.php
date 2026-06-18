@@ -1,6 +1,6 @@
 <?php
 // Connexion à la base de données standard (identique au cours)
-$id = mysqli_connect('localhost', 'root', '', 'bd_blogmoteur');
+$id = mysqli_connect('localhost', 'root', 'root', 'bd_blogmoteur');
 
 // On garde en mémoire les choix de l'utilisateur
 $categorie_selectionnee = isset($_GET['categorie']) ? $_GET['categorie'] : '';

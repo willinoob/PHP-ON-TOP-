@@ -11,7 +11,7 @@ if (($_SESSION['role_user'] ?? 0) !== 1) {
     exit;
 }
 
-$conn = mysqli_connect('localhost', 'root', '', 'bd_blogmoteur');
+$conn = mysqli_connect('localhost', 'root', 'root', 'bd_blogmoteur');
 $erreur = null;
 $utilisateurs = [];
 $annonces = [];

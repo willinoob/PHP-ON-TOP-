@@ -19,7 +19,11 @@ if (!isset($_SESSION['id_user'])) {
     exit();
 }
 
+<<<<<<< HEAD
 $conn = mysqli_connect("localhost", "root", "", "bd_blogmoteur");
+=======
+$conn = mysqli_connect("localhost", "root", "root", "bd_blogmoteur");
+>>>>>>> 52e0234f0c9b9d40d3bc3cecba6ef867adab2bea
 
 if (!$conn) {
     die("Connexion BDD échouée");
@@ -112,8 +116,12 @@ a{
     </div>
     <div class="header">
 
+<<<<<<< HEAD
     <h2>👤 <?= htmlspecialchars($user['prenom']) ?> <?= htmlspecialchars($user['nom']) ?></h2>
     <p><?= htmlspecialchars($user['email']) ?></p>
+=======
+    
+>>>>>>> 52e0234f0c9b9d40d3bc3cecba6ef867adab2bea
 
     <br>
 <div style="background:#0f172a; padding:20px; border-radius:12px; margin-top:15px; border:1px solid #334155;">
@@ -134,6 +142,14 @@ a{
             <?= htmlspecialchars($user['prenom']) ?>
         </div>
 
+<<<<<<< HEAD
+=======
+         <div>
+            <strong style="color:#94a3b8;">Email :</strong>
+            <?= htmlspecialchars($user['email']) ?>
+        </div>
+
+>>>>>>> 52e0234f0c9b9d40d3bc3cecba6ef867adab2bea
     </div>
 
 </div>
