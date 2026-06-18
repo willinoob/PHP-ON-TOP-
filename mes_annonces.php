@@ -82,6 +82,11 @@ if (!$conn) {
                     <a href="formulaire_modif_annonces.php?id_anno=<?= $idAnno ?>" class="btn-valider">
                         Modifier annonce
                     </a>
+                    <form method="post" action="supprimer_annonce.php" class="carte__form-supprimer"
+                          onsubmit="return confirm('Supprimer cette annonce ? Cette action est irréversible.');">
+                        <input type="hidden" name="id_anno" value="<?= $idAnno ?>">
+                        <button type="submit" class="btn-supprimer">Supprimer</button>
+                    </form>
                 </div>
             </article>
             <?php endforeach; ?>

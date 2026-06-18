@@ -38,7 +38,7 @@ Chaque membre choisit une tâche, note son nom dans **Assigné à**, prévient l
 | **N1** | « Mes annonces » dans la nav | Lien visible si connecté → liste des annonces postées par l’utilisateur | `includes/header.php`, `mes_annonces.php` (à créer) | | ✅ |
 | **F2** | Amélioration du formulaire de filtrage | Améliorer UX/UI des filtres (champs, alignement, responsive, lisibilité) | `form-filtres.php`, `assets/css/site.css` | Omar | ✅ |
 | **C1** | Mon compte — modifier le profil | Modifier nom, prénom, email, téléphone (champ pas présent à l’inscription) | `mon_compte.php`, `modifier_profil.php`, `changer_mot_de_passe.php` | William | ✅ |
-| **C2** | Supprimer une annonce | Supprimer **ses** annonces depuis Mon compte ou Mes annonces | `mon_compte.php` ou `mes_annonces.php` | | ⬜ |
+| **C2** | Supprimer une annonce | Supprimer **ses** annonces depuis Mon compte ou Mes annonces | `mes_annonces.php`, `supprimer_annonce.php` | | ✅ |
 | **C3** | Modifier une annonce (F4) | Formulaire pour éditer une annonce existante | `formulaire_modification_annonces.php` | | ✅ |
 | **F1** | Champ photo stylé | Zone d’upload plus moderne sur le formulaire de création (aperçu, design) | `formulaire_creation_annonces.php`, `assets/css/site.css` | | ✅ |
 | **L1** | Changer le logo | Remplacer le logo du site | `assets/images/`, `includes/header.php` | | ✅ |
