@@ -12,9 +12,9 @@
 <?php include __DIR__ . '/includes/header.php'; ?>
 
 <?php
-session_start();
 
-if (!isset($_SESSION['user_id'])) {
+
+if (!isset($_SESSION['id_user'])) {
     header("Location: connexion.php");
     exit();
 }
@@ -25,27 +25,27 @@ if (!$conn) {
     die("Connexion BDD échouée");
 }
 
-$user_id = $_SESSION['user_id'];
+$id_user = $_SESSION['id_user'];
 
 /* ---------------- USER ---------------- */
-$sqlUser = "SELECT * FROM users WHERE id_user = $user_id";
+$sqlUser = "SELECT * FROM users WHERE id_user = $id_user";
 $userResult = mysqli_query($conn, $sqlUser);
 $user = mysqli_fetch_assoc($userResult);
 
 /* ---------------- ANNONCES ---------------- */
-$sqlAnnonces = "SELECT COUNT(*) AS total FROM annonces WHERE id_user = $user_id";
+$sqlAnnonces = "SELECT COUNT(*) AS total FROM annonces WHERE id_user = $id_user";
 $annonces = mysqli_fetch_assoc(mysqli_query($conn, $sqlAnnonces))['total'];
 
 /* ---------------- FAVORIS ---------------- */
-$sqlFavoris = "SELECT COUNT(*) AS total FROM favoris WHERE id_user = $user_id";
+$sqlFavoris = "SELECT COUNT(*) AS total FROM favoris WHERE id_user = $id_user";
 $favoris = mysqli_fetch_assoc(mysqli_query($conn, $sqlFavoris))['total'];
 
 /* ---------------- MESSAGES ---------------- */
-$sqlMessages = "SELECT COUNT(*) AS total FROM messages WHERE id_destinataire = $user_id";
+$sqlMessages = "SELECT COUNT(*) AS total FROM messages WHERE id_destinataire = $id_user";
 $messages = mysqli_fetch_assoc(mysqli_query($conn, $sqlMessages))['total'];
 
 /* ---------------- VUES TOTALES ---------------- */
-$sqlVues = "SELECT SUM(vues) AS total FROM annonces WHERE id_user = $user_id";
+$sqlVues = "SELECT SUM(vues) AS total FROM annonces WHERE id_user = $id_user";
 $vues = mysqli_fetch_assoc(mysqli_query($conn, $sqlVues))['total'];
 if (!$vues) $vues = 0;
 ?>
