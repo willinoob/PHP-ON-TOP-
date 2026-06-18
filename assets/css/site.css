@@ -1038,6 +1038,11 @@ a.btn-valider:hover {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 }
 
+.page-connexion .box--inscription {
+    width: 420px;
+    max-width: calc(100vw - 2rem);
+}
+
 .page-connexion__logo {
     margin: 0 0 1rem;
     text-align: center;
