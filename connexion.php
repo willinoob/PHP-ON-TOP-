@@ -60,7 +60,7 @@ if ($user && password_verify($mdp, $user['password'])) {
 
     // Si c'est l'admin (id_user = 1), on redirige vers la page admin
     if ($_SESSION['id_user'] === 1) {
-        header('Location: admin.php'); // nom à adapter selon la construction des autres 
+        header('Location: pageadmin.php'); // nom à adapter selon la construction des autres 
         exit;
     }
 
