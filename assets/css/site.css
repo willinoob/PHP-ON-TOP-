@@ -818,6 +818,19 @@ a.btn-valider:hover {
     color: var(--lbm-muted);
 }
 
+.compte-profil__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+}
+
+.compte-profil__btn--secondaire {
+    background: var(--lbm-surface);
+    color: var(--lbm-navy);
+    border: 1px solid var(--lbm-border);
+}
+
 .compte-stats .compte-stat {
     text-align: center;
     text-decoration: none;
@@ -1152,6 +1165,13 @@ a.btn-valider:hover {
     height: auto;
     max-height: 100px;
     object-fit: contain;
+}
+
+.page-connexion__titre {
+    font-size: 1.1rem;
+    text-align: center;
+    margin: 0 0 1rem;
+    color: var(--lbm-navy);
 }
 
 .page-connexion h1 {

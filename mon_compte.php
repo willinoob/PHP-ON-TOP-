@@ -89,6 +89,8 @@ if (!$conn) {
             <?php endif; ?>
 
             <div class="compte-profil__actions">
+                <a href="modifier_profil.php" class="btn-valider">Modifier le profil</a>
+                <a href="changer_mot_de_passe.php" class="btn-valider compte-profil__btn--secondaire">Changer le mot de passe</a>
                 <a href="deconnexion.php" class="btn-valider compte-profil__btn--secondaire">Déconnexion</a>
             </div>
         </div>
