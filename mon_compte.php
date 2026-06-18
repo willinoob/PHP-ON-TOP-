@@ -110,6 +110,55 @@ a{
         <h2>👤 <?= htmlspecialchars($user['prenom']) ?> <?= htmlspecialchars($user['nom']) ?></h2>
         <p><?= htmlspecialchars($user['email']) ?></p>
     </div>
+    <div class="header">
+
+    <h2>👤 <?= htmlspecialchars($user['prenom']) ?> <?= htmlspecialchars($user['nom']) ?></h2>
+    <p><?= htmlspecialchars($user['email']) ?></p>
+
+    <br>
+<div style="background:#0f172a; padding:20px; border-radius:12px; margin-top:15px; border:1px solid #334155;">
+
+    <h3 style="color:#f1f5f9; margin-bottom:15px; letter-spacing:1px;">
+        INFORMATIONS PERSONNELLES
+    </h3>
+
+    <div style="display:flex; flex-direction:column; gap:8px; color:#cbd5e1; font-size:15px;">
+
+        <div>
+            <strong style="color:#94a3b8;">Nom :</strong>
+            <?= htmlspecialchars($user['nom']) ?>
+        </div>
+
+        <div>
+            <strong style="color:#94a3b8;">Prénom :</strong>
+            <?= htmlspecialchars($user['prenom']) ?>
+        </div>
+
+        <div>
+            <strong style="color:#94a3b8;">Ville :</strong>
+            <?= htmlspecialchars($user['ville']) ?>
+        </div>
+
+    </div>
+
+</div>
+    <div style="display:flex; flex-direction:column; gap:10px; margin-top:10px;">
+
+        <a href="modifier_profil.php" style="padding:10px; background:#3b82f6; border-radius:8px; text-align:center;">
+            Modifier le profil
+        </a>
+
+        <a href="changer_mot_de_passe.php" style="padding:10px; background:#f59e0b; border-radius:8px; text-align:center;">
+            Changer le mot de passe
+        </a>
+
+        <a href="logout.php" style="padding:10px; background:#ef4444; border-radius:8px; text-align:center;">
+            Déconnexion
+        </a>
+
+    </div>
+
+</div>
 
     <div class="grid">
 
