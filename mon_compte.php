@@ -116,6 +116,43 @@ a{
         <h2>👤 <?= htmlspecialchars($user['prenom']) ?> <?= htmlspecialchars($user['nom']) ?></h2>
         <p><?= htmlspecialchars($user['email']) ?></p>
     </div>
+    <div class="header">
+
+    <h2>👤 <?= htmlspecialchars($user['prenom']) ?> <?= htmlspecialchars($user['nom']) ?></h2>
+    <p><?= htmlspecialchars($user['email']) ?></p>
+
+    <br>
+
+    <pre style="color:#cbd5e1; font-size:14px; line-height:1.6;">
+────────────────────────────────────────────────────────────
+
+             INFORMATIONS PERSONNELLES
+
+Nom : <?= htmlspecialchars($user['nom']) ?>
+Prénom : <?= htmlspecialchars($user['prenom']) ?>
+Date de naissance : <?= htmlspecialchars($user['date_naissance']) ?>
+Ville : <?= htmlspecialchars($user['ville']) ?>
+
+────────────────────────────────────────────────────────────
+    </pre>
+
+    <div style="display:flex; flex-direction:column; gap:10px; margin-top:10px;">
+
+        <a href="modifier_profil.php" style="padding:10px; background:#3b82f6; border-radius:8px; text-align:center;">
+            Modifier le profil
+        </a>
+
+        <a href="changer_mot_de_passe.php" style="padding:10px; background:#f59e0b; border-radius:8px; text-align:center;">
+            Changer le mot de passe
+        </a>
+
+        <a href="logout.php" style="padding:10px; background:#ef4444; border-radius:8px; text-align:center;">
+            Déconnexion
+        </a>
+
+    </div>
+
+</div>
 
     <div class="grid">
 
