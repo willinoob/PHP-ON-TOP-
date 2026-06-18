@@ -4,7 +4,7 @@ session_start();
 $redirect = $_GET['redirect'] ?? $_POST['redirect'] ?? '';
 $id_anno_redirect = isset($_GET['id_anno']) ? (int) $_GET['id_anno'] : (int) ($_POST['id_anno'] ?? 0);
 
-$conn = mysqli_connect('localhost', 'root', 'root', 'bd_blogmoteur');
+$conn = mysqli_connect('localhost', 'root', '', 'bd_blogmoteur');
 $erreur = null;
 
 if (!$conn) {

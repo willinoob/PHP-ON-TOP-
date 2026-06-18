@@ -58,19 +58,19 @@ blogmoteur_annonces/
 
 | Fonctionnalité | Statut |
 |----------------|--------|
-| F6 — Liste annonces | ✅ Fait |
-| F7 — Détail annonce + compteur vues | ✅ Fait |
-| F8 — Filtres (catégorie, prix max) | ✅ Fait (Omar) |
-| F9 — Favoris (toggle + page) | ✅ Fait (Omar) |
-| F2 — Connexion sécurisée | ✅ Fait |
-| F3 — Création annonce + upload photo | ✅ Fait |
-| Nav dynamique (header) | ✅ Fait |
-| F4 — Modification annonce | ⏳ À faire |
-| Inscription (`inscription_blogmoteur.php`) | ✅ Fait |
-| Messagerie (`messages.php` + `envoyer.php`) | ✅ Fait (William) |
-| Contact vendeur (détail → connexion → messages) | ✅ Fait |
-| Mon compte (`mon_compte.php`) | ⏳ Affiche le nom, reste à développer |
-| Barre de recherche AJAX | ⏳ Bonus — non implémenté |
+| F6 — Liste annonces | ✅ |
+| F7 — Détail annonce + compteur vues | ✅ |
+| F8 — Filtres (catégorie, prix max) | ✅ |
+| F9 — Favoris (toggle + page) | ✅ |
+| F2 — Connexion sécurisée | ✅ |
+| F3 — Création annonce + upload photo | ✅ |
+| Nav dynamique (header) | ✅ |
+| F4 — Modification annonce |  |
+| Inscription (`inscription_blogmoteur.php`) | ✅ |
+| Messagerie (`messages.php` + `envoyer.php`) | ✅ |
+| Contact vendeur (détail → connexion → messages) | ✅ |
+| Mon compte (`mon_compte.php`) |  |
+| Barre de recherche AJAX |  |
 
 **Note technique :** `detail_annonce.php` simule encore `id_user = 1` (Alice) si l’utilisateur n’est pas connecté, pour tester le bouton favori. Les pages `favoris.php`, `formulaire_creation_annonces.php`, `messages.php` et `mon_compte.php` exigent une vraie session.
 

@@ -789,6 +789,56 @@ a.btn-valider:hover {
     margin-top: 0.25rem;
 }
 
+/* ── Mon compte ───────────────────────────────────────── */
+
+.compte-profil {
+    margin-bottom: 1.5rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--lbm-surface);
+    border-radius: var(--lbm-radius);
+    border: 1px solid var(--lbm-border);
+}
+
+.compte-profil__nom {
+    margin: 0 0 0.25rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--lbm-navy);
+}
+
+.compte-profil__email {
+    margin: 0;
+    color: var(--lbm-muted);
+}
+
+.compte-stats .compte-stat {
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.compte-stat h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--lbm-navy);
+}
+
+.compte-stat__chiffre {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--lbm-copper);
+}
+
+.compte-stat--passif {
+    cursor: default;
+}
+
+.compte-stat--passif:hover {
+    transform: none;
+}
+
 /* ── Page détail annonce ──────────────────────────────── */
 
 .detail-contenu {

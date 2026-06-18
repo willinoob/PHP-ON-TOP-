@@ -38,7 +38,7 @@
 */
 session_start();
 
-$connexion = mysqli_connect("localhost", "root", "root", "bd_blogmoteur");
+$connexion = mysqli_connect("localhost", "root", "", "bd_blogmoteur");
 
 $id_anno = $_GET['id_anno'];
 

@@ -18,7 +18,7 @@ $photos = [];
 if ($id_anno <= 0) {
     $erreur = 'Identifiant annonce invalide.';
 } else {
-    $conn = mysqli_connect('localhost', 'root', 'root', 'bd_blogmoteur');
+    $conn = mysqli_connect('localhost', 'root', '', 'bd_blogmoteur');
 
     if (!$conn) {
         $erreur = 'Erreur connexion : ' . mysqli_connect_error();

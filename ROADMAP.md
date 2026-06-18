@@ -13,6 +13,7 @@ Chaque membre choisit une tâche, note son nom dans **Assigné à**, prévient l
 | Liste annonces (F6) | `page_annonces.php` |
 | Détail annonce (F7) + compteur de vues | `detail_annonce.php` |
 | Filtres catégorie / prix (F8) | `form-filtres.php`, `filtres-where.php` |
+| Amélioration formulaire de filtrage (F2) | `form-filtres.php`, `filtres-where.php`, `assets/css/site.css` |
 | Favoris (F9) | `favoris.php`, `toggle-favori.php` |
 | Connexion / déconnexion (F2) | `connexion.php`, `deconnexion.php` |
 | Inscription | `inscription_blogmoteur.php` |
@@ -33,7 +34,7 @@ Chaque membre choisit une tâche, note son nom dans **Assigné à**, prévient l
 | **D2** | Règle propriétaire sur la fiche détail | Sur **sa propre annonce**, masquer les actions acheteur (contact et favori) | `detail_annonce.php` | | ✅ |
 | **D3** | Compresser les images à l’upload | Réduire le poids des photos uploadées pour ne pas ralentir le site | `formulaire_creation_annonces.php` | | ✅ |
 | **N1** | « Mes annonces » dans la nav | Lien visible si connecté → liste des annonces postées par l’utilisateur | `includes/header.php`, `mes_annonces.php` (à créer) | | ✅ |
-| **F2** | Amélioration du formulaire de filtrage | Améliorer UX/UI des filtres (champs, alignement, responsive, lisibilité) | `form-filtres.php`, `assets/css/site.css` | | ⬜ |
+| **F2** | Amélioration du formulaire de filtrage | Améliorer UX/UI des filtres (champs, alignement, responsive, lisibilité) | `form-filtres.php`, `assets/css/site.css` | Omar | ✅ |
 | **C1** | Mon compte — modifier le profil | Modifier nom, prénom, email, téléphone (champ pas présent à l’inscription) | `mon_compte.php` | | ⬜ |
 | **C2** | Supprimer une annonce | Supprimer **ses** annonces depuis Mon compte ou Mes annonces | `mon_compte.php` ou `mes_annonces.php` | | ⬜ |
 | **C3** | Modifier une annonce (F4) | Formulaire pour éditer une annonce existante | `formulaire_modification_annonces.php` | | ✅ |

@@ -4,7 +4,7 @@ session_start();
 require_once __DIR__ . '/includes/photos.php';
 
 // 1) Connexion MySQL (XAMPP : user root, mot de passe vide)
-$conn = mysqli_connect('localhost', 'root', 'root', 'bd_blogmoteur');
+$conn = mysqli_connect('localhost', 'root', '', 'bd_blogmoteur');
 $sql_injection = '';
 $exclure_mes_annonces = '';
 
@@ -37,7 +37,7 @@ if ($conn) {
     <div class="grille">
 <?php
 if (!$conn) {
-    echo '<p class="erreur">Erreur de connexion : ' . htmlspecialchars(mysqli_connect_error()) . '</p>';
+    echo '<p class="erreur">Erreur de connexion MySQL. Vérifiez que MySQL est démarré dans XAMPP (bouton vert), puis rechargez la page.</p>';
 } else {
     // 2) Requête : annonce + catégorie + 1ère photo (ordre = 1) + filtres Omar
     $sql = "SELECT a.id_anno, a.titre, a.prix, a.description, a.localisation,

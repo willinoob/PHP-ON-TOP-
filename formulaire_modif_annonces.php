@@ -22,7 +22,7 @@ if (!isset($_GET['id_anno']) || (int) $_GET['id_anno'] <= 0) {
 $id_anno = (int) $_GET['id_anno'];
 
 // Connexion à la base de données
-$conn = mysqli_connect('localhost', 'root', 'root', 'bd_blogmoteur');
+$conn = mysqli_connect('localhost', 'root', '', 'bd_blogmoteur');
 
 $erreur = null;
 $succes = false;
