@@ -22,7 +22,7 @@ if (!isset($_GET['id_anno']) || (int) $_GET['id_anno'] <= 0) {
 $id_anno = (int) $_GET['id_anno'];
 
 // Connexion à la base de données
-$conn = mysqli_connect('localhost', 'root', 'root', 'bd_blogmoteur');
+$conn = mysqli_connect('localhost', 'root', '', 'bd_blogmoteur');
 
 $erreur = null;
 $succes = false;
@@ -103,7 +103,7 @@ if ($conn) {
             } else {
                 mysqli_stmt_bind_param(
                     $stmt_update,
-                    'isdsssiisssssii',
+                    'isdsssiisssssii', // même logique que création + id annonce et id user à la fin
                     $id_cat,
                     $titre,
                     $prix,
@@ -205,12 +205,12 @@ function val($annonce, $champ) {
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <?php include __DIR__ . '/includes/favicon.php'; ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifier l'annonce — Le Blog Moteur</title>
     <!-- Feuille de style principale du site -->
-    <link rel="stylesheet" href="assets/css/site.css">
-    <!-- Feuille de style spécifique à ce formulaire -->
-    <link rel="stylesheet" href="style_formulaire_modif.css">
+    <link rel="stylesheet" href="assets/css/base.css?v=<?= filemtime(__DIR__ . '/assets/css/base.css') ?>">
+    <link rel="stylesheet" href="assets/css/formulaire_modif_annonces.css?v=<?= filemtime(__DIR__ . '/assets/css/formulaire_modif_annonces.css') ?>">
 </head>
 <body>
 
@@ -311,6 +311,7 @@ function val($annonce, $champ) {
                         <option value="essence"    <?= $annonce['carburant'] === 'essence'    ? 'selected' : '' ?>>Essence</option>
                         <option value="diesel"     <?= $annonce['carburant'] === 'diesel'     ? 'selected' : '' ?>>Diesel</option>
                         <option value="electrique" <?= $annonce['carburant'] === 'electrique' ? 'selected' : '' ?>>Électrique</option>
+                        <option value="hybride"    <?= $annonce['carburant'] === 'hybride'    ? 'selected' : '' ?>>Hybride</option>
                     </select>
                 </div>
 
@@ -361,11 +362,10 @@ function val($annonce, $champ) {
             <div class="form-modif__groupe">
                 <label for="photo">Remplacer la photo</label>
                 <input type="file" name="photo" id="photo" accept="image/jpeg,image/png,image/webp">
-                <small class="form-modif__aide">Laissez vide pour conserver la photo actuelle. Max 5 Mo — optimisée automatiquement.</small>
             </div>
 
             <!-- Boutons d'action -->
-            <div class="form-modif__actions">
+            <div class="form-annonce__actions form-modif__actions">
                 <button type="submit" name="valider" class="btn-valider">Enregistrer</button>
                 <a href="detail_annonce.php?id_anno=<?= $id_anno ?>" class="btn-annuler">Annuler</a>
             </div>

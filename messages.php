@@ -1,23 +1,15 @@
 <?php
-// ======================
-// SESSION
-// ======================
+/**
+ * Messagerie (William) — liste des conversations + fil de messages par annonce.
+ */
 session_start();
 
-
-// ======================
-// CONNEXION BDD
-// ======================
-$id = mysqli_connect("localhost", "root", "root", "bd_blogmoteur");
+$id = mysqli_connect("localhost", "root", "", "bd_blogmoteur");
 
 if (!$id) {
     die("Erreur connexion");
 }
 
-
-// ======================
-// UTILISATEUR CONNECTÉ
-// ======================
 if (!isset($_SESSION['id_user'])) {
     header("Location: connexion.php");
     exit;
@@ -25,10 +17,7 @@ if (!isset($_SESSION['id_user'])) {
 
 $id_user = $_SESSION['id_user'];
 
-
-// ======================
-// PARAMÈTRES URL
-// ======================
+// Conversation choisie dans l'URL (?id_anno=…&id_destinataire=…)
 $id_anno = (int)($_GET['id_anno'] ?? 0);
 $id_destinataire = (int)($_GET['id_destinataire'] ?? 0);
 
@@ -78,10 +67,12 @@ if ($id_anno != 0) {
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <?php include __DIR__ . '/includes/favicon.php'; ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Messagerie</title>
 
-    <link rel="stylesheet" href="assets/css/site.css">
+    <link rel="stylesheet" href="assets/css/base.css?v=<?= filemtime(__DIR__ . '/assets/css/base.css') ?>">
+    <link rel="stylesheet" href="assets/css/messages.css?v=<?= filemtime(__DIR__ . '/assets/css/messages.css') ?>">
 </head>
 
 <body>
@@ -105,9 +96,7 @@ if ($id_anno != 0) {
 
             <?php
 
-            // ======================
-            // LISTE DES CONVERSATIONS
-            // ======================
+            // Liste des personnes avec qui on a échangé (expéditeur OU destinataire)
             $requete = "
             SELECT DISTINCT
                 u.id_user,
@@ -184,13 +173,10 @@ if ($id_anno != 0) {
 
             <?php
 
-            // ======================
-            // MESSAGES FILTRÉS (IMPORTANT)
-            // ======================
             if ($id_anno != 0 && $id_destinataire != 0) {
 
-                $requete = "
-                SELECT *
+                // Messages entre moi et l'autre personne, pour cette annonce précise
+                $requete = "                SELECT *
                 FROM messages
                 WHERE id_anno='$id_anno'
                 AND
@@ -214,6 +200,7 @@ if ($id_anno != 0) {
 
                     while ($msg = mysqli_fetch_assoc($resultat)) {
 
+                        // Bulle à droite si c'est moi, à gauche si c'est l'autre
                         $moi = ($msg['id_expediteur'] == $id_user);
                         $classe = $moi ? "messagerie__bulle--moi" : "messagerie__bulle--autre";
             ?>

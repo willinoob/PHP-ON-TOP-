@@ -1,0 +1,69 @@
+/* ============================================================
+   MES_ANNONCES.CSS — Page Mes annonces
+   (importe page_annonces.css pour les cartes)
+   ============================================================ */
+@import url('page_annonces.css');
+
+.mes-annonces__intro {
+    margin: -0.75rem 0 1.25rem;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.95rem;
+}
+
+.mes-annonces__grille {
+    margin-top: 0;
+}
+
+/* Carte sans lien cliquable (pas toute la carte = lien) */
+.carte--sans-lien {
+    cursor: default;
+}
+
+.carte--sans-lien .meta {
+    margin-bottom: 0.5rem;
+}
+
+/* 2 boutons côte à côte : Modifier | Supprimer */
+.carte__actions {
+    padding: 0 1rem 1rem;
+    margin-top: 0.25rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    align-items: stretch;
+}
+
+.carte__actions .btn-valider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 0.55rem 0.5rem;
+    font-size: 0.85rem;
+}
+
+.carte__form-supprimer {
+    margin: 0;
+    display: flex;
+    width: 100%;
+}
+
+.btn-supprimer {
+    width: 100%;
+    flex: 1;
+    background: #dc2626;
+    color: #fff;
+    border: none;
+    padding: 0.55rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    font-family: inherit;
+}
+
+.btn-supprimer:hover {
+    background: #b91c1c;
+}

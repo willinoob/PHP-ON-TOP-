@@ -1,8 +1,11 @@
 <?php
-// Connexion à la base de données standard (identique au cours)
-$id = mysqli_connect('localhost', 'root', 'root', 'bd_blogmoteur');
+/**
+ * F8 (Omar) — Formulaire HTML des filtres (inclus dans page_annonces.php).
+ * Ouvre sa propre connexion MySQL pour remplir la liste des catégories.
+ */
+$id = mysqli_connect('localhost', 'root', '', 'bd_blogmoteur');
 
-// On garde en mémoire les choix de l'utilisateur
+// On mémorise les choix de l'utilisateur pour les réafficher après filtrage
 $categorie_selectionnee = isset($_GET['categorie']) ? $_GET['categorie'] : '';
 $carburant_selectionne = isset($_GET['carburant']) ? $_GET['carburant'] : '';
 ?>
@@ -18,7 +21,7 @@ $carburant_selectionne = isset($_GET['carburant']) ? $_GET['carburant'] : '';
                 $req_cats = 'SELECT * FROM categories ORDER BY nom ASC';
                 $res_cats = mysqli_query($id, $req_cats);
                 while ($ligne = mysqli_fetch_assoc($res_cats)) {
-                    $selected = ($ligne['id_cat'] == $categorie_selectionnee) ? 'selected' : '';
+                    $selected = ($ligne['id_cat'] == $categorie_selectionnee) ? 'selected' : ''; // garder l'option cochée
                     echo "<option value='" . $ligne['id_cat'] . "' " . $selected . '>' . htmlspecialchars($ligne['nom']) . '</option>';
                 }
                 ?>
@@ -75,6 +78,7 @@ $carburant_selectionne = isset($_GET['carburant']) ? $_GET['carburant'] : '';
         <button type="submit" class="btn-recherche">🔍</button>
 
         <?php if (!empty($_GET['categorie']) || !empty($_GET['marque']) || !empty($_GET['prix_max']) || !empty($_GET['km_max']) || !empty($_GET['carburant']) || !empty($_GET['ville'])): ?>
+            <!-- Bouton réinitialiser : visible seulement si au moins un filtre est actif -->
             <a href="page_annonces.php" class="btn-annuler">❌</a>
         <?php endif; ?>
 

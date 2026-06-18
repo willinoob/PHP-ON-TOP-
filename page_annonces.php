@@ -1,14 +1,18 @@
 <?php
+/**
+ * F6 — Liste des annonces avec filtres (Omar) et cartes cliquables.
+ */
 session_start();
 
 require_once __DIR__ . '/includes/photos.php';
 
 // 1) Connexion MySQL (XAMPP : user root, mot de passe vide)
-$conn = mysqli_connect('localhost', 'root', 'root', 'bd_blogmoteur');
+$conn = mysqli_connect('localhost', 'root', '', 'bd_blogmoteur');
 $sql_injection = '';
 $exclure_mes_annonces = '';
 
 if (isset($_SESSION['id_user'])) {
+    // On cache nos propres annonces dans la liste publique (on les voit dans Mes annonces)
     $exclure_mes_annonces = ' AND a.id_user != ' . (int) $_SESSION['id_user'];
 }
 
@@ -21,9 +25,11 @@ if ($conn) {
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <?php include __DIR__ . '/includes/favicon.php'; ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liste des annonces — Le Blog Moteur</title>
-    <link rel="stylesheet" href="assets/css/site.css">
+    <link rel="stylesheet" href="assets/css/base.css?v=<?= filemtime(__DIR__ . '/assets/css/base.css') ?>">
+    <link rel="stylesheet" href="assets/css/page_annonces.css?v=<?= filemtime(__DIR__ . '/assets/css/page_annonces.css') ?>">
 </head>
 <body>
 
@@ -39,7 +45,7 @@ if ($conn) {
 if (!$conn) {
     echo '<p class="erreur">Erreur de connexion MySQL. Vérifiez que MySQL est démarré dans XAMPP (bouton vert), puis rechargez la page.</p>';
 } else {
-    // 2) Requête : annonce + catégorie + 1ère photo (ordre = 1) + filtres Omar
+    // LEFT JOIN photos : on récupère la 1ère photo (ordre = 1), même si l'annonce n'en a pas
     $sql = "SELECT a.id_anno, a.titre, a.prix, a.description, a.localisation,
                    c.nom AS categorie, p.chemin
             FROM annonces a
@@ -47,6 +53,7 @@ if (!$conn) {
             LEFT JOIN photos p ON p.id_anno = a.id_anno AND p.ordre = 1
             WHERE 1=1" . $sql_injection . $exclure_mes_annonces . "
             ORDER BY a.created_at DESC";
+    // $sql_injection est construit dans filtres-where.php à partir des filtres GET
 
     $result = mysqli_query($conn, $sql);
 
@@ -58,7 +65,7 @@ if (!$conn) {
         // 3) Une ligne SQL = une carte
         while ($ligne = mysqli_fetch_assoc($result)) {
             $idAnno = (int) $ligne['id_anno'];
-            $img = chemin_photo_vignette($ligne['chemin']);
+            $img = chemin_photo_vignette($ligne['chemin']); // version _thumb si elle existe
 
             // Description courte sur la carte (pas tout le texte)
             $desc = $ligne['description'];

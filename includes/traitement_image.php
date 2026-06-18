@@ -1,4 +1,8 @@
 <?php
+/**
+ * Upload photos — redimensionnement, compression JPEG, création de vignette _thumb.
+ * Utilisé par formulaire_creation_annonces.php et formulaire_modif_annonces.php.
+ */
 
 const PHOTO_LARGEUR_MAX = 1600;
 const PHOTO_HAUTEUR_MAX = 1200;
@@ -20,6 +24,7 @@ function enregistrer_photo_upload(string $tmp_path, string $dossier_upload, stri
     }
 
     if (!is_uploaded_file($tmp_path)) {
+        // Sécurité : le fichier doit venir d'un vrai upload HTTP, pas d'un chemin local bidon
         return ['ok' => false, 'erreur' => 'Fichier uploadé invalide.'];
     }
 
@@ -40,6 +45,7 @@ function enregistrer_photo_upload(string $tmp_path, string $dossier_upload, stri
     $image = redimensionner_image($source['ressource'], $source['largeur'], $source['hauteur'], PHOTO_LARGEUR_MAX, PHOTO_HAUTEUR_MAX);
 
     $base = preg_replace('/[^a-zA-Z0-9._-]/', '_', pathinfo($nom_original, PATHINFO_FILENAME));
+    // Nom unique : timestamp + nom nettoyé (évite les espaces/accents dans uploads/)
     $nom_fichier = time() . '_' . $base . '.jpg';
     $chemin_complet = rtrim($dossier_upload, '/\\') . DIRECTORY_SEPARATOR . $nom_fichier;
 
@@ -135,6 +141,7 @@ function charger_image_depuis_fichier(string $chemin): ?array
 
 function redimensionner_image(\GdImage $source, int $largeur, int $hauteur, int $max_largeur, int $max_hauteur): \GdImage
 {
+    // ratio : si l'image est déjà petite, on ne l'agrandit pas (min(..., 1))
     $ratio = min($max_largeur / $largeur, $max_hauteur / $hauteur, 1);
     $nouvelle_largeur = max(1, (int) round($largeur * $ratio));
     $nouvelle_hauteur = max(1, (int) round($hauteur * $ratio));
@@ -144,6 +151,7 @@ function redimensionner_image(\GdImage $source, int $largeur, int $hauteur, int 
     }
 
     $destination = imagecreatetruecolor($nouvelle_largeur, $nouvelle_hauteur);
+    // imagecopyresampled : redimensionne proprement (anti pixelisation)
     imagecopyresampled(
         $destination,
         $source,
@@ -182,6 +190,7 @@ function enregistrer_vignette(\GdImage $source, string $chemin_vignette): void
 
 function chemin_fichier_vignette(string $chemin_fichier): string
 {
+    // photo.jpg → photo_thumb.jpg (même dossier)
     $extension = pathinfo($chemin_fichier, PATHINFO_EXTENSION);
 
     if ($extension === '') {

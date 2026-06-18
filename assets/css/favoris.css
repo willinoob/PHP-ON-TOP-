@@ -1,0 +1,67 @@
+/* ============================================================
+   FAVORIS.CSS — Tableau des annonces favorites (F9 Omar)
+   ============================================================ */
+
+.favoris-table-wrap {
+    background: var(--lbm-surface);
+    border: 1px solid var(--lbm-border);
+    border-radius: 10px;
+    overflow: hidden; /* Les coins arrondis coupent proprement le tableau */
+}
+
+.favoris-table {
+    width: 100%;
+    border-collapse: collapse; /* Une seule bordure entre les cellules */
+}
+
+.favoris-table th,
+.favoris-table td {
+    padding: 0.85rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--lbm-border);
+    color: var(--lbm-text);
+}
+
+.favoris-table th {
+    background: var(--lbm-navy);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--lbm-white);
+}
+
+.favoris-table td a {
+    color: var(--lbm-copper);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.favoris-table td a:hover {
+    text-decoration: underline;
+}
+
+.favoris-table__vide {
+    text-align: center;
+    color: #555;
+    padding: 2rem 1rem !important; /* !important pour garder l'espace même si d'autres règles existent */
+}
+
+.favoris-table__form {
+    margin: 0;
+}
+
+.favoris-table__btn-retirer {
+    background: transparent;
+    color: var(--lbm-copper);
+    border: 1px solid var(--lbm-copper);
+    padding: 0.4rem 0.85rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.favoris-table__btn-retirer:hover {
+    background: var(--lbm-copper);
+    color: var(--lbm-white);
+}

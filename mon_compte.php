@@ -1,207 +1,132 @@
+<?php
+/**
+ * Mon compte — profil + statistiques (annonces, favoris, messages, vues).
+ */
+session_start();
 
+if (!isset($_SESSION['id_user'])) {
+    header('Location: connexion.php');
+    exit;
+}
+
+$id_user = (int) $_SESSION['id_user'];
+
+$conn = mysqli_connect('localhost', 'root', '', 'bd_blogmoteur');
+$erreur = null;
+$user = null;
+$annonces = 0;
+$favoris = 0;
+$messages = 0;
+$vues = 0;
+
+if (!$conn) {
+    $erreur = 'Erreur de connexion : ' . mysqli_connect_error();
+} else {
+    $sqlUser = 'SELECT * FROM users WHERE id_user = ' . $id_user;
+    $userResult = mysqli_query($conn, $sqlUser);
+
+    if (!$userResult) {
+        $erreur = 'Erreur SQL : ' . mysqli_error($conn);
+    } else {
+        $user = mysqli_fetch_assoc($userResult);
+
+        if (!$user) {
+            $erreur = 'Utilisateur introuvable.';
+        } else {
+            // Petites requêtes COUNT / SUM pour les chiffres des cartes en bas
+            $annonces = (int) mysqli_fetch_assoc(mysqli_query(
+                $conn,
+                'SELECT COUNT(*) AS total FROM annonces WHERE id_user = ' . $id_user
+            ))['total'];
+
+            $favoris = (int) mysqli_fetch_assoc(mysqli_query(
+                $conn,
+                'SELECT COUNT(*) AS total FROM favoris WHERE id_user = ' . $id_user
+            ))['total'];
+
+            $messages = (int) mysqli_fetch_assoc(mysqli_query(
+                $conn,
+                'SELECT COUNT(*) AS total FROM messages WHERE id_destinataire = ' . $id_user
+            ))['total'];
+
+            $vuesRow = mysqli_fetch_assoc(mysqli_query(
+                $conn,
+                'SELECT SUM(vues) AS total FROM annonces WHERE id_user = ' . $id_user
+            ));
+            // ?? 0 : si l'utilisateur n'a pas d'annonce, SUM renvoie NULL
+            $vues = (int) ($vuesRow['total'] ?? 0);
+        }
+    }
+
+    mysqli_close($conn);
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <?php include __DIR__ . '/includes/favicon.php'; ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mon compte — Le Blog Moteur</title>
-    <link rel="stylesheet" href="assets/css/site.css">
+    <link rel="stylesheet" href="assets/css/base.css?v=<?= filemtime(__DIR__ . '/assets/css/base.css') ?>">
+    <link rel="stylesheet" href="assets/css/mon_compte.css?v=<?= filemtime(__DIR__ . '/assets/css/mon_compte.css') ?>">
 </head>
 <body>
 
 <?php include __DIR__ . '/includes/header.php'; ?>
 
-<?php
+<main class="site-main">
+    <h1>Mon compte</h1>
 
+    <?php if ($erreur !== null): ?>
+        <p class="erreur"><?= htmlspecialchars($erreur) ?></p>
+    <?php else: ?>
 
-if (!isset($_SESSION['id_user'])) {
-    header("Location: connexion.php");
-    exit();
-}
+        <div class="compte-profil">
+            <p class="compte-profil__nom">
+                <?= htmlspecialchars($user['prenom']) ?> <?= htmlspecialchars($user['nom']) ?>
+            </p>
+            <p class="compte-profil__email"><?= htmlspecialchars($user['email']) ?></p>
 
-<<<<<<< HEAD
-$conn = mysqli_connect("localhost", "root", "", "bd_blogmoteur");
-=======
-$conn = mysqli_connect("localhost", "root", "root", "bd_blogmoteur");
->>>>>>> 52e0234f0c9b9d40d3bc3cecba6ef867adab2bea
+            <dl class="compte-profil__details">
+                <dt>Nom</dt>
+                <dd><?= htmlspecialchars($user['nom']) ?></dd>
+                <dt>Prénom</dt>
+                <dd><?= htmlspecialchars($user['prenom']) ?></dd>
+                <dt>Email</dt>
+                <dd><?= htmlspecialchars($user['email']) ?></dd>
+            </dl>
 
-if (!$conn) {
-    die("Connexion BDD échouée");
-}
-
-$id_user = $_SESSION['id_user'];
-
-/* ---------------- USER ---------------- */
-$sqlUser = "SELECT * FROM users WHERE id_user = $id_user";
-$userResult = mysqli_query($conn, $sqlUser);
-$user = mysqli_fetch_assoc($userResult);
-
-/* ---------------- ANNONCES ---------------- */
-$sqlAnnonces = "SELECT COUNT(*) AS total FROM annonces WHERE id_user = $id_user";
-$annonces = mysqli_fetch_assoc(mysqli_query($conn, $sqlAnnonces))['total'];
-
-/* ---------------- FAVORIS ---------------- */
-$sqlFavoris = "SELECT COUNT(*) AS total FROM favoris WHERE id_user = $id_user";
-$favoris = mysqli_fetch_assoc(mysqli_query($conn, $sqlFavoris))['total'];
-
-/* ---------------- MESSAGES ---------------- */
-$sqlMessages = "SELECT COUNT(*) AS total FROM messages WHERE id_destinataire = $id_user";
-$messages = mysqli_fetch_assoc(mysqli_query($conn, $sqlMessages))['total'];
-
-/* ---------------- VUES TOTALES ---------------- */
-$sqlVues = "SELECT SUM(vues) AS total FROM annonces WHERE id_user = $id_user";
-$vues = mysqli_fetch_assoc(mysqli_query($conn, $sqlVues))['total'];
-if (!$vues) $vues = 0;
-?>
-
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<title>Profil</title>
-
-<style>
-body{
-    margin:0;
-    font-family:Arial;
-    background:#0b1220;
-    color:white;
-}
-
-.container{
-    padding:30px;
-}
-
-.header{
-    background:#1e293b;
-    padding:20px;
-    border-radius:12px;
-    margin-bottom:20px;
-}
-
-.grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:15px;
-}
-
-.card{
-    background:#334155;
-    padding:20px;
-    border-radius:12px;
-    text-align:center;
-    transition:0.3s;
-    cursor:pointer;
-}
-
-.card:hover{
-    transform:translateY(-5px);
-    background:#475569;
-}
-
-a{
-    color:white;
-    text-decoration:none;
-}
-</style>
-
-</head>
-<body>
-
-<div class="container">
-
-    <div class="header">
-        <h2>👤 <?= htmlspecialchars($user['prenom']) ?> <?= htmlspecialchars($user['nom']) ?></h2>
-        <p><?= htmlspecialchars($user['email']) ?></p>
-    </div>
-    <div class="header">
-
-<<<<<<< HEAD
-    <h2>👤 <?= htmlspecialchars($user['prenom']) ?> <?= htmlspecialchars($user['nom']) ?></h2>
-    <p><?= htmlspecialchars($user['email']) ?></p>
-=======
-    
->>>>>>> 52e0234f0c9b9d40d3bc3cecba6ef867adab2bea
-
-    <br>
-<div style="background:#0f172a; padding:20px; border-radius:12px; margin-top:15px; border:1px solid #334155;">
-
-    <h3 style="color:#f1f5f9; margin-bottom:15px; letter-spacing:1px;">
-        INFORMATIONS PERSONNELLES
-    </h3>
-
-    <div style="display:flex; flex-direction:column; gap:8px; color:#cbd5e1; font-size:15px;">
-
-        <div>
-            <strong style="color:#94a3b8;">Nom :</strong>
-            <?= htmlspecialchars($user['nom']) ?>
-        </div>
-
-        <div>
-            <strong style="color:#94a3b8;">Prénom :</strong>
-            <?= htmlspecialchars($user['prenom']) ?>
-        </div>
-
-<<<<<<< HEAD
-=======
-         <div>
-            <strong style="color:#94a3b8;">Email :</strong>
-            <?= htmlspecialchars($user['email']) ?>
-        </div>
-
->>>>>>> 52e0234f0c9b9d40d3bc3cecba6ef867adab2bea
-    </div>
-
-</div>
-    <div style="display:flex; flex-direction:column; gap:10px; margin-top:10px;">
-
-        <a href="modifier_profil.php" style="padding:10px; background:#3b82f6; border-radius:8px; text-align:center;">
-            Modifier le profil
-        </a>
-
-        <a href="changer_mot_de_passe.php" style="padding:10px; background:#f59e0b; border-radius:8px; text-align:center;">
-            Changer le mot de passe
-        </a>
-
-
-    </div>
-
-</div>
-
-    <div class="grid">
-
-        <a href="mes_annonces.php">
-            <div class="card">
-                <h3>Annonces</h3>
-                <p><?= $annonces ?></p>
+            <div class="compte-profil__actions">
+                <a href="modifier_profil.php" class="btn-valider">Modifier le profil</a>
+                <a href="changer_mot_de_passe.php" class="btn-valider compte-profil__btn--outline">Changer le mot de passe</a>
             </div>
-        </a>
-
-        <a href="favoris.php">
-            <div class="card">
-                <h3>Favoris</h3>
-                <p><?= $favoris ?></p>
-            </div>
-        </a>
-
-        <a href="messages.php">
-            <div class="card">
-                <h3>Messages</h3>
-                <p><?= $messages ?></p>
-            </div>
-        </a>
-
-        <div class="card">
-            <h3>Vues totales</h3>
-            <p><?= $vues ?></p>
         </div>
 
-    </div>
+        <div class="grille compte-stats">
+            <a href="mes_annonces.php" class="carte compte-stat">
+                <h2>Annonces</h2>
+                <p class="compte-stat__chiffre"><?= $annonces ?></p>
+            </a>
 
-</div>
+            <a href="favoris.php" class="carte compte-stat">
+                <h2>Favoris</h2>
+                <p class="compte-stat__chiffre"><?= $favoris ?></p>
+            </a>
 
-</body>
-</html>
+            <a href="messages.php" class="carte compte-stat">
+                <h2>Messages</h2>
+                <p class="compte-stat__chiffre"><?= $messages ?></p>
+            </a>
+
+            <div class="carte compte-stat compte-stat--passif">
+                <h2>Vues totales</h2>
+                <p class="compte-stat__chiffre"><?= $vues ?></p>
+            </div>
+        </div>
+
+    <?php endif; ?>
+</main>
 
 <?php include __DIR__ . '/includes/footer.php'; ?>
 

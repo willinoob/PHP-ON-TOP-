@@ -1,4 +1,7 @@
 <?php
+/**
+ * Header commun — navigation dynamique selon que l'utilisateur est connecté ou non.
+ */
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -19,6 +22,7 @@ $utilisateur_connecte = isset($_SESSION['id_user']);
                 <span class="site-nav__sep" aria-hidden="true"></span>
                 <a href="mon_compte.php" class="site-nav__link">Mon compte</a>
                 <?php if (isset($_SESSION['role_user']) && (int) $_SESSION['role_user'] === 1): ?>
+                    <!-- role_user = 1 en base → compte administrateur -->
                     <a href="pageadmin.php" class="site-nav__link">Admin</a>
                 <?php endif; ?>
                 <a href="deconnexion.php" class="site-nav__link site-nav__link--secondaire">Déconnexion</a>

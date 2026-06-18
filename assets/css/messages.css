@@ -1,0 +1,221 @@
+/* ============================================================
+   MESSAGES.CSS — Messagerie type chat (William)
+   ============================================================ */
+
+.site-main--messagerie h1 {
+    margin-bottom: 1rem;
+}
+
+/* Layout 2 colonnes : liste des conversations | zone de chat */
+.messagerie {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 1rem;
+    min-height: 520px;
+    background: var(--lbm-surface);
+    border: 1px solid var(--lbm-border);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.messagerie__sidebar {
+    background: var(--lbm-navy);
+    border-right: 1px solid var(--lbm-navy-dark);
+    display: flex;
+    flex-direction: column;
+}
+
+.messagerie__sidebar-header {
+    padding: 1rem;
+    border-bottom: 1px solid var(--lbm-border);
+}
+
+.messagerie__sidebar-header h2 {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--lbm-white);
+}
+
+.messagerie__sidebar .messagerie__item-nom {
+    color: var(--lbm-white);
+}
+
+.messagerie__sidebar .messagerie__vide {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.messagerie__liste {
+    flex: 1;
+    overflow-y: auto; /* Scroll si beaucoup de conversations */
+    padding: 0.5rem;
+}
+
+.messagerie__item {
+    display: block;
+    padding: 0.75rem;
+    border-radius: 8px;
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 0.35rem;
+    border: 1px solid transparent;
+}
+
+.messagerie__sidebar .messagerie__item:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--lbm-white);
+}
+
+/* Conversation sélectionnée dans la liste */
+.messagerie__sidebar .messagerie__item--active {
+    background: var(--lbm-white);
+    border-color: var(--lbm-white);
+}
+
+.messagerie__sidebar .messagerie__item--active .messagerie__item-nom {
+    color: var(--lbm-navy);
+}
+
+.messagerie__item-nom {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--lbm-text);
+}
+
+.messagerie__vide {
+    color: #666;
+    font-size: 0.9rem;
+    padding: 1rem;
+    margin: 0;
+}
+
+/* Colonne droite : header + messages + formulaire d'envoi */
+.messagerie__chat {
+    display: flex;
+    flex-direction: column;
+    min-height: 520px;
+}
+
+.messagerie__chat-header {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--lbm-border);
+}
+
+.messagerie__chat-header h3 {
+    margin: 0 0 0.25rem;
+    font-size: 1rem;
+}
+
+.messagerie__annonce {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.messagerie__messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    background: var(--lbm-surface-2);
+}
+
+.messagerie__bulle {
+    max-width: 75%;
+    padding: 0.65rem 0.9rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+}
+
+/* Mes messages à droite, fond cuivre */
+.messagerie__bulle--moi {
+    align-self: flex-end;
+    background: var(--lbm-copper);
+    color: var(--lbm-white);
+}
+
+/* Messages reçus à gauche, fond blanc */
+.messagerie__bulle--autre {
+    align-self: flex-start;
+    background: var(--lbm-white);
+    border: 1px solid var(--lbm-border);
+    color: var(--lbm-text);
+}
+
+.messagerie__texte {
+    margin: 0 0 0.35rem;
+    word-break: break-word; /* Coupe les longs mots/liens sans casser la bulle */
+}
+
+.messagerie__heure {
+    font-size: 0.7rem;
+    opacity: 0.75;
+}
+
+.messagerie__bulle--moi .messagerie__heure {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.messagerie__form {
+    display: flex;
+    gap: 0.5rem;
+    padding: 1rem 1.25rem;
+    border-top: 1px solid var(--lbm-border);
+    background: var(--lbm-surface);
+}
+
+.messagerie__input {
+    flex: 1; /* Le champ texte prend toute la place, le bouton reste à droite */
+    padding: 0.65rem 0.85rem;
+    border: 1px solid var(--lbm-border);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    background: var(--lbm-white);
+    color: var(--lbm-text);
+}
+
+.messagerie__input:focus {
+    outline: none;
+    border-color: var(--lbm-copper);
+}
+
+.messagerie__envoyer {
+    padding: 0.65rem 1.25rem;
+    background: var(--lbm-copper);
+    color: var(--lbm-white);
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.messagerie__envoyer:hover {
+    background: var(--lbm-copper-dark);
+}
+
+.messagerie__chat-vide {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    color: #666;
+    text-align: center;
+}
+
+/* Mobile : une seule colonne, la liste passe au-dessus du chat */
+@media (max-width: 768px) {
+    .messagerie {
+        grid-template-columns: 1fr;
+    }
+
+    .messagerie__sidebar {
+        border-right: none;
+        border-bottom: 1px solid var(--lbm-border);
+        max-height: 200px;
+    }
+}
