@@ -51,9 +51,34 @@ if ($conn && isset($_POST['connexion'])) {
     }
 }
 
+
+
+if ($user && password_verify($mdp, $user['password'])) { 
+    $_SESSION['id_user'] = (int) $user['id_user'];
+    $_SESSION['prenom']  = $user['prenom'];
+    $_SESSION['nom']     = $user['nom'];
+
+    // Si c'est l'admin (id_user = 1), on redirige vers la page admin
+    if ($_SESSION['id_user'] === 1) {
+        header('Location: admin.php'); // nom à adapter selon la construction des autres 
+        exit;
+    }
+
+    if ($redirect === 'messages' && $id_anno_redirect > 0) {
+        header('Location: messages.php?id_anno=' . $id_anno_redirect);
+    } else {
+        header('Location: page_annonces.php');
+    }
+    exit;
+}
+
+
 if ($conn) {
     mysqli_close($conn);
 }
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
