@@ -112,8 +112,7 @@ a{
     </div>
     <div class="header">
 
-    <h2>👤 <?= htmlspecialchars($user['prenom']) ?> <?= htmlspecialchars($user['nom']) ?></h2>
-    <p><?= htmlspecialchars($user['email']) ?></p>
+    
 
     <br>
 <div style="background:#0f172a; padding:20px; border-radius:12px; margin-top:15px; border:1px solid #334155;">
@@ -132,6 +131,11 @@ a{
         <div>
             <strong style="color:#94a3b8;">Prénom :</strong>
             <?= htmlspecialchars($user['prenom']) ?>
+        </div>
+
+         <div>
+            <strong style="color:#94a3b8;">Email :</strong>
+            <?= htmlspecialchars($user['email']) ?>
         </div>
 
     </div>
