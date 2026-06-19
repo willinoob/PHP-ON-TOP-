@@ -3,7 +3,7 @@
 **Type :** site d'annonces de véhicules d'occasion (PHP + MySQL, sans framework)  
 **URL locale :** http://localhost/blogmoteur_annonces/page_annonces.php  
 **Base de données :** `bd_blogmoteur`  
-**Équipe :** Michel, Mehdi, William, Omar, Naomi
+**Équipe :** Michel, Mehdi, William, Omar, Naomie
 
 **Compte test :** `alice.test@blogmoteur.local` / `password`
 
@@ -22,13 +22,7 @@ et envoyer des messages concernant les annonces qui les intéresses .
 
 ---
 
-## 2. Stratégie de codage
 
-- **Un fichier `.php` = une page ou un traitement** (formulaire, redirection, action POST).
-- **`includes/`** : morceaux communs (header, footer, favicon, gestion des photos).
-- **`assets/css/`** : `base.css` (commun) + **un CSS par page** ; les petites pages réutilisent un CSS principal via `@import`.
-- **MySQL** avec `mysqli_connect('localhost', 'root', '', 'bd_blogmoteur')` sur chaque page concernée.
-- **Sessions PHP** (`$_SESSION['id_user']`, `$_SESSION['role_user']`) pour savoir qui est connecté.
 
 ### Sécurité (points clés)
 
@@ -40,7 +34,7 @@ et envoyer des messages concernant les annonces qui les intéresses .
 
 ---
 
-## 3. Répartition de l'équipe
+## . Répartition de l'équipe
 
 | Membre | Périmètre |
 |--------|-----------|
@@ -52,7 +46,7 @@ et envoyer des messages concernant les annonces qui les intéresses .
 
 ---
 
-## 4. Fichiers `.php` — rôle de chacun
+## . Fichiers `.php` — rôle de chacun
 
 ### Annonces et navigation
 
@@ -119,7 +113,7 @@ et envoyer des messages concernant les annonces qui les intéresses .
 
 ---
 
-## 5. Dossiers du projet
+## . Dossiers du projet
 
 ```
 blogmoteur_annonces/
@@ -178,7 +172,7 @@ Photos uploadées par les utilisateurs. Chaque photo génère aussi une vignette
 
 ---
 
-## 6. Fichiers `.sql` (dossier `sql/`)
+## . Fichiers `.sql` (dossier `sql/`)
 
 À exécuter dans **phpMyAdmin** (onglet SQL).
 
@@ -203,7 +197,7 @@ Photos uploadées par les utilisateurs. Chaque photo génère aussi une vignette
 
 ---
 
-## 7. Fonctions PHP importantes
+## . Fonctions PHP importantes
 
 ### `includes/photos.php`
 
@@ -232,7 +226,7 @@ Photos uploadées par les utilisateurs. Chaque photo génère aussi une vignette
 
 ---
 
-## 8. Installation (XAMPP)
+## . Installation (XAMPP)
 
 1. Copier le projet dans `C:\xampp\htdocs\blogmoteur_annonces`
 2. Démarrer Apache et MySQL
@@ -244,10 +238,5 @@ Connexion MySQL : `localhost`, user `root`, mot de passe **vide**.
 
 ---
 
-## 9. Non implémenté
-
-- **Recherche AJAX** (bonus) : la recherche passe par les filtres GET et le rechargement de page.
-
----
 
 *Le Blog Moteur — Documentation équipe, 2026.*
