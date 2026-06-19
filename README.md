@@ -40,7 +40,7 @@ et envoyer des messages concernant les annonces qui les intéresses .
 |--------|-----------|
 | **Michel** | Liste (F6), détail (F7), création annonce (F3), modification (F4), architecture CSS, mes annonces |
 | **Omar** | Filtres (F8), favoris (F9) |
-| **William** | Messagerie (`messages.php`, `envoyer.php`) , mon compte|
+| **William** | Messagerie (`messages.php`, `envoyer.php`) , 'mon compte'|
 | **Mehdi** | Honeypot inscription, contributions admin |
 | **Naomi** | — |
 
