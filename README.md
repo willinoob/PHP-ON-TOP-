@@ -43,9 +43,9 @@ Un visiteur peut **parcourir** et **filtrer** les annonces. Un utilisateur **con
 
 | Membre | Périmètre |
 |--------|-----------|
-| **Michel** | Liste (F6), détail (F7), création annonce (F3), modification (F4), architecture CSS, mon compte, mes annonces |
+| **Michel** | Liste (F6), détail (F7), création annonce (F3), modification (F4), architecture CSS, mes annonces |
 | **Omar** | Filtres (F8), favoris (F9) |
-| **William** | Messagerie (`messages.php`, `envoyer.php`) |
+| **William** | Messagerie (`messages.php`, `envoyer.php`) , mon compte|
 | **Mehdi** | Honeypot inscription, contributions admin |
 | **Naomi** | — |
 
