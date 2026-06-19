@@ -1,16 +1,18 @@
 <?php
+/**
+ * F6 — Liste des annonces avec filtres (Omar) et cartes cliquables.
+ */
 session_start();
 
 require_once __DIR__ . '/includes/photos.php';
 
 // 1) Connexion MySQL (XAMPP : user root, mot de passe vide)
-$conn = mysqli_connect('localhost', 'root', 'root', 'bd_blogmoteur');
+$conn = mysqli_connect('localhost', 'root', '', 'bd_blogmoteur');
 $sql_injection = '';
-$exclure_mes_annonces = '';
 
-if (isset($_SESSION['id_user'])) {
-    $exclure_mes_annonces = ' AND a.id_user != ' . (int) $_SESSION['id_user'];
-}
+// L'utilisateur connecté voit aussi ses propres annonces dans la liste publique,
+// avec un badge + les boutons Modifier / Supprimer (pour voir le rendu côté client).
+$id_user_connecte = isset($_SESSION['id_user']) ? (int) $_SESSION['id_user'] : 0;
 
 if ($conn) {
     // F8 (Omar) : construction des conditions SQL à partir des filtres GET
@@ -21,9 +23,11 @@ if ($conn) {
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <?php include __DIR__ . '/includes/favicon.php'; ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liste des annonces — Le Blog Moteur</title>
-    <link rel="stylesheet" href="assets/css/site.css">
+    <link rel="stylesheet" href="assets/css/base.css?v=<?= filemtime(__DIR__ . '/assets/css/base.css') ?>">
+    <link rel="stylesheet" href="assets/css/page_annonces.css?v=<?= filemtime(__DIR__ . '/assets/css/page_annonces.css') ?>">
 </head>
 <body>
 
@@ -39,14 +43,15 @@ if ($conn) {
 if (!$conn) {
     echo '<p class="erreur">Erreur de connexion MySQL. Vérifiez que MySQL est démarré dans XAMPP (bouton vert), puis rechargez la page.</p>';
 } else {
-    // 2) Requête : annonce + catégorie + 1ère photo (ordre = 1) + filtres Omar
-    $sql = "SELECT a.id_anno, a.titre, a.prix, a.description, a.localisation,
+    // LEFT JOIN photos : on récupère la 1ère photo (ordre = 1), même si l'annonce n'en a pas
+    $sql = "SELECT a.id_anno, a.id_user, a.titre, a.prix, a.description, a.localisation,
                    c.nom AS categorie, p.chemin
             FROM annonces a
             INNER JOIN categories c ON c.id_cat = a.id_cat
             LEFT JOIN photos p ON p.id_anno = a.id_anno AND p.ordre = 1
-            WHERE 1=1" . $sql_injection . $exclure_mes_annonces . "
+            WHERE 1=1" . $sql_injection . "
             ORDER BY a.created_at DESC";
+    // $sql_injection est construit dans filtres-where.php à partir des filtres GET
 
     $result = mysqli_query($conn, $sql);
 
@@ -58,7 +63,10 @@ if (!$conn) {
         // 3) Une ligne SQL = une carte
         while ($ligne = mysqli_fetch_assoc($result)) {
             $idAnno = (int) $ligne['id_anno'];
-            $img = chemin_photo_vignette($ligne['chemin']);
+            $img = chemin_photo_vignette($ligne['chemin']); // version _thumb si elle existe
+
+            // true si l'annonce appartient à l'utilisateur connecté
+            $est_proprietaire = $id_user_connecte > 0 && (int) $ligne['id_user'] === $id_user_connecte;
 
             // Description courte sur la carte (pas tout le texte)
             $desc = $ligne['description'];
@@ -66,7 +74,7 @@ if (!$conn) {
                 $desc = substr($desc, 0, 100) . '…';
             }
 
-            echo '<article class="carte">';
+            echo '<article class="carte' . ($est_proprietaire ? ' carte--proprietaire' : '') . '">';
             // F7 : clic → page détail avec l'id dans l'URL
             echo '<a href="detail_annonce.php?id_anno=' . $idAnno . '">';
             if ($img !== '') {
@@ -79,7 +87,21 @@ if (!$conn) {
             echo '<p class="desc">' . htmlspecialchars($desc) . '</p>';
             echo '<p class="meta">' . htmlspecialchars($ligne['categorie']) . ' — '
                 . htmlspecialchars($ligne['localisation']) . '</p>';
-            echo '</a></article>';
+            echo '</a>';
+
+            // Boutons Modifier / Supprimer uniquement sur ses propres annonces
+            if ($est_proprietaire) {
+                echo '<div class="carte__actions">';
+                echo '<a href="formulaire_modif_annonces.php?id_anno=' . $idAnno . '" class="btn-valider">Modifier</a>';
+                echo '<form method="post" action="supprimer_annonce.php" class="carte__form-supprimer"'
+                    . ' onsubmit="return confirm(\'Supprimer cette annonce ? Cette action est irréversible.\');">';
+                echo '<input type="hidden" name="id_anno" value="' . $idAnno . '">';
+                echo '<button type="submit" class="btn-supprimer">Supprimer</button>';
+                echo '</form>';
+                echo '</div>';
+            }
+
+            echo '</article>';
         }
     }
 

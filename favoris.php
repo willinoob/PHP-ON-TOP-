@@ -8,15 +8,17 @@ if (!isset($_SESSION['id_user'])) {
 }
 
 $id_user = (int) $_SESSION['id_user'];
-$conn = mysqli_connect('localhost', 'root', 'root', 'bd_blogmoteur');
+$conn = mysqli_connect('localhost', 'root', '', 'bd_blogmoteur');
 ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <?php include __DIR__ . '/includes/favicon.php'; ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mes favoris — Le Blog Moteur</title>
-    <link rel="stylesheet" href="assets/css/site.css">
+    <link rel="stylesheet" href="assets/css/base.css?v=<?= filemtime(__DIR__ . '/assets/css/base.css') ?>">
+    <link rel="stylesheet" href="assets/css/favoris.css?v=<?= filemtime(__DIR__ . '/assets/css/favoris.css') ?>">
 </head>
 <body>
 
@@ -39,6 +41,7 @@ $conn = mysqli_connect('localhost', 'root', 'root', 'bd_blogmoteur');
                 </thead>
                 <tbody>
                 <?php
+                // Jointure favoris + annonces pour afficher titre et prix
                 $sql = "SELECT f.id_anno, a.titre, a.prix
                         FROM favoris f
                         INNER JOIN annonces a ON f.id_anno = a.id_anno

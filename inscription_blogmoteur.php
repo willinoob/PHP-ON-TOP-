@@ -1,13 +1,17 @@
 <?php
+/**
+ * Inscription — validation des champs, anti-robot (honeypot), mot de passe hashé.
+ */
 session_start();
 $erreurs = [];
-$id = mysqli_connect("localhost", "root", "root", "bd_blogmoteur");
+$id = mysqli_connect("localhost", "root", "", "bd_blogmoteur");
 if (isset($_POST['inscrire'])) {
     $nom    = $_POST['nom'];
     $prenom = $_POST['prenom'];
     $email  = $_POST['email'];
     $mdp    = $_POST['mdp'];
     $confirmation_mdp = $_POST['confirmation_mdp'];
+    // Champ piège "url" : caché en CSS ; si un robot le remplit, on bloque l'inscription
     if (isset($_POST['url'])) {
         $url = $_POST['url'];
     } else {
@@ -49,6 +53,7 @@ if (isset($_POST['inscrire'])) {
         }
 
         if (empty($erreurs)) {
+            // On hash le mot de passe avant de l'enregistrer (jamais en clair en base)
             $mdp_hache = password_hash($mdp, PASSWORD_DEFAULT);
             $requete_champs = mysqli_prepare($id, "INSERT INTO users (nom, prenom, email, password) VALUES (?, ?, ?, ?)");
             mysqli_stmt_bind_param($requete_champs, "ssss", $nom, $prenom, $email, $mdp_hache);
@@ -67,8 +72,10 @@ if (isset($_POST['inscrire'])) {
 
 <head>
     <meta charset="UTF-8">
+    <?php include __DIR__ . '/includes/favicon.php'; ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/site.css">
+    <link rel="stylesheet" href="assets/css/base.css?v=<?= filemtime(__DIR__ . '/assets/css/base.css') ?>">
+    <link rel="stylesheet" href="assets/css/inscription_blogmoteur.css?v=<?= filemtime(__DIR__ . '/assets/css/inscription_blogmoteur.css') ?>">
     <title>Inscription — Le Blog Moteur</title>
 </head>
 

@@ -1,48 +1,19 @@
 <?php
-/*
-  Explication du fichier fenetre_messages.php
-
-  1) session_start()
-      Démarre la session PHP pour accéder aux informations de l'utilisateur connecté (ex: $_SESSION['id_user']).
-
-  2) Connexion à la base de données
-      mysqli_connect("localhost", "root", "", "bd_blogmoteur") : création d'une connexion MySQL.
-
-  3) Récupération de l'annonce
-      - id_anno = $_GET['id_anno'] : identifiant de l'annonce passé en paramètre GET.
-      - Requête préparée pour sélectionner l'annonce et les informations de l'utilisateur (INNER JOIN users).
-      - Exécution et récupération avec mysqli_prepare / mysqli_stmt_bind_param / mysqli_stmt_execute / mysqli_stmt_get_result.
-      - Si aucune annonce trouvée, on arrête le script (die).
-
-  4) Envoi du message
-      - Si le formulaire est soumis (isset($_POST['envoyer'])) : on récupère le contenu.
-      - id_expediteur = $_SESSION['id_user'] (utilisateur connecté) ; id_destinataire = propriétaire de l'annonce.
-      - Insertion d'un nouveau message dans la table messages via requête préparée (paramètres liés pour éviter les injections SQL).
-      - Affichage d'un message de confirmation.
-
-  5) Historique des messages
-      - Sélection de tous les messages liés à l'annonce (WHERE id_anno = ?) triés par created_at ASC.
-      - Requête préparée puis récupération du résultat pour affichage.
-
-  6) Partie HTML
-      - Affiche les informations de l'annonce (titre, prix, vendeur).
-      - Formulaire POST avec textarea pour écrire un message et bouton d'envoi.
-      - Boucle while pour afficher la conversation (contenu et created_at pour chaque message).
-      - Lien pour revenir à la page des annonces.
-
-  Remarques de sécurité et bonnes pratiques (non modifiées ici) :
-      - Vérifier que l'utilisateur est connecté avant d'utiliser $_SESSION['id_user'].
-      - Échapper les sorties HTML (htmlspecialchars) pour éviter les failles XSS lors de l'affichage des données (titre, contenu, noms, etc.).
-      - Gérer les erreurs de connexion à la base et les retours d'erreur des requêtes.
-
-*/
+/**
+ * Contact vendeur — envoyer un message lié à une annonce + voir l'historique.
+ */
 session_start();
+
+if (!isset($_SESSION['id_user'])) {
+    header('Location: connexion.php');
+    exit;
+}
 
 $connexion = mysqli_connect("localhost", "root", "", "bd_blogmoteur");
 
-$id_anno = $_GET['id_anno'];
+$id_anno = (int) ($_GET['id_anno'] ?? 0);
 
-/* Récupération de l'annonce */
+/* Récupération de l'annonce + infos du vendeur (requête préparée avec ?) */
 
 $sql = "
 SELECT annonces.*, users.nom, users.prenom
@@ -69,6 +40,8 @@ if (!$annonce)
 
 /* Envoi du message */
 
+$succes_envoi = false;
+
 if (isset($_POST['envoyer']))
 {
     $contenu = $_POST['contenu'];
@@ -91,7 +64,7 @@ if (isset($_POST['envoyer']))
 
     mysqli_stmt_bind_param(
         $stmt,
-        "iiis",
+        "iiis", // 3 entiers (annonce, expéditeur, destinataire) + 1 texte (contenu)
         $id_anno,
         $id_expediteur,
         $id_destinataire,
@@ -100,148 +73,99 @@ if (isset($_POST['envoyer']))
 
     mysqli_stmt_execute($stmt);
 
-    echo "<p style='color:green;'>Message envoyé avec succès.</p>";
+    $succes_envoi = true;
+
+    $stmt = mysqli_prepare($connexion, "
+    SELECT *
+    FROM messages
+    WHERE id_anno = ?
+    ORDER BY created_at ASC
+    ");
+    mysqli_stmt_bind_param($stmt, "i", $id_anno);
+    mysqli_stmt_execute($stmt);
+    $resultat_messages = mysqli_stmt_get_result($stmt);
 }
 
-/* Historique des messages */
+/* Si on n'a pas encore chargé les messages (pas d'envoi POST), on les lit une fois */
+if (!isset($resultat_messages)) {
+    $sql = "
+    SELECT *
+    FROM messages
+    WHERE id_anno = ?
+    ORDER BY created_at ASC
+    ";
 
-$sql = "
-SELECT *
-FROM messages
-WHERE id_anno = ?
-ORDER BY created_at ASC
-";
+    $stmt = mysqli_prepare($connexion, $sql);
 
-$stmt = mysqli_prepare($connexion, $sql);
+    mysqli_stmt_bind_param($stmt, "i", $id_anno);
 
-mysqli_stmt_bind_param($stmt, "i", $id_anno);
+    mysqli_stmt_execute($stmt);
 
-mysqli_stmt_execute($stmt);
+    $resultat_messages = mysqli_stmt_get_result($stmt);
+}
 
-$resultat_messages = mysqli_stmt_get_result($stmt);
+mysqli_close($connexion);
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-<meta charset="UTF-8">
-<title>Messagerie</title>
-
-<style>
-
-body{
-    font-family:Arial,sans-serif;
-    background:#f4f4f4;
-}
-
-.fenetre{
-    width:700px;
-    margin:30px auto;
-    background:white;
-    padding:20px;
-    border-radius:10px;
-    box-shadow:0 0 10px rgba(0,0,0,0.2);
-}
-
-textarea{
-    width:100%;
-    height:120px;
-    padding:10px;
-    resize:none;
-}
-
-input[type="submit"]{
-    margin-top:10px;
-    padding:10px 20px;
-    cursor:pointer;
-}
-
-.message{
-    background:#eeeeee;
-    padding:10px;
-    margin-top:10px;
-    border-radius:5px;
-}
-
-small{
-    color:gray;
-}
-
-a{
-    text-decoration:none;
-}
-
-</style>
-
+    <meta charset="UTF-8">
+    <?php include __DIR__ . '/includes/favicon.php'; ?>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacter le vendeur — Le Blog Moteur</title>
+    <link rel="stylesheet" href="assets/css/base.css?v=<?= filemtime(__DIR__ . '/assets/css/base.css') ?>">
+    <link rel="stylesheet" href="assets/css/fenetre_messages.css?v=<?= filemtime(__DIR__ . '/assets/css/fenetre_messages.css') ?>">
 </head>
-
 <body>
 
-<div class="fenetre">
+<?php include __DIR__ . '/includes/header.php'; ?>
 
-    <h2>Contacter le vendeur</h2>
+<main class="site-main contact-fenetre">
+    <a href="detail_annonce.php?id_anno=<?= (int) $id_anno ?>" class="contact-fenetre__retour">&larr; Retour à l'annonce</a>
 
-    <h3>
-        <?php echo $annonce['titre']; ?>
-    </h3>
+    <h1>Contacter le vendeur</h1>
 
-    <p>
-        Prix :
-        <?php echo $annonce['prix']; ?> €
-    </p>
+    <div class="contact-fenetre__annonce">
+        <h2><?= htmlspecialchars($annonce['titre']) ?></h2>
+        <p class="contact-fenetre__prix"><?= number_format((float) $annonce['prix'], 2, ',', ' ') ?> €</p>
+        <p class="contact-fenetre__vendeur">
+            Vendeur : <strong><?= htmlspecialchars($annonce['prenom'] . ' ' . $annonce['nom']) ?></strong>
+        </p>
+    </div>
 
-    <p>
-        Vendeur :
-        <?php echo $annonce['prenom']; ?>
-        <?php echo $annonce['nom']; ?>
-    </p>
+    <?php if ($succes_envoi): ?>
+        <p class="succes contact-fenetre__succes">Message envoyé avec succès.</p>
+    <?php endif; ?>
 
-    <form method="POST">
-
+    <form method="post" class="contact-fenetre__form">
+        <label for="contenu" class="contact-fenetre__label">Votre message</label>
         <textarea
+            id="contenu"
             name="contenu"
-            placeholder="Écrivez votre message..."
+            class="contact-fenetre__textarea"
+            placeholder="Écrivez votre message au vendeur…"
             required
         ></textarea>
-
-        <br>
-
-        <input
-            type="submit"
-            name="envoyer"
-            value="Envoyer"
-        >
-
+        <button type="submit" name="envoyer" class="btn-valider contact-fenetre__envoyer">Envoyer</button>
     </form>
 
-    <hr>
+    <section class="contact-fenetre__historique">
+        <h2>Conversation</h2>
 
-    <h3>Conversation</h3>
+        <?php if (mysqli_num_rows($resultat_messages) === 0): ?>
+            <p class="vide contact-fenetre__vide">Aucun message pour le moment.</p>
+        <?php else: ?>
+            <?php while ($message = mysqli_fetch_assoc($resultat_messages)): ?>
+                <article class="contact-fenetre__message">
+                    <p class="contact-fenetre__message-texte"><?= htmlspecialchars($message['contenu']) ?></p>
+                    <time class="contact-fenetre__message-date"><?= htmlspecialchars($message['created_at']) ?></time>
+                </article>
+            <?php endwhile; ?>
+        <?php endif; ?>
+    </section>
+</main>
 
-    <?php while($message = mysqli_fetch_assoc($resultat_messages)) { ?>
-
-        <div class="message">
-
-            <p>
-                <?php echo $message['contenu']; ?>
-            </p>
-
-            <small>
-                <?php echo $message['created_at']; ?>
-            </small>
-
-        </div>
-
-    <?php } ?>
-
-    <br>
-
-    <a href="page_annonces.php">
-        ← Retour aux annonces
-    </a>
-
-</div>
+<?php include __DIR__ . '/includes/footer.php'; ?>
 
 </body>
 </html>

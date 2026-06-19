@@ -1,0 +1,148 @@
+/* ============================================================
+   FORMULAIRE_MODIF_ANNONCES.CSS — Modifier une annonce (F4)
+   ============================================================ */
+
+.form-modif {
+    max-width: 800px;
+    margin: 40px auto;
+    background: var(--lbm-white);
+    border: 1px solid var(--lbm-border);
+    border-radius: var(--lbm-radius);
+    padding: 30px 35px;
+}
+
+.form-modif__titre {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--lbm-navy);
+    margin-bottom: 25px;
+}
+
+.form-modif__groupe {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1; /* Dans une .form-modif__ligne, chaque groupe partage l'espace */
+    margin-bottom: 18px;
+}
+
+.form-modif__groupe label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--lbm-text);
+}
+
+.form-modif__groupe input[type="text"],
+.form-modif__groupe input[type="number"] {
+    padding: 9px 12px;
+    border: 1px solid var(--lbm-border);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    color: var(--lbm-text);
+    background: var(--lbm-surface);
+    transition: border-color 0.2s;
+}
+
+.form-modif__groupe input[type="text"]:focus,
+.form-modif__groupe input[type="number"]:focus,
+.form-modif__groupe select:focus,
+.form-modif__groupe textarea:focus {
+    outline: none;
+    border-color: var(--lbm-copper);
+    background: var(--lbm-white);
+}
+
+.form-modif__groupe select {
+    padding: 9px 12px;
+    border: 1px solid var(--lbm-border);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    color: var(--lbm-text);
+    background: var(--lbm-surface);
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.form-modif__groupe textarea {
+    padding: 9px 12px;
+    border: 1px solid var(--lbm-border);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    color: var(--lbm-text);
+    background: var(--lbm-surface);
+    resize: vertical;
+    transition: border-color 0.2s;
+}
+
+.form-modif__groupe input[type="file"] {
+    font-size: 0.9rem;
+    color: var(--lbm-text);
+    cursor: pointer;
+}
+
+.form-modif__aide {
+    font-size: 0.8rem;
+    color: var(--lbm-text-muted);
+}
+
+/* Plusieurs champs sur la même ligne (ex : marque + modèle) */
+.form-modif__ligne {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 18px;
+}
+
+.form-modif__ligne.trois-colonnes {
+    display: flex;
+    gap: 20px;
+}
+
+/* Pas de double marge quand le groupe est dans une ligne */
+.form-modif__ligne .form-modif__groupe {
+    margin-bottom: 0;
+}
+
+.form-modif__photo-actuelle {
+    max-width: 220px;
+    max-height: 160px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 2px solid var(--lbm-border);
+    margin-top: 5px;
+}
+
+.form-modif__pas-photo {
+    font-size: 0.88rem;
+    color: var(--lbm-text-muted);
+    margin: 0;
+}
+
+.form-modif__erreur {
+    background: #fdecea;
+    border-left: 4px solid #c0392b;
+    color: #c0392b;
+    padding: 10px 14px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+.form-modif__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+@media (max-width: 600px) {
+    .form-modif {
+        padding: 20px 15px;
+    }
+
+    /* Sur mobile : les champs passent les uns sous les autres */
+    .form-modif__ligne,
+    .form-modif__ligne.trois-colonnes {
+        flex-direction: column;
+    }
+}

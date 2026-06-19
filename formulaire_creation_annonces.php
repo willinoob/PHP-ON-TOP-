@@ -1,4 +1,7 @@
 <?php
+/**
+ * F3 — Création d'annonce : validation, INSERT en base, upload photo compressée.
+ */
 session_start();
 
 require_once __DIR__ . '/includes/traitement_image.php';
@@ -9,7 +12,7 @@ if (!isset($_SESSION['id_user'])) {
 }
 
 $id_user = (int) $_SESSION['id_user'];
-$conn = mysqli_connect('localhost', 'root', 'root', 'bd_blogmoteur');
+$conn = mysqli_connect('localhost', 'root', '', 'bd_blogmoteur');
 
 $erreur = null;
 $succes = false;
@@ -47,7 +50,7 @@ if ($conn && isset($_POST['valider'])) {
     }
 
     $id_cat      = (int) $valeurs['id_cat'];
-    $prix        = (float) str_replace(',', '.', $valeurs['prix']);
+    $prix        = (float) str_replace(',', '.', $valeurs['prix']); // accepte 12,5 ou 12.5
     $annee       = (int) $valeurs['annee'];
     $kilometrage = (int) $valeurs['kilometrage'];
 
@@ -83,7 +86,7 @@ if ($conn && isset($_POST['valider'])) {
 
                 mysqli_stmt_bind_param(
                     $stmt,
-                    'iisdsssiisssss',
+                    'iisdsssiisssss', // types des 14 champs : i=int, s=string, d=decimal (prix)
                     $id_user,
                     $id_cat,
                     $valeurs['titre'],
@@ -103,7 +106,7 @@ if ($conn && isset($_POST['valider'])) {
                 if (!mysqli_stmt_execute($stmt)) {
                     $erreur = 'Impossible d\'enregistrer l\'annonce.';
                 } else {
-                    $id_anno = (int) mysqli_insert_id($conn);
+                    $id_anno = (int) mysqli_insert_id($conn); // id auto-généré par MySQL après INSERT
                     mysqli_stmt_close($stmt);
 
                     $resultat_photo = enregistrer_photo_upload(
@@ -113,6 +116,7 @@ if ($conn && isset($_POST['valider'])) {
                     );
 
                     if (!$resultat_photo['ok']) {
+                        // Photo ratée → on annule l'annonce pour ne pas laisser une fiche sans image
                         mysqli_query($conn, 'DELETE FROM annonces WHERE id_anno = ' . $id_anno);
                         $erreur = $resultat_photo['erreur'];
                     } else {
@@ -141,6 +145,7 @@ if ($conn) {
 }
 
 function champ_val($valeurs, $nom) {
+    // htmlspecialchars : évite d'injecter du HTML si l'utilisateur tape <script> dans un champ
     return htmlspecialchars($valeurs[$nom] ?? '', ENT_QUOTES, 'UTF-8');
 }
 ?>
@@ -148,9 +153,11 @@ function champ_val($valeurs, $nom) {
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <?php include __DIR__ . '/includes/favicon.php'; ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Déposer une annonce — Le Blog Moteur</title>
-    <link rel="stylesheet" href="assets/css/site.css">
+    <link rel="stylesheet" href="assets/css/base.css?v=<?= filemtime(__DIR__ . '/assets/css/base.css') ?>">
+    <link rel="stylesheet" href="assets/css/formulaire_creation_annonces.css?v=<?= filemtime(__DIR__ . '/assets/css/formulaire_creation_annonces.css') ?>">
 </head>
 <body>
 
@@ -235,6 +242,7 @@ function champ_val($valeurs, $nom) {
                         <option value="essence" <?= $valeurs['carburant'] === 'essence' ? 'selected' : '' ?>>Essence</option>
                         <option value="diesel" <?= $valeurs['carburant'] === 'diesel' ? 'selected' : '' ?>>Diesel</option>
                         <option value="electrique" <?= $valeurs['carburant'] === 'electrique' ? 'selected' : '' ?>>Électrique</option>
+                        <option value="hybride" <?= $valeurs['carburant'] === 'hybride' ? 'selected' : '' ?>>Hybride</option>
                     </select>
                 </div>
             </div>

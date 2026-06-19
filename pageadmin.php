@@ -1,18 +1,22 @@
 <?php
+/**
+ * Espace admin — réservé aux comptes avec role_user = 1 en base.
+ */
 session_start();
 
-// 1. VÉRIFICATION DE LA SÉCURITÉ D'ACCÈS
+// Pas connecté → page connexion
 if (!isset($_SESSION['id_user'])) {
     header('Location: connexion.php');
     exit;
 }
 
 if (($_SESSION['role_user'] ?? 0) !== 1) {
+    // Connecté mais pas admin → retour liste publique
     header('Location: page_annonces.php');
     exit;
 }
 
-$conn = mysqli_connect('localhost', 'root', 'root', 'bd_blogmoteur');
+$conn = mysqli_connect('localhost', 'root', '', 'bd_blogmoteur');
 $erreur = null;
 $message_succes = null;
 
@@ -84,6 +88,7 @@ if (!$conn) {
     $messages_user = [];
 
     if (isset($_GET['voir_profil']) && $_GET['voir_profil'] != "") {
+        // Panneau détail : stats + favoris + messages d'un utilisateur cliqué dans le tableau admin
         $id_user_selectionne = (int) $_GET['voir_profil'];
 
         $resDetail = mysqli_query($conn, "SELECT * FROM users WHERE id_user = '$id_user_selectionne' LIMIT 1");
@@ -119,9 +124,11 @@ if (!$conn) {
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <?php include __DIR__ . '/includes/favicon.php'; ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Espace Admins — Le Blog Moteur</title>
-    <link rel="stylesheet" href="assets/css/site.css?v=<?= filemtime(__DIR__ . '/assets/css/site.css') ?>">
+    <link rel="stylesheet" href="assets/css/base.css?v=<?= filemtime(__DIR__ . '/assets/css/base.css') ?>">
+    <link rel="stylesheet" href="assets/css/pageadmin.css?v=<?= filemtime(__DIR__ . '/assets/css/pageadmin.css') ?>">
 </head>
 <body>
 

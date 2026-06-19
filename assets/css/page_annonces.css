@@ -1,0 +1,307 @@
+/* ============================================================
+   PAGE_ANNONCES.CSS — Liste des annonces + filtres (F6 / F8)
+   ============================================================ */
+
+/* Grille responsive : autant de cartes que possible, min 280px par carte */
+.grille {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.carte {
+    background: var(--lbm-surface);
+    border: 1px solid var(--lbm-border);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.carte:hover {
+    border-color: var(--lbm-copper);
+    box-shadow: 0 4px 20px rgba(200, 121, 65, 0.2);
+}
+
+.carte a {
+    color: inherit;
+    text-decoration: none;
+    display: block;
+}
+
+.carte img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover; /* Remplit le cadre en coupant si besoin (pas d'étirement) */
+    display: block;
+    background: var(--lbm-surface-2);
+}
+
+.carte__sans-photo {
+    width: 100%;
+    height: 160px;
+    background: var(--lbm-surface-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--lbm-text-muted);
+    font-size: 0.85rem;
+}
+
+.carte h2 {
+    font-size: 1rem;
+    margin: 0.75rem 1rem 0.25rem;
+    color: var(--lbm-text);
+}
+
+.carte .prix {
+    margin: 0 1rem;
+    font-weight: 700;
+    color: var(--lbm-copper);
+}
+
+.carte .desc {
+    margin: 0.25rem 1rem;
+    font-size: 0.85rem;
+    color: var(--lbm-text-muted);
+}
+
+.carte .meta {
+    margin: 0 0 1rem 1rem;
+    font-size: 0.8rem;
+    color: var(--lbm-text-muted);
+}
+
+/* ── Mes propres annonces dans la liste publique ───────── */
+
+/* 2 boutons côte à côte : Modifier | Supprimer */
+.carte__actions {
+    padding: 0 1rem 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    align-items: stretch;
+}
+
+.carte__actions .btn-valider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 0.55rem 0.5rem;
+    font-size: 0.85rem;
+}
+
+.carte__form-supprimer {
+    margin: 0;
+    display: flex;
+    width: 100%;
+}
+
+.carte__actions .btn-supprimer {
+    width: 100%;
+    flex: 1;
+    background: #dc2626;
+    color: #fff;
+    border: none;
+    padding: 0.55rem 0.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+    font-family: inherit;
+}
+
+.carte__actions .btn-supprimer:hover {
+    background: #b91c1c;
+}
+
+
+/* ── Filtres annonces (F8 Omar) ─────────────────────────── */
+
+.filtres-bloc {
+    background: var(--lbm-surface);
+    border: 1px solid var(--lbm-border);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.filtres-form__titre {
+    margin: 0 0 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--lbm-navy);
+}
+
+/* Les champs de filtre passent à la ligne si l'écran est trop petit */
+.filtres-form__champs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.filtres-form__groupe label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--lbm-text-muted);
+    margin-bottom: 0.35rem;
+}
+
+.filtres-form__groupe select,
+.filtres-form__groupe input[type="number"] {
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--lbm-border);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    background: var(--lbm-white);
+    color: var(--lbm-text);
+}
+
+.filtres-form__groupe select:focus,
+.filtres-form__groupe input[type="number"]:focus {
+    outline: none;
+    border-color: var(--lbm-copper);
+}
+
+.filtres-form__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.filtres-form__btn {
+    display: inline-block;
+    padding: 0.55rem 1.25rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-family: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+}
+
+.filtres-form__btn--filtrer {
+    background: var(--lbm-copper);
+    color: var(--lbm-white);
+}
+
+.filtres-form__btn--filtrer:hover {
+    background: var(--lbm-copper-dark);
+}
+
+.filtres-form__btn--effacer {
+    background: var(--lbm-surface-2);
+    color: var(--lbm-text);
+    border: 1px solid var(--lbm-border);
+}
+
+.filtres-form__btn--effacer:hover {
+    background: var(--lbm-border);
+}
+
+.container-filtres {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin: 2rem auto;
+    max-width: 1100px;
+}
+
+/* Les champs et boutons sont sur une même ligne, qui passe à la ligne si besoin */
+.container-filtres form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    /* align-items flex-end : tout le monde s'aligne sur le bas (labels + boutons) */
+    align-items: flex-end;
+}
+
+/* flex: 1 = chaque champ prend la même largeur ; min-width évite qu'ils deviennent illisibles */
+.container-filtres .champ-filtre {
+    flex: 1;
+    min-width: 130px;
+}
+
+.container-filtres label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.container-filtres input[type="text"],
+.container-filtres input[type="number"],
+.container-filtres select {
+    width: 100%;
+    height: 42px;
+    padding: 0 12px;
+    background-color: var(--lbm-white);
+    color: var(--lbm-navy);
+    border: 1px solid transparent;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+/* Anneau cuivre autour du champ quand on clique dedans */
+.container-filtres input:focus,
+.container-filtres select:focus {
+    outline: none;
+    border-color: var(--lbm-copper);
+    box-shadow: 0 0 0 3px rgba(200, 121, 65, 0.2);
+}
+
+.container-filtres .btn-recherche {
+    width: 42px;
+    height: 42px;
+    background-color: var(--lbm-copper);
+    color: var(--lbm-white);
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.container-filtres .btn-recherche:hover {
+    background-color: var(--lbm-copper-dark);
+}
+
+/* Petit effet "appuyé" au clic */
+.container-filtres .btn-recherche:active {
+    transform: scale(0.96);
+}
+
+.container-filtres .btn-annuler {
+    width: 42px;
+    height: 42px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--lbm-white);
+    text-decoration: none;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease;
+}
+
+.container-filtres .btn-annuler:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}

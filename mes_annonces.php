@@ -1,4 +1,7 @@
 <?php
+/**
+ * Mes annonces — liste des annonces de l'utilisateur + modifier / supprimer.
+ */
 session_start();
 
 require_once __DIR__ . '/includes/photos.php';
@@ -10,7 +13,7 @@ if (!isset($_SESSION['id_user'])) {
 
 $id_user = (int) $_SESSION['id_user'];
 
-$conn = mysqli_connect('localhost', 'root', 'root', 'bd_blogmoteur');
+$conn = mysqli_connect('localhost', 'root', '', 'bd_blogmoteur');
 $annonces = [];
 $erreur = null;
 
@@ -42,9 +45,11 @@ if (!$conn) {
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <?php include __DIR__ . '/includes/favicon.php'; ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mes annonces — Le Blog Moteur</title>
-    <link rel="stylesheet" href="assets/css/site.css?v=<?= filemtime(__DIR__ . '/assets/css/site.css') ?>">
+    <link rel="stylesheet" href="assets/css/base.css?v=<?= filemtime(__DIR__ . '/assets/css/base.css') ?>">
+    <link rel="stylesheet" href="assets/css/mes_annonces.css?v=<?= filemtime(__DIR__ . '/assets/css/mes_annonces.css') ?>">
 </head>
 <body>
 
@@ -82,6 +87,7 @@ if (!$conn) {
                     <a href="formulaire_modif_annonces.php?id_anno=<?= $idAnno ?>" class="btn-valider">
                         Modifier annonce
                     </a>
+                    <!-- confirm() : demande confirmation avant d'envoyer le formulaire de suppression -->
                     <form method="post" action="supprimer_annonce.php" class="carte__form-supprimer"
                           onsubmit="return confirm('Supprimer cette annonce ? Cette action est irréversible.');">
                         <input type="hidden" name="id_anno" value="<?= $idAnno ?>">

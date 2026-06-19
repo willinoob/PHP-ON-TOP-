@@ -1,0 +1,136 @@
+/* ============================================================
+   FENETRE_MESSAGES.CSS — Contact vendeur (page dédiée)
+   ============================================================ */
+
+.contact-fenetre {
+    max-width: 720px;
+}
+
+.contact-fenetre__retour {
+    display: inline-block;
+    margin-bottom: 1rem;
+    color: var(--lbm-copper);
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.contact-fenetre__retour:hover {
+    text-decoration: underline;
+}
+
+/* Bande cuivre à gauche pour mettre l'annonce en évidence */
+.contact-fenetre__annonce {
+    background: var(--lbm-surface);
+    border: 1px solid var(--lbm-border);
+    border-left: 4px solid var(--lbm-copper);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.25rem;
+    color: var(--lbm-text);
+}
+
+.contact-fenetre__annonce h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1.15rem;
+    color: var(--lbm-navy);
+}
+
+.contact-fenetre__prix {
+    margin: 0 0 0.35rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--lbm-copper);
+}
+
+.contact-fenetre__vendeur {
+    margin: 0;
+    color: var(--lbm-text-muted);
+    font-size: 0.95rem;
+}
+
+.contact-fenetre__succes {
+    margin-bottom: 1rem;
+}
+
+.contact-fenetre__form {
+    background: var(--lbm-surface);
+    border: 1px solid var(--lbm-border);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--lbm-text);
+}
+
+.contact-fenetre__label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--lbm-navy);
+}
+
+.contact-fenetre__textarea {
+    width: 100%;
+    min-height: 130px;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--lbm-border);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    resize: vertical; /* L'utilisateur peut agrandir verticalement seulement */
+    background: var(--lbm-white);
+    color: var(--lbm-text);
+}
+
+.contact-fenetre__textarea:focus {
+    outline: none;
+    border-color: var(--lbm-copper);
+}
+
+.contact-fenetre__envoyer {
+    margin-top: 0.85rem;
+}
+
+.contact-fenetre__historique {
+    background: var(--lbm-surface);
+    border: 1px solid var(--lbm-border);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    color: var(--lbm-text);
+}
+
+.contact-fenetre__historique h2 {
+    margin: 0 0 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--lbm-navy);
+}
+
+.contact-fenetre__vide {
+    margin: 0;
+    padding: 1rem;
+    text-align: center;
+}
+
+.contact-fenetre__message {
+    background: var(--lbm-surface-2);
+    border: 1px solid var(--lbm-border);
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    margin-bottom: 0.65rem;
+}
+
+.contact-fenetre__message:last-child {
+    margin-bottom: 0;
+}
+
+.contact-fenetre__message-texte {
+    margin: 0 0 0.35rem;
+    line-height: 1.5;
+    color: var(--lbm-text);
+}
+
+.contact-fenetre__message-date {
+    font-size: 0.75rem;
+    color: var(--lbm-text-muted);
+}

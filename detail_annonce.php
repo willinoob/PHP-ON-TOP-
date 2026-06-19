@@ -1,4 +1,7 @@
 <?php
+/**
+ * F7 — Fiche détail : galerie photos, favori, contact, compteur de vues.
+ */
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -18,7 +21,7 @@ $photos = [];
 if ($id_anno <= 0) {
     $erreur = 'Identifiant annonce invalide.';
 } else {
-    $conn = mysqli_connect('localhost', 'root', 'root', 'bd_blogmoteur');
+    $conn = mysqli_connect('localhost', 'root', '', 'bd_blogmoteur');
 
     if (!$conn) {
         $erreur = 'Erreur connexion : ' . mysqli_connect_error();
@@ -35,6 +38,7 @@ if ($id_anno <= 0) {
         if (!$annonce) {
             $erreur = 'Annonce introuvable.';
         } else {
+            // Compteur de vues : +1 par annonce et par session (pas à chaque F5)
             if (!isset($_SESSION['annonces_vues'])) {
                 $_SESSION['annonces_vues'] = [];
             }
@@ -45,6 +49,7 @@ if ($id_anno <= 0) {
                 $_SESSION['annonces_vues'][$id_anno] = true;
             }
 
+            // true si l'annonce appartient à l'utilisateur connecté → on masque favori / contact
             $est_proprietaire = $utilisateur_connecte && (int) $annonce['id_user'] === $id_user_connecte;
 
             if ($utilisateur_connecte && !$est_proprietaire) {
@@ -78,9 +83,11 @@ $page_titre = $annonce
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <?php include __DIR__ . '/includes/favicon.php'; ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $page_titre ?></title>
-    <link rel="stylesheet" href="assets/css/site.css?v=<?= filemtime(__DIR__ . '/assets/css/site.css') ?>">
+    <link rel="stylesheet" href="assets/css/base.css?v=<?= filemtime(__DIR__ . '/assets/css/base.css') ?>">
+    <link rel="stylesheet" href="assets/css/detail_annonce.css?v=<?= filemtime(__DIR__ . '/assets/css/detail_annonce.css') ?>">
 </head>
 <body>
 
@@ -97,13 +104,19 @@ $page_titre = $annonce
             <p class="erreur"><?= htmlspecialchars($erreur) ?></p>
         <?php else: ?>
 
-            <h1><?= htmlspecialchars($annonce['titre']) ?></h1>
-            <p class="prix"><?= number_format((float) $annonce['prix'], 2, ',', ' ') ?> €</p>
+            <div class="detail-entete">
+                <h1><?= htmlspecialchars($annonce['titre']) ?></h1>
+                <p class="prix"><?= number_format((float) $annonce['prix'], 2, ',', ' ') ?> €</p>
+            </div>
 
             <div class="actions-annonce">
                 <?php if ($est_proprietaire): ?>
-                    <span class="badge-proprietaire">Votre annonce</span>
                     <a href="formulaire_modif_annonces.php?id_anno=<?= $id_anno ?>" class="btn-modifier">Modifier</a>
+                    <form method="post" action="supprimer_annonce.php" class="supprimer-form"
+                          onsubmit="return confirm('Supprimer cette annonce ? Cette action est irréversible.');">
+                        <input type="hidden" name="id_anno" value="<?= $id_anno ?>">
+                        <button type="submit" class="btn-supprimer">Supprimer</button>
+                    </form>
                 <?php else: ?>
                     <?php if ($utilisateur_connecte): ?>
                     <form class="favori-form" method="post" action="toggle-favori.php">
@@ -114,6 +127,7 @@ $page_titre = $annonce
                     </form>
                     <a href="fenetre_messages.php?id_anno=<?= $id_anno ?>" class="btn-contact">Contactez-nous</a>
                     <?php else: ?>
+                    <a href="connexion.php?redirect=favori&amp;id_anno=<?= $id_anno ?>" class="btn-favori">☆ Ajouter aux favoris</a>
                     <a href="connexion.php?redirect=messages&amp;id_anno=<?= $id_anno ?>" class="btn-contact">Contactez-nous</a>
                     <?php endif; ?>
                 <?php endif; ?>
@@ -177,6 +191,7 @@ $page_titre = $annonce
 
 <?php if (!empty($photos) && count($photos) > 1): ?>
 <script>
+// Clic sur une vignette → change la grande photo + surligne la vignette active
 document.querySelectorAll('.detail-galerie__vignette').forEach(function (btn) {
     btn.addEventListener('click', function () {
         var main = document.getElementById('detail-photo-principale');

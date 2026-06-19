@@ -17,14 +17,16 @@ if ($contenu === '' || $id_anno <= 0 || $id_destinataire <= 0 || $id_expediteur 
     exit;
 }
 
-$conn = mysqli_connect('localhost', 'root', 'root', 'bd_blogmoteur');
+$conn = mysqli_connect('localhost', 'root', '', 'bd_blogmoteur');
 
 if ($conn) {
+    // Requête préparée : les ? évitent d'injecter du SQL dans le message
     $sql = 'INSERT INTO messages (id_anno, id_expediteur, id_destinataire, contenu) VALUES (?, ?, ?, ?)';
     $stmt = mysqli_prepare($conn, $sql);
 
     if ($stmt) {
         mysqli_stmt_bind_param($stmt, 'iiis', $id_anno, $id_expediteur, $id_destinataire, $contenu);
+        // iiis = entier, entier, entier, string (texte du message)
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
     }

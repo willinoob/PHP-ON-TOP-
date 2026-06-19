@@ -5,7 +5,7 @@ USE bd_blogmoteur;
 
 SET @uid = (SELECT id_user FROM users WHERE email = 'alice.test@blogmoteur.local' LIMIT 1);
 SET @uid = IFNULL(@uid, 1);
-SET @base = '/blogmoteur_annonces/uploads/';
+SET @base = 'uploads/';
 
 -- ========== 3 annonces d'origine — chemins photos ==========
 UPDATE photos p

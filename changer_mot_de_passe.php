@@ -1,4 +1,7 @@
 <?php
+/**
+ * Changer le mot de passe — vérifie l'ancien avec password_verify, enregistre un nouveau hash.
+ */
 session_start();
 
 if (!isset($_SESSION['id_user'])) {
@@ -9,7 +12,7 @@ if (!isset($_SESSION['id_user'])) {
 $id_user = (int) $_SESSION['id_user'];
 $message = '';
 
-$conn = mysqli_connect('localhost', 'root', 'root', 'bd_blogmoteur');
+$conn = mysqli_connect('localhost', 'root', '', 'bd_blogmoteur');
 if (!$conn) {
     die('Erreur de connexion : ' . mysqli_connect_error());
 }
@@ -32,7 +35,7 @@ if (isset($_POST['update_password'])) {
         mysqli_stmt_close($stmt);
 
         if ($user && password_verify($ancien, $user['password'])) {
-            $hash = password_hash($nouveau, PASSWORD_DEFAULT);
+            $hash = password_hash($nouveau, PASSWORD_DEFAULT); // nouveau hash, jamais le mdp en clair
             $stmtUpdate = mysqli_prepare($conn, 'UPDATE users SET password = ? WHERE id_user = ?');
             mysqli_stmt_bind_param($stmtUpdate, 'si', $hash, $id_user);
             mysqli_stmt_execute($stmtUpdate);
@@ -50,9 +53,11 @@ mysqli_close($conn);
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <?php include __DIR__ . '/includes/favicon.php'; ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Changer le mot de passe — Le Blog Moteur</title>
-    <link rel="stylesheet" href="assets/css/site.css">
+    <link rel="stylesheet" href="assets/css/base.css?v=<?= filemtime(__DIR__ . '/assets/css/base.css') ?>">
+    <link rel="stylesheet" href="assets/css/changer_mot_de_passe.css?v=<?= filemtime(__DIR__ . '/assets/css/changer_mot_de_passe.css') ?>">
 </head>
 <body class="page-connexion">
 
@@ -66,6 +71,7 @@ mysqli_close($conn);
 
         <?php if ($message !== ''): ?>
             <p class="<?= str_contains($message, 'succès') ? 'succes' : 'erreur' ?>"><?= htmlspecialchars($message) ?></p>
+            <!-- str_contains : message vert si succès, rouge sinon -->
         <?php endif; ?>
 
         <form method="post">

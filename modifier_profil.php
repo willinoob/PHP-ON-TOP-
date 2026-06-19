@@ -1,4 +1,7 @@
 <?php
+/**
+ * Modifier nom, prénom, email du compte connecté.
+ */
 session_start();
 
 if (!isset($_SESSION['id_user'])) {
@@ -9,7 +12,7 @@ if (!isset($_SESSION['id_user'])) {
 $id_user = (int) $_SESSION['id_user'];
 $erreur = null;
 
-$conn = mysqli_connect('localhost', 'root', 'root', 'bd_blogmoteur');
+$conn = mysqli_connect('localhost', 'root', '', 'bd_blogmoteur');
 if (!$conn) {
     $erreur = 'Erreur de connexion : ' . mysqli_connect_error();
 }
@@ -25,7 +28,7 @@ if ($conn && isset($_POST['update'])) {
         $erreur = 'Email invalide.';
     } else {
         $stmt = mysqli_prepare($conn, 'UPDATE users SET nom = ?, prenom = ?, email = ? WHERE id_user = ?');
-        mysqli_stmt_bind_param($stmt, 'sssi', $nom, $prenom, $email, $id_user);
+        mysqli_stmt_bind_param($stmt, 'sssi', $nom, $prenom, $email, $id_user); // sss = 3 textes, i = id
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
 
@@ -48,9 +51,11 @@ if ($conn && $erreur === null) {
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <?php include __DIR__ . '/includes/favicon.php'; ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifier le profil — Le Blog Moteur</title>
-    <link rel="stylesheet" href="assets/css/site.css">
+    <link rel="stylesheet" href="assets/css/base.css?v=<?= filemtime(__DIR__ . '/assets/css/base.css') ?>">
+    <link rel="stylesheet" href="assets/css/modifier_profil.css?v=<?= filemtime(__DIR__ . '/assets/css/modifier_profil.css') ?>">
 </head>
 <body class="page-connexion">
 

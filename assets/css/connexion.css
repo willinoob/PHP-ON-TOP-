@@ -1,0 +1,133 @@
+/* ============================================================
+   CONNEXION.CSS — Pages connexion / inscription / profil
+   (layout centré sans header du site)
+   ============================================================ */
+
+/* Le body (.page-connexion) centre la boîte blanche au milieu de l'écran */
+.page-connexion {
+    font-family: "Segoe UI", Inter, system-ui, sans-serif;
+    background: var(--lbm-navy);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.page-connexion .box {
+    background: var(--lbm-white);
+    padding: 40px;
+    width: 380px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+/* Inscription un peu plus large ; max-width évite le débordement sur mobile */
+.page-connexion .box--inscription {
+    width: 420px;
+    max-width: calc(100vw - 2rem);
+}
+
+.page-connexion__logo {
+    margin: 0 0 1rem;
+    text-align: center;
+    line-height: 0;
+}
+
+.page-connexion__logo img {
+    max-width: 100%;
+    height: auto;
+    max-height: 100px;
+    object-fit: contain;
+}
+
+.page-connexion__titre {
+    font-size: 1.1rem;
+    text-align: center;
+    margin: 0 0 1rem;
+    color: var(--lbm-navy);
+}
+
+.page-connexion h1 {
+    text-align: center;
+    color: var(--lbm-text);
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.page-connexion h1 .brand-accent {
+    color: var(--lbm-copper);
+}
+
+.page-connexion input[type="text"],
+.page-connexion input[type="email"],
+.page-connexion input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid var(--lbm-border);
+    border-radius: 6px;
+    background: var(--lbm-white);
+    color: var(--lbm-text);
+}
+
+.page-connexion input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background: var(--lbm-copper);
+    color: var(--lbm-white);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.page-connexion input[type="submit"]:hover {
+    background: var(--lbm-copper-dark);
+}
+
+/* Sur ces pages, erreur/succès = texte simple (pas de gros encadré comme sur le site) */
+.page-connexion .erreur {
+    color: red;
+    font-size: 13px;
+    margin-bottom: 10px;
+    background: none;
+    padding: 0;
+    border-radius: 0;
+}
+
+.page-connexion .succes {
+    color: #166534;
+    font-size: 13px;
+    margin-bottom: 10px;
+    background: none;
+    padding: 0;
+    border-radius: 0;
+}
+
+.page-connexion .lien {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 13px;
+}
+
+.page-connexion .lien {
+    color: var(--lbm-text-muted);
+}
+
+.page-connexion .lien a {
+    color: var(--lbm-copper);
+}
+
+/* Champ piège pour les robots : caché hors écran, les humains ne le voient pas */
+.oeuf-de-paques {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+}
