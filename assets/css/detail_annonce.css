@@ -1,0 +1,254 @@
+/* ============================================================
+   DETAIL_ANNONCE.CSS — Fiche détail d'une annonce (F7)
+   ============================================================ */
+
+.detail-contenu {
+    max-width: 860px;
+    margin: 0 auto;
+}
+
+.detail-contenu a {
+    color: var(--lbm-copper);
+}
+
+/* En-tête : titre à gauche, prix à côté (à droite) */
+.detail-entete {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.detail-contenu h1 {
+    font-size: 1.65rem;
+    margin: 0;
+    color: var(--lbm-white);
+}
+
+.detail-entete .prix {
+    white-space: nowrap;
+}
+
+.detail-contenu .prix {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--lbm-copper);
+    margin: 0;
+}
+
+.detail-contenu .navigation {
+    margin: 0 0 1rem;
+}
+
+.detail-contenu .navigation a {
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.detail-contenu .navigation a:hover {
+    text-decoration: underline;
+}
+
+.detail-contenu .actions-annonce {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 1rem 0;
+    align-items: center;
+}
+
+.detail-contenu .favori-form {
+    margin: 0;
+}
+
+.detail-contenu .btn-favori {
+    display: inline-block;
+    background: var(--lbm-copper);
+    color: var(--lbm-white);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: inherit;
+    text-decoration: none;
+}
+
+.detail-contenu a.btn-favori:hover {
+    color: var(--lbm-white);
+}
+
+.detail-contenu .btn-favori:hover {
+    background: var(--lbm-copper-dark);
+}
+
+.detail-contenu .btn-contact {
+    display: inline-block;
+    background: var(--lbm-white);
+    color: var(--lbm-copper);
+    border: 2px solid var(--lbm-copper);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.detail-contenu .btn-contact:hover {
+    background: var(--lbm-copper);
+    color: var(--lbm-white);
+}
+
+.detail-contenu .btn-modifier {
+    display: inline-block;
+    background: var(--lbm-copper);
+    color: var(--lbm-white);
+    border: 2px solid var(--lbm-copper);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.detail-contenu .btn-modifier:hover {
+    background: var(--lbm-copper-dark);
+    border-color: var(--lbm-copper-dark);
+    color: var(--lbm-white);
+}
+
+.detail-contenu .supprimer-form {
+    margin: 0;
+}
+
+.detail-contenu .btn-supprimer {
+    display: inline-block;
+    background: #dc2626;
+    color: var(--lbm-white);
+    border: 2px solid #dc2626;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.detail-contenu .btn-supprimer:hover {
+    background: #b91c1c;
+    border-color: #b91c1c;
+}
+
+.detail-contenu .badge-proprietaire {
+    display: inline-block;
+    background: var(--lbm-surface-2);
+    color: var(--lbm-navy);
+    border: 1px solid var(--lbm-border);
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.detail-galerie {
+    margin: 1.25rem 0 1.5rem;
+}
+
+.detail-galerie--vide {
+    background: var(--lbm-surface);
+    border: 1px dashed var(--lbm-border);
+    border-radius: 12px;
+    padding: 3rem 1rem;
+    text-align: center;
+    color: var(--lbm-text-muted);
+}
+
+/* aspect-ratio : le cadre garde un ratio 16/10 même si l'image change */
+.detail-galerie__principale {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    max-height: 480px;
+    background: var(--lbm-surface-2);
+    border: 1px solid var(--lbm-border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(26, 45, 74, 0.08);
+}
+
+/* contain = image entière visible ; cover (sur les vignettes) = remplit en coupant */
+.detail-galerie__principale img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    background: var(--lbm-surface-2);
+}
+
+.detail-galerie__vignettes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.detail-galerie__vignette {
+    padding: 0;
+    border: 2px solid var(--lbm-border);
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--lbm-surface);
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0; /* Les vignettes ne se compressent pas */
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.detail-galerie__vignette:hover {
+    border-color: var(--lbm-copper);
+}
+
+/* Vignette sélectionnée : bordure + halo cuivre */
+.detail-galerie__vignette.is-active {
+    border-color: var(--lbm-copper);
+    box-shadow: 0 0 0 2px rgba(200, 121, 65, 0.3);
+}
+
+.detail-galerie__vignette img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Grille 2 colonnes : label à gauche (140px), valeur à droite */
+.detail-contenu dl {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 0.35rem 1rem;
+    background: var(--lbm-surface);
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid var(--lbm-border);
+    color: var(--lbm-text);
+}
+
+.detail-contenu dt {
+    color: var(--lbm-text-muted);
+    font-size: 0.85rem;
+}
+
+.detail-contenu .description {
+    background: var(--lbm-surface);
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid var(--lbm-border);
+    margin-top: 1rem;
+    color: var(--lbm-text);
+}
+
+.detail-contenu .description h2 {
+    font-size: 1.1rem;
+    margin: 0 0 0.75rem;
+    color: var(--lbm-navy);
+}

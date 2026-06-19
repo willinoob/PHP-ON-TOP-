@@ -1,0 +1,332 @@
+/* ============================================================
+   BASE.CSS — Styles communs à tout le site
+   (header, footer, boutons, variables de couleurs)
+   ============================================================ */
+
+/* Variables CSS : on définit les couleurs une fois, on les réutilise partout avec var(--nom) */
+:root {
+    --lbm-navy: #1a2d4a;
+    --lbm-navy-dark: #0f1c30;
+    --lbm-copper: #c87941;
+    --lbm-copper-dark: #a6632f;
+    --lbm-white: #ffffff;
+    --lbm-bg: #1a2d4a;
+    --lbm-surface: #ffffff;
+    --lbm-surface-2: #eef1f6;
+    --lbm-border: #d4dce8;
+    --lbm-text: #1a2d4a;
+    --lbm-text-muted: #5a6b7d;
+}
+
+/* box-sizing border-box : le padding et la bordure sont inclus dans la largeur (évite les débordements) */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Inter, system-ui, sans-serif;
+    background: var(--lbm-navy);
+    color: rgba(255, 255, 255, 0.92);
+    min-height: 100vh;
+    /* Flex en colonne : le contenu principal grandit, le footer reste en bas */
+    display: flex;
+    flex-direction: column;
+}
+
+a {
+    color: inherit;
+}
+
+.brand-accent {
+    color: var(--lbm-copper);
+}
+
+
+/* ── En-tête / navigation ─────────────────────────────── */
+
+.site-header {
+    background: var(--lbm-white);
+    border-bottom: 3px solid var(--lbm-copper);
+    box-shadow: 0 2px 12px rgba(15, 28, 48, 0.1);
+}
+
+.site-header__inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0.5rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    min-height: 84px;
+}
+
+.site-logo {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    flex-shrink: 0; /* Le logo ne rétrécit pas quand la nav manque de place */
+}
+
+.site-logo img {
+    display: block;
+    height: 72px;
+    width: auto;
+    max-width: 320px;
+    object-fit: contain; /* L'image garde ses proportions sans être coupée */
+}
+
+.site-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+/* Quand l'utilisateur est connecté : la barre de nav s'étire sur toute la largeur */
+.site-header--connecte .site-header__inner {
+    width: 100%;
+    max-width: 100%;
+    /* clamp(min, idéal, max) : padding qui s'adapte à la taille de l'écran */
+    padding: 0.5rem clamp(1rem, 3vw, 2.5rem);
+    justify-content: flex-start;
+    gap: 2rem;
+}
+
+/* margin-right: auto pousse le menu vers la droite, le logo reste à gauche */
+.site-header--connecte .site-logo {
+    margin-right: auto;
+    margin-left: clamp(2rem, 12vw, 9rem);
+}
+
+.site-header--connecte .site-nav {
+    flex: 1 1 auto; /* La nav prend l'espace restant */
+    min-width: 0;   /* Autorise le rétrécissement si besoin (flex) */
+}
+
+.site-nav__link {
+    color: var(--lbm-navy);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 0.4rem 0.75rem;
+    border: 1px solid var(--lbm-copper);
+    border-radius: 6px;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
+}
+
+.site-nav__link:hover {
+    background: var(--lbm-copper);
+    color: var(--lbm-white);
+    border-color: var(--lbm-copper);
+}
+
+/* Page courante : lien de nav surligné en rouge (détecteur de page active) */
+.site-nav__link.is-active,
+.site-nav__link.is-active:hover {
+    background: #e57373;
+    color: var(--lbm-white);
+    border-color: #e57373;
+}
+
+.site-nav__link--cta {
+    background: var(--lbm-copper);
+    color: var(--lbm-white);
+    border-color: var(--lbm-copper);
+}
+
+.site-nav__link--cta:hover {
+    background: var(--lbm-copper-dark);
+    border-color: var(--lbm-copper-dark);
+    color: var(--lbm-white);
+}
+
+.site-nav__link--secondaire {
+    border-color: var(--lbm-border);
+    color: var(--lbm-text-muted);
+    font-weight: 500;
+}
+
+.site-nav__link--secondaire:hover {
+    background: var(--lbm-surface-2);
+    color: var(--lbm-navy);
+    border-color: var(--lbm-border);
+}
+
+.site-nav__sep {
+    display: inline-block;
+    width: 1px;
+    height: 1.5rem;
+    background: var(--lbm-border);
+    margin: 0 0.15rem;
+    flex-shrink: 0;
+}
+
+/* ── Contenu principal ──────────────────────────────────── */
+
+.site-main {
+    flex: 1; /* Remplit l'espace entre header et footer */
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+}
+
+.site-main h1 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin: 0 0 1.5rem;
+    color: var(--lbm-white);
+}
+
+.erreur {
+    color: #b91c1c;
+    background: #fee2e2;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.succes {
+    color: #166534;
+    background: #dcfce7;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.vide {
+    background: var(--lbm-surface);
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 1px solid var(--lbm-border);
+    color: var(--lbm-text-muted);
+}
+
+.vide a {
+    color: var(--lbm-copper);
+}
+
+.btn-valider {
+    background: var(--lbm-copper);
+    color: var(--lbm-white);
+    border: none;
+    padding: 0.55rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    font-family: inherit;
+}
+
+.btn-valider:hover {
+    background: var(--lbm-copper-dark);
+}
+
+a.btn-valider {
+    display: inline-block;
+    text-decoration: none;
+    color: var(--lbm-white);
+}
+
+a.btn-valider:hover {
+    color: var(--lbm-white);
+}
+
+.btn-annuler {
+    background: var(--lbm-surface-2);
+    color: var(--lbm-text);
+    border: 1px solid var(--lbm-border);
+    border: none;
+    padding: 0.55rem 1.25rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+}
+
+.btn-annuler:hover {
+    background: var(--lbm-border);
+}
+
+/* ── Pied de page ───────────────────────────────────────── */
+
+.site-footer {
+    background: var(--lbm-navy-dark);
+    color: var(--lbm-white);
+    margin-top: auto; /* Colle le footer en bas de page (avec body en flex) */
+    border-top: 3px solid var(--lbm-copper);
+}
+
+.site-footer__inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 1.25rem;
+}
+
+/* Grille responsive : les colonnes se réorganisent selon la place disponible */
+.site-footer__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.site-footer__title {
+    margin: 0 0 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--lbm-white);
+}
+
+.site-footer p {
+    margin: 0 0 0.35rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.site-footer a {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+}
+
+.site-footer a:hover {
+    color: var(--lbm-white);
+}
+
+.site-footer__brand {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--lbm-white);
+    margin-bottom: 0.35rem;
+    text-transform: lowercase;
+}
+
+.site-footer__brand .brand-accent {
+    color: var(--lbm-copper);
+}
+
+.site-footer__slogan {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0 0 0.75rem;
+}
+
+.site-footer__bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+    padding-top: 1rem;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.75);
+    text-align: center;
+}

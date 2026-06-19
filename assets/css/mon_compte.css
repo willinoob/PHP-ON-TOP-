@@ -1,0 +1,138 @@
+/* ============================================================
+   MON_COMPTE.CSS — Page Mon compte
+   (importe page_annonces.css pour la grille des stats)
+   ============================================================ */
+@import url('page_annonces.css');
+
+.compte-profil {
+    margin-bottom: 1.5rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--lbm-surface);
+    border-radius: var(--lbm-radius);
+    border: 1px solid var(--lbm-border);
+}
+
+.compte-profil__nom {
+    margin: 0 0 0.25rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--lbm-navy);
+}
+
+.compte-profil__email {
+    margin: 0 0 1rem;
+    color: var(--lbm-text-muted);
+}
+
+/* Grille label / valeur : colonne gauche auto, droite prend le reste */
+.compte-profil__details {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.35rem 1rem;
+    margin: 0 0 0.5rem;
+    padding: 1rem 0 0;
+    border-top: 1px solid var(--lbm-border);
+    font-size: 0.95rem;
+}
+
+.compte-profil__details dt {
+    margin: 0;
+    font-weight: 600;
+    color: var(--lbm-navy);
+}
+
+.compte-profil__details dd {
+    margin: 0;
+    color: var(--lbm-text-muted);
+}
+
+.compte-profil__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+}
+
+.compte-profil__actions .btn-valider {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: auto;
+    max-width: 100%;
+    padding: 0.55rem 1.15rem;
+    font-size: 0.88rem;
+    white-space: nowrap;
+}
+
+a.compte-profil__btn--outline {
+    background: var(--lbm-surface-2);
+    color: var(--lbm-navy);
+    border: 1px solid var(--lbm-border);
+}
+
+a.compte-profil__btn--outline:hover {
+    background: var(--lbm-border);
+    color: var(--lbm-navy);
+}
+
+.compte-profil__btn--secondaire {
+    background: var(--lbm-surface);
+    color: var(--lbm-navy);
+    border: 1px solid var(--lbm-border);
+}
+
+@media (max-width: 600px) {
+    .compte-profil__actions {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* 4 cartes stats sur une ligne (la classe .grille vient de page_annonces.css) */
+.compte-stats {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.compte-stats .compte-stat {
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.compte-stat h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--lbm-navy);
+}
+
+.compte-stat__chiffre {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--lbm-copper);
+}
+
+/* Carte "Vues totales" : pas cliquable, pas d'effet hover */
+.compte-stat--passif {
+    cursor: default;
+}
+
+.compte-stat--passif:hover {
+    transform: none;
+    border-color: var(--lbm-border);
+    box-shadow: none;
+}
+
+@media (max-width: 768px) {
+    .compte-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .compte-stats {
+        grid-template-columns: 1fr;
+    }
+}

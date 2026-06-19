@@ -1,0 +1,3 @@
+/* Page secondaire — pas de styles propres ici.
+   On réutilise tout le layout de connexion.css (boîte centrée, champs, boutons). */
+@import url('connexion.css');
