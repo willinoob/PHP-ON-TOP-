@@ -1,9 +1,10 @@
 # Le Blog Moteur — Documentation du projet
 
 **Type :** site d'annonces de véhicules d'occasion (PHP + MySQL, sans framework)  
-**URL locale :** http://localhost/blogmoteur_annonces/page_annonces.php  
+**URL locale :** http://localhost/le_blogmoteur/annonces/page_annonces.php
 **Base de données :** `bd_blogmoteur`  
 **Équipe :** Michel, Mehdi, William, Omar, Naomie
+**Le lien du repository**: https://github.com/willinoob/PHP-ON-TOP-
 
 **Compte test :** `alice.test@blogmoteur.local` / `password`
 **Compte test (admin) :** `omar@gmail.com` / `omar111111`

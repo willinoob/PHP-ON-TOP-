@@ -1,17 +1,19 @@
 # Le Blog Moteur — Documentation du projet
 
 **Type :** site d'annonces de véhicules d'occasion (PHP + MySQL, sans framework)  
-**URL locale :** http://localhost/blogmoteur_annonces/page_annonces.php  
+**URL locale :** http://localhost/le_blogmoteur/annonces/page_annonces.php
 **Base de données :** `bd_blogmoteur`  
 **Équipe :** Michel, Mehdi, William, Omar, Naomie
+**Le lien du repository**: https://github.com/willinoob/PHP-ON-TOP-
 
 **Compte test :** `alice.test@blogmoteur.local` / `password`
-
+**Compte test (admin) :** `omar@gmail.com` / `omar111111`
 ---
 
-## . But du site
+## 1. But du site
 
-un site d'annonce de vente et d'achat de voiture codé en php
+Un visiteur peut **parcourir** et **filtrer** les annonces. Un utilisateur **connecté** peut en plus déposer, modifier et supprimer ses annonces, gérer ses favoris, envoyer des messages et gérer son profil. Un **administrateur** (`role_user = 1` en base) accède à l'espace `pageadmin.php`.
+
 | Profil | Actions principales |
 |--------|---------------------|
 | Visiteur | Liste, filtres, fiche détail |
@@ -20,7 +22,7 @@ un site d'annonce de vente et d'achat de voiture codé en php
 
 ---
 
-## . Stratégie de codage
+## 2. Stratégie de codage
 
 - **Un fichier `.php` = une page ou un traitement** (formulaire, redirection, action POST).
 - **`includes/`** : morceaux communs (header, footer, favicon, gestion des photos).
@@ -38,19 +40,19 @@ un site d'annonce de vente et d'achat de voiture codé en php
 
 ---
 
-## . Répartition de l'équipe
+## 3. Répartition de l'équipe
 
 | Membre | Périmètre |
 |--------|-----------|
-| **Michel** | page_annonces.php, etail_annonce.php, formulaire_creation_annonces.php |
-| **Omar** | form-filtres.php, filtre-where.php, toogle-favori.php,admin.php|
-| **William** | Messagerie (`messages.php`, `envoyer.php`) , mon_compte.php |
-| **Mehdi** | Honeypot inscription.php, contributions pageadmin.php |
-| **Naomie** | connexion.php , formulaire_modif_annonces.php|
+| **Michel** | Liste (F6), détail (F7), création annonce (F3), modification (F4), architecture CSS, mon compte, mes annonces |
+| **Omar** | Filtres (F8), favoris (F9) |
+| **William** | Messagerie (`messages.php`, `envoyer.php`) |
+| **Mehdi** | Honeypot inscription, contributions admin |
+| **Naomi** | — |
 
 ---
 
-## . Fichiers `.php` — rôle de chacun
+## 4. Fichiers `.php` — rôle de chacun
 
 ### Annonces et navigation
 
@@ -117,7 +119,19 @@ un site d'annonce de vente et d'achat de voiture codé en php
 
 ---
 
+## 5. Dossiers du projet
 
+```
+blogmoteur_annonces/
+├── assets/
+│   ├── css/                 → Feuilles de style (voir ci-dessous)
+│   └── images/              → logo, favicon, image « pas de photo »
+├── includes/                → PHP réutilisable
+├── uploads/                 → Photos des annonces (+ vignettes _thumb)
+├── sql/                     → Scripts d'installation MySQL
+├── description du projet/   → README.md et ROADMAP.md
+└── *.php                    → Pages et traitements à la racine
+```
 
 ### `assets/css/` — organisation
 
@@ -164,7 +178,7 @@ Photos uploadées par les utilisateurs. Chaque photo génère aussi une vignette
 
 ---
 
-## . Fichiers `.sql` (dossier `sql/`)
+## 6. Fichiers `.sql` (dossier `sql/`)
 
 À exécuter dans **phpMyAdmin** (onglet SQL).
 
@@ -189,7 +203,7 @@ Photos uploadées par les utilisateurs. Chaque photo génère aussi une vignette
 
 ---
 
-## . Fonctions PHP importantes
+## 7. Fonctions PHP importantes
 
 ### `includes/photos.php`
 
@@ -218,7 +232,7 @@ Photos uploadées par les utilisateurs. Chaque photo génère aussi une vignette
 
 ---
 
-## . Installation (XAMPP)
+## 8. Installation (XAMPP)
 
 1. Copier le projet dans `C:\xampp\htdocs\blogmoteur_annonces`
 2. Démarrer Apache et MySQL
@@ -227,6 +241,12 @@ Photos uploadées par les utilisateurs. Chaque photo génère aussi une vignette
 5. Ouvrir http://localhost/blogmoteur_annonces/page_annonces.php
 
 Connexion MySQL : `localhost`, user `root`, mot de passe **vide**.
+
+---
+
+## 9. Non implémenté
+
+- **Recherche AJAX** (bonus) : la recherche passe par les filtres GET et le rechargement de page.
 
 ---
 
