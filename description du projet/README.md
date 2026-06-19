@@ -3,10 +3,10 @@
 **Type :** site d'annonces de véhicules d'occasion (PHP + MySQL, sans framework)  
 **URL locale :** http://localhost/blogmoteur_annonces/page_annonces.php  
 **Base de données :** `bd_blogmoteur`  
-**Équipe :** Michel, Mehdi, William, Omar, Naomi
+**Équipe :** Michel, Mehdi, William, Omar, Naomie
 
 **Compte test :** `alice.test@blogmoteur.local` / `password`
-
+**Compte test (admin) :** `omar@gmail.com` / `omar111111`
 ---
 
 ## 1. But du site
