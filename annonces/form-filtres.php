@@ -3,7 +3,7 @@
  * F8 (Omar) — Formulaire HTML des filtres (inclus dans page_annonces.php).
  * Ouvre sa propre connexion MySQL pour remplir la liste des catégories.
  */
-$id = mysqli_connect('localhost', 'root', '', 'bd_blogmoteur');
+$id = mysqli_connect('localhost', 'root', 'root', 'bd_blogmoteur');
 
 // On mémorise les choix de l'utilisateur pour les réafficher après filtrage
 $categorie_selectionnee = isset($_GET['categorie']) ? $_GET['categorie'] : '';

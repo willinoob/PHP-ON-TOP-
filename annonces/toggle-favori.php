@@ -15,7 +15,7 @@ if ($id_anno <= 0) {
     exit;
 }
 
-$conn = mysqli_connect('localhost', 'root', '', 'bd_blogmoteur');
+$conn = mysqli_connect('localhost', 'root', 'root', 'bd_blogmoteur');
 
 if ($conn) {
     // Si le favori existe déjà → on le supprime ; sinon → on l'ajoute (bouton toggle)

@@ -9,7 +9,7 @@ if (!isset($_SESSION['id_user'])) {
     exit;
 }
 
-$connexion = mysqli_connect("localhost", "root", "", "bd_blogmoteur");
+$connexion = mysqli_connect("localhost", "root", "root", "bd_blogmoteur");
 
 $id_anno = (int) ($_GET['id_anno'] ?? 0);
 

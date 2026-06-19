@@ -17,7 +17,7 @@ if ($contenu === '' || $id_anno <= 0 || $id_destinataire <= 0 || $id_expediteur 
     exit;
 }
 
-$conn = mysqli_connect('localhost', 'root', '', 'bd_blogmoteur');
+$conn = mysqli_connect('localhost', 'root', 'root', 'bd_blogmoteur');
 
 if ($conn) {
     // Requête préparée : les ? évitent d'injecter du SQL dans le message

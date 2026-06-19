@@ -12,7 +12,7 @@ if (!isset($_SESSION['id_user'])) {
 $id_user = (int) $_SESSION['id_user'];
 $erreur = null;
 
-$conn = mysqli_connect('localhost', 'root', '', 'bd_blogmoteur');
+$conn = mysqli_connect('localhost', 'root', 'root', 'bd_blogmoteur');
 if (!$conn) {
     $erreur = 'Erreur de connexion : ' . mysqli_connect_error();
 }

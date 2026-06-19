@@ -4,7 +4,7 @@
  */
 session_start();
 
-$id = mysqli_connect("localhost", "root", "", "bd_blogmoteur");
+$id = mysqli_connect("localhost", "root", "root", "bd_blogmoteur");
 
 if (!$id) {
     die("Erreur connexion");

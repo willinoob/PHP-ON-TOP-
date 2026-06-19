@@ -16,7 +16,7 @@ if (($_SESSION['role_user'] ?? 0) !== 1) {
     exit;
 }
 
-$conn = mysqli_connect('localhost', 'root', '', 'bd_blogmoteur');
+$conn = mysqli_connect('localhost', 'root', 'root', 'bd_blogmoteur');
 $erreur = null;
 $message_succes = null;
 
@@ -24,7 +24,7 @@ if (!$conn) {
     $erreur = 'Erreur de connexion : ' . mysqli_connect_error();
 } else {
     
-    // 2. TRAITEMENT DE LA SUPPRESSION D'UNE ANNONCE (Code de ta camarade)
+    // 2. TRAITEMENT DE LA SUPPRESSION D'UNE ANNONCE 
     if (isset($_POST['supprimer_annonce'], $_POST['id_anno'])) {
         $idAnno = (int) $_POST['id_anno'];
         
@@ -35,22 +35,31 @@ if (!$conn) {
         }
     }
 
-    // 3. TRAITEMENT DU BANNISSEMENT DIRECT (Après confirmation par l'alerte de la page)
+    // 3. TRAITEMENT DU BANNISSEMENT DIRECT 
     if (isset($_GET['action']) && $_GET['action'] === 'ban_user' && isset($_GET['id_user'])) {
         $id_user_a_bannir = (int) $_GET['id_user'];
         
         if ($id_user_a_bannir === (int) $_SESSION['id_user']) {
             $erreur = "Vous ne pouvez pas vous bannir vous-même !";
         } else {
-            $stmtBan = mysqli_prepare($conn, 'DELETE FROM users WHERE id_user = ?');
-            if ($stmtBan) {
-                mysqli_stmt_bind_param($stmtBan, 'i', $id_user_a_bannir);
-                if (mysqli_stmt_execute($stmtBan)) {
-                    $message_succes = "L'utilisateur a été banni avec succès et toutes ses données ont été supprimées.";
-                } else {
-                    $erreur = "Erreur lors du bannissement de l'utilisateur.";
+            $resRole = mysqli_query($conn, "SELECT role_user FROM users WHERE id_user = $id_user_a_bannir LIMIT 1");
+            $user_a_bannir = $resRole ? mysqli_fetch_assoc($resRole) : null;
+
+            if (!$user_a_bannir) {
+                $erreur = "Utilisateur introuvable.";
+            } elseif ((int) $user_a_bannir['role_user'] === 1) {
+                $erreur = "Vous ne pouvez pas supprimer le compte d'un autre admin.";
+            } else {
+                $stmtBan = mysqli_prepare($conn, 'DELETE FROM users WHERE id_user = ?');
+                if ($stmtBan) {
+                    mysqli_stmt_bind_param($stmtBan, 'i', $id_user_a_bannir);
+                    if (mysqli_stmt_execute($stmtBan)) {
+                        $message_succes = "L'utilisateur a été banni avec succès et toutes ses données ont été supprimées.";
+                    } else {
+                        $erreur = "Erreur lors du bannissement de l'utilisateur.";
+                    }
+                    mysqli_stmt_close($stmtBan);
                 }
-                mysqli_stmt_close($stmtBan);
             }
         }
     }
@@ -168,10 +177,12 @@ if (!$conn) {
                         <td>
                             <a href="pageadmin.php?voir_profil=<?= $u['id_user'] ?>" class="btn-action-view">Informations</a>
 
-                            <?php if ((int)$u['id_user'] !== (int)$_SESSION['id_user']): ?>
-                                <a href="pageadmin.php?id_user=<?= $u['id_user'] ?>&action=ban_user" class="btn-action-ban" onclick="return confirm('Voulez-vous vraiment supprimer le compte de l\'utilisateur <?= htmlspecialchars($u['prenom'] . ' ' . $u['nom']) ?> ? Cela effacera toutes ses données.');"> Supprimer le compte</a>
-                            <?php else: ?>
+                            <?php if ((int)$u['id_user'] === (int)$_SESSION['id_user']): ?>
                                 <span style="color: #888; font-style: italic;">Votre compte</span>
+                            <?php elseif ((int)$u['role_user'] === 1): ?>
+                                <span style="color: #888; font-style: italic;">Admin</span>
+                            <?php else: ?>
+                                <a href="pageadmin.php?id_user=<?= $u['id_user'] ?>&action=ban_user" class="btn-action-ban"> Supprimer le compte</a>
                             <?php endif; ?>
                         </td>
                     </tr>
@@ -237,9 +248,9 @@ if (!$conn) {
                 <?php endif; ?>
             </div>
             
-            <?php if ((int)$user_details['id_user'] !== (int)$_SESSION['id_user']): ?>
+            <?php if ((int)$user_details['id_user'] !== (int)$_SESSION['id_user'] && (int)$user_details['role_user'] !== 1): ?>
                 <div style="text-align: center; margin-top: 1.5rem;">
-                    <a href="pageadmin.php?id_user=<?= $user_details['id_user'] ?>&action=ban_user" class="btn-confirm-del" onclick="return confirm('Voulez-vous vraiment bannir définitivement cet utilisateur ? Cela effacera toutes ses données.');">
+                    <a href="pageadmin.php?id_user=<?= $user_details['id_user'] ?>&action=ban_user" class="btn-confirm-del">
                             Supprimer le compte de cet utilisateur
                     </a>
                 </div>

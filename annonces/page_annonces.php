@@ -5,7 +5,7 @@ session_start();
 require_once __DIR__ . '/../includes/photos.php';
 
 // 1) Connexion MySQL (XAMPP : user root, mot de passe vide)
-$conn = mysqli_connect('localhost', 'root', '', 'bd_blogmoteur');
+$conn = mysqli_connect('localhost', 'root', 'root', 'bd_blogmoteur');
 $sql_injection = '';
 
 // L'utilisateur connecté voit aussi ses propres annonces dans la liste publique,

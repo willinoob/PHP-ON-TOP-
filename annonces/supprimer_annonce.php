@@ -19,7 +19,7 @@ if ($id_anno <= 0) {
 
 require_once __DIR__ . '/../includes/traitement_image.php';
 
-$conn = mysqli_connect('localhost', 'root', '', 'bd_blogmoteur');
+$conn = mysqli_connect('localhost', 'root', 'root', 'bd_blogmoteur');
 
 if ($conn) {
     // Sécurité : on ne supprime que si l'annonce est bien à nous
