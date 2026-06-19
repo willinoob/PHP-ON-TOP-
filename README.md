@@ -11,7 +11,8 @@
 
 ## 1. But du site
 
-Un visiteur peut **parcourir** et **filtrer** les annonces. Un utilisateur **connecté** peut en plus déposer, modifier et supprimer ses annonces, gérer ses favoris, envoyer des messages et gérer son profil. Un **administrateur** (`role_user = 1` en base) accède à l'espace `pageadmin.php`.
+c'est un site de revente et d'achat de voitures . les utilisaterus peuvent créer des comptes
+et envoyer des messages concernant les annonces qui les intéresses .
 
 | Profil | Actions principales |
 |--------|---------------------|
