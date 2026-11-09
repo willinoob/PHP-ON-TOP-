@@ -107,7 +107,7 @@ if ($conn) {
             <?php endif; ?>
 
             <input type="email" name="email" placeholder="Email" required><br><br>
-            <input type="password" name="mdp" placeholder="Mot de passe" required><br><br>
+            <input type="password" name="mdp" placeholder="Mot de passe." required><br><br>
 
             <?php if ($succes_inscription): ?>
                 <p class="succes">Inscription réussie. Connectez-vous avec votre compte.</p>
