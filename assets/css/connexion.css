@@ -5,32 +5,35 @@
 
 /* Le body (.page-connexion) centre la boîte blanche au milieu de l'écran */
 .page-connexion {
-    font-family: "Segoe UI", Inter, system-ui, sans-serif;
-    background: var(--lbm-navy);
+    font-family: "Segoe UI", Inter, system-ui, -apple-system, sans-serif;
+    background: var(--lbm-navy, #0f172a);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
+    padding: 1rem;
+    box-sizing: border-box;
 }
 
 .page-connexion .box {
-    background: var(--lbm-white);
-    padding: 40px;
-    width: 380px;
-    border-radius: 10px;
+    background: var(--lbm-white, #ffffff);
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 380px;
+    border-radius: 12px;
     border: none;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
 }
 
-/* Inscription un peu plus large ; max-width évite le débordement sur mobile */
+/* Inscription un peu plus large */
 .page-connexion .box--inscription {
-    width: 420px;
-    max-width: calc(100vw - 2rem);
+    max-width: 420px;
 }
 
 .page-connexion__logo {
-    margin: 0 0 1rem;
+    margin: 0 0 1.25rem;
     text-align: center;
     line-height: 0;
 }
@@ -38,61 +41,86 @@
 .page-connexion__logo img {
     max-width: 100%;
     height: auto;
-    max-height: 100px;
+    max-height: 90px;
     object-fit: contain;
 }
 
 .page-connexion__titre {
-    font-size: 1.1rem;
+    font-size: 1rem;
     text-align: center;
-    margin: 0 0 1rem;
-    color: var(--lbm-navy);
+    margin: 0 0 1.25rem;
+    color: var(--lbm-navy, #0f172a);
+    opacity: 0.85;
 }
 
 .page-connexion h1 {
     text-align: center;
-    color: var(--lbm-text);
-    margin-bottom: 15px;
+    color: var(--lbm-text, #1e293b);
+    margin: 0 0 1.25rem;
     font-size: 1.5rem;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 .page-connexion h1 .brand-accent {
-    color: var(--lbm-copper);
+    color: var(--lbm-copper, #b45309);
+}
+
+/* Formulaires & Champs */
+.page-connexion form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .page-connexion input[type="text"],
 .page-connexion input[type="email"],
-.page-connexion input[type="password"] {
+.page-connexion input[type="password"],
+.page-connexion input[type="url"],
+.page-connexion input[type="tel"] {
     width: 100%;
-    padding: 10px;
+    padding: 0.75rem 1rem;
     box-sizing: border-box;
-    border: 1px solid var(--lbm-border);
-    border-radius: 6px;
-    background: var(--lbm-white);
-    color: var(--lbm-text);
+    border: 1px solid var(--lbm-border, #cbd5e1);
+    border-radius: 8px;
+    background: var(--lbm-white, #ffffff);
+    color: var(--lbm-text, #1e293b);
+    font-size: 0.95rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.page-connexion input:focus {
+    outline: none;
+    border-color: var(--lbm-copper, #b45309);
+    box-shadow: 0 0 0 3px rgba(180, 83, 9, 0.15);
 }
 
 .page-connexion input[type="submit"] {
     width: 100%;
-    padding: 10px;
-    background: var(--lbm-copper);
-    color: var(--lbm-white);
+    padding: 0.75rem 1rem;
+    background: var(--lbm-copper, #b45309);
+    color: var(--lbm-white, #ffffff);
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
+    font-size: 1rem;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    margin-top: 0.5rem;
 }
 
 .page-connexion input[type="submit"]:hover {
-    background: var(--lbm-copper-dark);
+    background: var(--lbm-copper-dark, #92400e);
 }
 
-/* Sur ces pages, erreur/succès = texte simple (pas de gros encadré comme sur le site) */
+.page-connexion input[type="submit"]:active {
+    transform: translateY(1px);
+}
+
+/* Messages d'erreur et de succès */
 .page-connexion .erreur {
-    color: red;
-    font-size: 13px;
-    margin-bottom: 10px;
+    color: #dc2626;
+    font-size: 0.85rem;
+    margin: -0.25rem 0 0.5rem;
     background: none;
     padding: 0;
     border-radius: 0;
@@ -100,34 +128,38 @@
 
 .page-connexion .succes {
     color: #166534;
-    font-size: 13px;
-    margin-bottom: 10px;
+    font-size: 0.85rem;
+    margin: -0.25rem 0 0.5rem;
     background: none;
     padding: 0;
     border-radius: 0;
 }
 
+/* Liens annexes (Mot de passe oublié, Inscription, etc.) */
 .page-connexion .lien {
     text-align: center;
-    margin-top: 15px;
-    font-size: 13px;
-}
-
-.page-connexion .lien {
-    color: var(--lbm-text-muted);
+    margin-top: 1.25rem;
+    font-size: 0.85rem;
+    color: var(--lbm-text-muted, #64748b);
 }
 
 .page-connexion .lien a {
-    color: var(--lbm-copper);
+    color: var(--lbm-copper, #b45309);
+    text-decoration: none;
+    font-weight: 500;
 }
 
-/* Champ piège pour les robots : caché hors écran, les humains ne le voient pas */
+.page-connexion .lien a:hover {
+    text-decoration: underline;
+}
+
+/* Champ piège pour les robots (Honeypot) optimisé */
 .oeuf-de-paques {
-    position: absolute;
-    left: -9999px;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    opacity: 0;
-    pointer-events: none;
+    position: absolute !important;
+    left: -9999px !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
 }
